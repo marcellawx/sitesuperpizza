@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pizzas: {
             tamanhos: [ { nome: 'Individual (26cm)', preco: 30.00, maxSabores: 2 }, { nome: 'Média (32cm)', preco: 50.00, maxSabores: 2 }, { nome: 'Família (36cm)', preco: 75.00, maxSabores: 2 }, { nome: 'Gigante (47cm)', preco: 99.00, maxSabores: 3 }, { nome: 'Mega (70cm)', preco: 199.00, maxSabores: 5 } ],
             bordas: [ { nome: 'Sem Borda Recheada', preco: 0.00 }, { nome: 'Catupiry', preco: 10.00 }, { nome: 'Cheddar', preco: 10.00 }, { nome: 'Cream Cheese', preco: 12.00 }, { nome: 'Goiabada', preco: 12.00 }, { nome: 'Doce de Leite', preco: 12.00 } ],
-            saboresSalogados: [ "Americana", "Atum", "Alho e Óleo", "Bacalhau", "Benevento", "Calabresa", "Carioca", "Capricciosa", "Frango com Catupiry", "Frango com Cheddar", "La Pizza", "Marguerita", "Moda da Casa", "Mussarela", "Moda da Casa 2", "Napolitana", "Palmito", "Pizza de Batata", "Portuguesa", "4 Queijos", "Super Pizza", "Siciliana", "Tomate Seco", "Tropicaliente", "Lombo Canadense", "Presunto", "Salaminho" ],
+            saboresSalgados: [ "Americana", "Atum", "Alho e Óleo", "Bacalhau", "Benevento", "Calabresa", "Carioca", "Capricciosa", "Frango com Catupiry", "Frango com Cheddar", "La Pizza", "Marguerita", "Moda da Casa", "Mussarela", "Moda da Casa 2", "Napolitana", "Palmito", "Pizza de Batata", "Portuguesa", "4 Queijos", "Super Pizza", "Siciliana", "Tomate Seco", "Tropicaliente", "Lombo Canadense", "Presunto", "Salaminho" ],
             saboresDoces: [ "Banana", "Cocada", "Prestígio", "Romeu & Julieta" ]
         },
         massas: [ { nome: 'Lasanha', recheio: 'Bolonhesa ou 4 Queijos', preco: 45.00 }, { nome: 'Capeletti', recheio: 'Frango ou Presunto', molho: 'Branco ou Sugo', preco: 40.00 }, { nome: 'Raviolli', recheio: 'Frango ou Presunto', molho: 'Branco ou Sugo', preco: 40.00 }, { nome: 'Espaguete', molho: 'Bolonhesa ou Camarão', preco: 38.00 }, { nome: 'Talharim', molho: 'Bolonhesa ou Camarão', preco: 38.00 }, { nome: 'Nhoque', molho: 'Sugo ou Bolonhesa', preco: 35.00 } ],
@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
         data.pizzas.bordas.forEach((b, i) => {
             bordaRecheadaEl.innerHTML += `<option value="${i}">${b.nome} ${b.preco > 0 ? `+ R$ ${formatCurrency(b.preco)}` : ''}</option>`;
         });
-        const allFlavors = [...data.pizzas.saboresSalogados, ...data.pizzas.saboresDoces].sort();
+        const allFlavors = [...data.pizzas.saboresSalgados, ...data.pizzas.saboresDoces].sort();
         allFlavors.forEach(flavor => {
             flavorsListEl.innerHTML += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100 cursor-pointer"><input type="checkbox" class="flavor-checkbox h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500"><span class="ml-2 text-gray-700">${flavor}</span></label>`;
         });
@@ -419,7 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (promoItem.needsFlavor) {
             promoItem.pizzas.forEach((pizza, index) => {
                 let pizzaHtml = `<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">Pizza ${pizza.size} (até ${pizza.maxSabores} sabores)</h4><div class="grid grid-cols-2 md:grid-cols-3 gap-2 promo-flavor-group" data-max-flavors="${pizza.maxSabores}" data-pizza-index="${index}">`;
-                data.pizzas.saboresSalogados.sort().forEach(flavor => {
+                data.pizzas.saboresSalgados.sort().forEach(flavor => {
                     pizzaHtml += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100 cursor-pointer"><input type="checkbox" class="promo-flavor-checkbox h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500"><span class="ml-2 text-sm text-gray-700">${flavor}</span></label>`;
                 });
                 pizzaHtml += `</div><p class="text-red-600 text-sm mt-2 hidden" id="promo-warning-${index}"></p></div>`;
