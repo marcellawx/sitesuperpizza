@@ -267,6 +267,13 @@ document.addEventListener('DOMContentLoaded', () => {
         refrigerantesPromo: [
             { nome: 'Guaraná Antarctica 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Kuat 2L (Grátis)', precoAdicional: 0 }, { nome: 'Pepsi 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Coca-Cola 2L', precoAdicional: 12.00 }, { nome: 'Pepsi 2L', precoAdicional: 5.00 }, { nome: 'Guaraná Antarctica 2L', precoAdicional: 5.00 }
         ],
+        massaSizes: [
+            { nome: '400gr (serve 1 pessoa)', preco: 34.90 },
+            { nome: '1kg (serve até 3 pessoas)', preco: 59.90 }
+        ],
+        proteinasMassas: [
+            { nome: 'Presunto', precoAdicional: 0 }, { nome: 'Carne Moída', precoAdicional: 0 }, { nome: 'Frango', precoAdicional: 0 }, { nome: 'Carne Seca', precoAdicional: 10.00 }, { nome: 'Camarão', precoAdicional: 10.00 }, { nome: 'Bacalhau', precoAdicional: 10.00 }
+        ],
         promocoes: [
             { id: 'promo-combo-caixa', nome: 'Caixa Combo da Galera', desc: 'A festa completa! Uma caixa recheada com 4 X-Tudo, 5 pastéis sequinhos e uma porção generosa de batata com cheddar e bacon.', preco: 90.00, preco_antigo: 120.00, needsFlavor: false, includesSoda: true },
             { id: 'promo-media', nome: 'Pizza Média (32cm) Premiada', desc: 'Sua pizza média preferida com aquele precinho especial que só a gente faz. Escolha seus sabores e aproveite!', preco: 52.00, preco_antigo: 60.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média', maxSabores: 2 }] },
@@ -447,6 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sodaSelectionContainer = document.getElementById('sodaSelectionContainer');
 
     function updateBordaOptions() {
+        if (!pizzaSizesEl.value) return;
         const selectedSize = data.pizzas.tamanhos[pizzaSizesEl.value];
         bordaRecheadaEl.innerHTML = '';
         data.pizzas.bordas.forEach((borda, index) => {
@@ -464,6 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderSodaSelection() {
+        if (!pizzaSizesEl.value) return;
         const selectedSize = data.pizzas.tamanhos[pizzaSizesEl.value];
         sodaSelectionContainer.innerHTML = ''; 
         if (!selectedSize.sodasInclusas || selectedSize.sodasInclusas === 0) {
