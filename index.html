@@ -214,11 +214,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = {
         promocoes: [
             { id: 'promo-combo', nome: 'Caixa Combo', desc: '4 X-Tudo + 5 pastéis + Batata c/ cheddar +...', preco: 90.00, preco_antigo: 120.00, needsFlavor: false },
-            { id: 'promo-media', nome: 'Pizza Média 32cm em Promoção', desc: 'Escolha o sabor da sua pizza e pague menos!', preco: 52.00, preco_antigo: 60.00, needsFlavor: true, pizzas: [{ size: 'Média', maxSabores: 2 }] },
-            { id: 'promo-familia', nome: 'Pizza Família 35cm + Doce + Refri', desc: 'Pizza família com até 2 sabores + pequena doce + refrigerante 2L', preco: 90.00, needsFlavor: true, pizzas: [{ size: 'Família', maxSabores: 2 }] },
-            { id: 'promo-gigante', nome: 'Pizza Gigante + Doce + Refri', desc: 'Pizza Gigante (meio metro) + pequena doce + refrigerante', preco: 110.00, preco_antigo: 120.00, needsFlavor: true, pizzas: [{ size: 'Gigante', maxSabores: 3 }] },
-            { id: 'promo-slim', nome: 'Promo Slim Pizza Gigante 47 cm', desc: 'Aproveite a pizza Gigante de 47cm com um super desconto!', preco: 85.00, preco_antigo: 100.00, needsFlavor: true, pizzas: [{ size: 'Gigante', maxSabores: 3 }] },
-            { id: 'promo-2medias', nome: 'Promo 2 Pizzas Médias + Brotão Doce', desc: 'Duas pizzas médias (32cm) mais uma pizza brotão doce!', preco: 100.00, needsFlavor: true, pizzas: [{ size: 'Média 1', maxSabores: 2 }, { size: 'Média 2', maxSabores: 2 }] }
+            { id: 'promo-media', nome: 'Pizza Média 32cm em Promoção', desc: 'Escolha o sabor da sua pizza e pague menos!', preco: 52.00, preco_antigo: 60.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média', maxSabores: 2 }] },
+            { id: 'promo-familia', nome: 'Pizza Família 35cm + Doce + Refri', desc: 'Pizza família com até 2 sabores + pequena doce + refrigerante 2L', preco: 90.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Família', maxSabores: 2 }], includesSweet: true },
+            { id: 'promo-gigante', nome: 'Pizza Gigante + Doce + Refri', desc: 'Pizza Gigante (meio metro) + pequena doce + refrigerante', preco: 110.00, preco_antigo: 120.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }], includesSweet: true },
+            { id: 'promo-slim', nome: 'Promo Slim Pizza Gigante 47 cm', desc: 'Aproveite a pizza Gigante de 47cm com um super desconto!', preco: 85.00, preco_antigo: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }] },
+            { id: 'promo-2medias', nome: 'Promo 2 Pizzas Médias + Brotão Doce', desc: 'Duas pizzas médias (32cm) mais uma pizza brotão doce!', preco: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média 1', maxSabores: 2 }, { type: 'salgada', size: 'Média 2', maxSabores: 2 }], includesSweet: true }
         ],
         pizzas: {
             tamanhos: [ { nome: 'Individual (26cm)', preco: 30.00, maxSabores: 2 }, { nome: 'Média (32cm)', preco: 50.00, maxSabores: 2 }, { nome: 'Família (36cm)', preco: 75.00, maxSabores: 2 }, { nome: 'Gigante (47cm)', preco: 99.00, maxSabores: 3 }, { nome: 'Mega (70cm)', preco: 199.00, maxSabores: 5 } ],
@@ -239,7 +239,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let cart = [];
     const cartItemsContainer = document.getElementById('cartItems');
     const cartTotalEl = document.getElementById('cartTotal');
-    const emptyCartEl = document.getElementById('emptyCart');
     const checkoutButton = document.getElementById('checkoutButton');
     const checkoutModal = document.getElementById('checkoutModal');
     const customerInfoForm = document.getElementById('customerInfoForm');
@@ -303,6 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const buildPizzaForm = document.getElementById('buildPizzaForm');
 
     function populatePizzaOptions() {
+        if (!pizzaSizesEl) return;
         data.pizzas.tamanhos.forEach((t, i) => {
             pizzaSizesEl.innerHTML += `<option value="${i}">${t.nome} (até ${t.maxSabores} ${t.maxSabores > 1 ? 'sabores' : 'sabor'}) - R$ ${formatCurrency(t.preco)}</option>`;
         });
@@ -316,6 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updatePizzaSummary() {
+        if (!buildPizzaForm) return;
         const selectedSize = data.pizzas.tamanhos[pizzaSizesEl.value];
         const selectedBorda = data.pizzas.bordas[bordaRecheadaEl.value];
         summarySizeEl.textContent = selectedSize.nome;
@@ -390,13 +391,14 @@ document.addEventListener('DOMContentLoaded', () => {
     createContatoSection();
 
     document.body.addEventListener('click', (e) => {
-        const target = e.target.closest('.add-to-cart-btn, .add-promo-btn');
+        const target = e.target.closest('button');
         if (!target) return;
-        
-        const item = JSON.parse(target.dataset.item);
+
         if (target.classList.contains('add-promo-btn')) {
+            const item = JSON.parse(target.dataset.item);
             openPromoFlavorModal(item);
-        } else {
+        } else if (target.classList.contains('add-to-cart-btn')) {
+            const item = JSON.parse(target.dataset.item);
             addToCart(item);
         }
     });
@@ -406,16 +408,23 @@ document.addEventListener('DOMContentLoaded', () => {
         selectionContainer.innerHTML = '';
         document.getElementById('promoFlavorTitle').textContent = `Escolha os sabores para: ${promoItem.nome}`;
         
-        const allFlavors = [...data.pizzas.saboresSalogados, ...data.pizzas.saboresDoces].sort();
-
         promoItem.pizzas.forEach((pizza, index) => {
-            let pizzaHtml = `<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">Pizza ${pizza.size} (até ${pizza.maxSabores} sabores)</h4><div class="grid grid-cols-2 md:grid-cols-3 gap-2 promo-flavor-group" data-max-flavors="${pizza.maxSabores}">`;
-            allFlavors.forEach(flavor => {
-                pizzaHtml += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100 cursor-pointer"><input type="checkbox" class="promo-flavor-checkbox h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500" data-pizza-index="${index}"><span class="ml-2 text-sm text-gray-700">${flavor}</span></label>`;
+            let pizzaHtml = `<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">Pizza ${pizza.size} (até ${pizza.maxSabores} sabores)</h4><div class="grid grid-cols-2 md:grid-cols-3 gap-2 promo-flavor-group" data-pizza-type="${pizza.type}" data-max-flavors="${pizza.maxSabores}" data-pizza-index="${index}">`;
+            data.pizzas.saboresSalogados.sort().forEach(flavor => {
+                pizzaHtml += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100 cursor-pointer"><input type="checkbox" class="promo-flavor-checkbox h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500"><span class="ml-2 text-sm text-gray-700">${flavor}</span></label>`;
             });
             pizzaHtml += `</div><p class="text-red-600 text-sm mt-2 hidden" id="promo-warning-${index}"></p></div>`;
             selectionContainer.innerHTML += pizzaHtml;
         });
+
+        if (promoItem.includesSweet) {
+            let sweetPizzaHtml = `<div class="border p-4 rounded-lg mt-6"><h4 class="font-bold text-lg mb-2">Pizza Doce Individual (Grátis)</h4><div class="grid grid-cols-2 md:grid-cols-3 gap-2 promo-flavor-group-sweet">`;
+            data.pizzas.saboresDoces.sort().forEach(flavor => {
+                sweetPizzaHtml += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100 cursor-pointer"><input type="radio" name="sweet-flavor" value="${flavor}" class="h-4 w-4 border-gray-300 text-red-600 focus:ring-red-500"><span class="ml-2 text-sm text-gray-700">${flavor}</span></label>`;
+            });
+            sweetPizzaHtml += `</div></div>`;
+            selectionContainer.innerHTML += sweetPizzaHtml;
+        }
         
         promoFlavorModal.classList.remove('hidden');
         promoFlavorForm.dataset.promoItem = JSON.stringify(promoItem);
@@ -425,7 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('promo-flavor-checkbox')) {
             const group = e.target.closest('.promo-flavor-group');
             const maxFlavors = parseInt(group.dataset.maxFlavors);
-            const pizzaIndex = e.target.dataset.pizzaIndex;
+            const pizzaIndex = group.dataset.pizzaIndex;
             const warningEl = document.getElementById(`promo-warning-${pizzaIndex}`);
             const checkedBoxes = group.querySelectorAll('.promo-flavor-checkbox:checked');
 
@@ -455,8 +464,17 @@ document.addEventListener('DOMContentLoaded', () => {
             description.push(`Pizza ${pizza.size}: ${selectedFlavors.join(', ')}`);
         });
 
+        if (promoItem.includesSweet) {
+            const selectedSweet = document.querySelector('input[name="sweet-flavor"]:checked');
+            if (selectedSweet) {
+                description.push(`Pizza Doce: ${selectedSweet.value}`);
+            } else {
+                allFlavorsSelected = false; 
+            }
+        }
+
         if (!allFlavorsSelected) {
-            return alert('Por favor, escolha pelo menos um sabor para cada pizza da promoção.');
+            return alert('Por favor, escolha os sabores para todas as pizzas da promoção.');
         }
 
         const cartItem = {
@@ -512,3 +530,4 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
