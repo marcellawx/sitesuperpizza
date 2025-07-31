@@ -284,41 +284,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 { nome: 'Mega (70cm)', preco: 199.00, maxSabores: 5, sodasInclusas: 2 } 
             ],
             bordas: [ 
-                { nome: 'Sem Borda Recheada', preco: 0.00, precoMega: 0.00 }, 
-                { nome: 'Catupiry', preco: 10.00, precoMega: 15.00 }, 
-                { nome: 'Cheddar', preco: 10.00, precoMega: 15.00 }, 
-                { nome: 'Cream Cheese', preco: 12.00, precoMega: 17.00 }, 
-                { nome: 'Goiabada', preco: 12.00, precoMega: 17.00 }, 
-                { nome: 'Doce de Leite', preco: 12.00, precoMega: 17.00 } 
+                { nome: 'Sem Borda Recheada', precoPadrao: 0.00, precoMega: 0.00, precoMedia: 0.00, precoIndividual: 0.00 }, 
+                { nome: 'Catupiry', precoPadrao: 10.00, precoMega: 15.00, precoMedia: 7.00, precoIndividual: 5.00 }, 
+                { nome: 'Cheddar', precoPadrao: 10.00, precoMega: 15.00, precoMedia: 7.00, precoIndividual: 5.00 }, 
+                { nome: 'Cream Cheese', precoPadrao: 12.00, precoMega: 17.00, precoMedia: 9.00, precoIndividual: 7.00 }, 
+                { nome: 'Goiabada', precoPadrao: 12.00, precoMega: 17.00, precoMedia: 9.00, precoIndividual: 7.00 }, 
+                { nome: 'Doce de Leite', precoPadrao: 12.00, precoMega: 17.00, precoMedia: 9.00, precoIndividual: 7.00 } 
             ],
             saboresSalgados: [ "Americana", "Atum", "Alho e Óleo", "Bacalhau", "Benevento", "Calabresa", "Carioca", "Capricciosa", "Frango com Catupiry", "Frango com Cheddar", "La Pizza", "Marguerita", "Moda da Casa", "Mussarela", "Moda da Casa 2", "Napolitana", "Palmito", "Pizza de Batata", "Portuguesa", "4 Queijos", "Super Pizza", "Siciliana", "Tomate Seco", "Tropicaliente", "Lombo Canadense", "Presunto", "Salaminho" ],
             saboresDoces: [ "Banana com Canela", "Cocada Cremosa", "Prestígio", "Romeu & Julieta" ]
         },
         massas: [ { nome: 'Lasanha' }, { nome: 'Capeletti' }, { nome: 'Raviolli' }, { nome: 'Espaguete' }, { nome: 'Talharim' }, { nome: 'Nhoque' } ],
         hamburgueres: [
-            { nome: 'X-Duplo 🍔', desc: 'Pra quem tem fome de leão! Duas carnes suculentas, dois ovos no ponto, queijo derretido, presunto, bacon crocante, calabresa, salada fresca e nosso irresistível molho Billy Jack.', preco: 17.00 },
-            { nome: 'X-Tudo Clássico 🤤', desc: 'O campeão de vendas! Uma carne de hambúrguer suculenta, ovo, queijo, presunto, bacon, calabresa e uma explosão de sabor com molho Billy Jack e salada.', preco: 14.00 },
-            { nome: 'X-Burguer Tropicaliente 🌴', desc: 'Um toque tropical no seu burguer! Carne, queijo, presunto, bacon, calabresa, e a combinação perfeita de molho Billy Jack e batata palha.', preco: 12.00 },
-            { nome: 'X-Egg Perfeito 🍳', desc: 'Aquele clássico que não tem erro: carne de primeira, queijo derretido e um ovo frito no capricho, com salada e molho Billy Jack.', preco: 10.00 },
-            { nome: 'X-Burguer Kids 🧒', desc: 'O tamanho ideal para a fome dos pequenos! Pão macio, carne saborosa, queijo, molho Billy Jack e batata palha pra completar a festa.', preco: 5.00 },
-            { nome: 'X-Burguer Double Cheese 🧀', desc: 'Queijo em dobro, sabor em dobro! Uma carne suculenta, presunto, e uma avalanche de queijo catupiry e cheddar. Um sonho!', preco: 11.00 },
-            { nome: 'X-Bacon Lover ❤️', desc: 'Atenção, viciados em bacon! Pão, carne, queijo e o dobro de bacon crocante e delicioso. Simplesmente imperdível.', preco: 11.00 }
+            { nome: 'X-Duplo', desc: 'Pra quem tem fome de leão! Duas carnes suculentas, dois ovos no ponto, queijo derretido, presunto, bacon crocante, calabresa, salada fresca e nosso irresistível molho Billy Jack.', preco: 17.00 },
+            { nome: 'X-Tudo', desc: 'O campeão de vendas! Uma carne de hambúrguer suculenta, ovo, queijo, presunto, bacon, calabresa e uma explosão de sabor com nosso molho Billy Jack e salada.', preco: 14.00 },
+            { nome: 'X-Burguer Tropicaliente', desc: 'Um toque tropical no seu burguer! Carne, queijo, presunto, bacon, calabresa, e a combinação perfeita de molho Billy Jack e batata palha.', preco: 12.00 },
+            { nome: 'X-Egg', desc: 'Aquele clássico que não tem erro: carne de primeira, queijo derretido e um ovo frito no capricho, com salada e molho Billy Jack.', preco: 10.00 },
+            { nome: 'X-Burguer Kids', desc: 'O tamanho ideal para a fome dos pequenos! Pão macio, carne saborosa, queijo, molho Billy Jack e batata palha pra completar a festa.', preco: 5.00 },
+            { nome: 'X-Burguer Double Cheese', desc: 'Queijo em dobro, sabor em dobro! Uma carne suculenta, presunto, e uma avalanche de queijo catupiry e cheddar. Um sonho!', preco: 11.00 },
+            { nome: 'X-Bacon Lover', desc: 'Atenção, viciados em bacon! Pão, carne, queijo e o dobro de bacon crocante e delicioso. Simplesmente imperdível.', preco: 11.00 }
         ],
         esfihas: {
             saboresComPreco: [ { nome: 'Esfiha de Carne 🥩', preco: 3.50 }, { nome: 'Esfiha de Queijo 🧀', preco: 3.50 }, { nome: 'Esfiha de Calabresa', preco: 3.50 }, { nome: 'Esfiha de Presunto', preco: 3.50 }, { nome: 'Esfiha de Milho Verde 🌽', preco: 3.50 }, { nome: 'Esfiha de Atum', preco: 4.00 }, { nome: 'Esfiha Mista', preco: 4.00 }, { nome: 'Esfiha de Frango com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Calabresa com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Quatro Queijos 🧀🧀🧀🧀', preco: 4.50 }, { nome: 'Esfiha de Tomate Seco 🍅', preco: 4.50 }, { nome: 'Esfiha Portuguesa', preco: 4.50 }, { nome: 'Esfiha Mussarela Napolitana', preco: 4.50 }, { nome: 'Esfiha de Carne Seca', preco: 5.00 }, { nome: 'Esfiha de Bacalhau com Catupiry', preco: 5.00 }, { nome: 'Esfiha de Lombo com Catupiry', preco: 5.00 }, { nome: 'Esfiha Supreme Pepperoni', preco: 5.00 }, { nome: 'Esfiha Maria Bonita', preco: 5.00 }, { nome: 'Esfiha Romeu & Julieta ❤️🧀', preco: 3.50 }, { nome: 'Esfiha Banana c/ Canela 🍌', preco: 3.50 }, { nome: 'Esfiha Choco Duo 🍫', preco: 4.00 }, { nome: 'Esfiha Prestígio 🥥🍫', preco: 4.00 }, { nome: 'Esfiha Morango com Chocolate Branco 🍓', preco: 4.50 }, { nome: 'Esfiha de Nutella 😍', preco: 5.00 } ],
-            combos: [ { nome: 'Combo 20 Esfihas + Refri 2L 🥤', desc: 'A pedida certa para a galera: 10 esfihas de carne e 10 de queijo, acompanhadas de um refri gelado.', preco: 50.00 }, { nome: 'Combo 15 Esfihas 3 Sabores 😋', desc: 'Variedade e sabor! 5 esfihas de frango, 5 de carne e 5 de queijo para não ter briga na hora de escolher.', preco: 60.00 } ]
+            combos: [ 
+                { nome: 'Combo 20 Esfihas + Refri 2L 🥤', desc: 'A pedida certa para a galera: 10 esfihas de carne e 10 de queijo, acompanhadas de um refri gelado.', preco: 50.00, includesSoda: true }, 
+                { nome: 'Combo 15 Esfihas 3 Sabores 😋', desc: 'Variedade e sabor! 5 esfihas de frango, 5 de carne e 5 de queijo para não ter briga na hora de escolher.', preco: 60.00 } 
+            ]
         },
         combos: [
-            { nome: 'Combo 1', desc: 'Para dividir (ou não!): 4 X-Tudo + 25 salgadinhos + Batata generosa com Cheddar e Bacon.', preco: 85.00, includesSoda: true },
-            { nome: 'Combo 2', desc: 'Festa de Salgadinhos! Um cento (100 unidades) de salgadinhos fritos, grandes e sortidos pra galera toda.', preco: 70.00 },
-            { nome: 'Combo 3', desc: 'Aquele petisco de respeito: 25 Salgadinhos, uma porção de calabresa acebolada e batata frita com cheddar.', preco: 85.00, includesSoda: true },
-            { nome: 'Combo 4', desc: 'O preferido da galera: 4 X-Tudo, 25 salgadinhos, calabresa acebolada e anéis de cebola crocantes.', preco: 85.00, includesSoda: true },
-            { nome: 'Combo 5', desc: 'Combinação perfeita: 4 X-Tudo, 25 salgadinhos e uma super porção de batata com cheddar e bacon.', preco: 85.00, includesSoda: true },
-            { nome: 'Combo 6', desc: 'Explosão de sabor: 4 X-Tudo, calabresa acebolada quentinha, batata frita e anéis de cebola.', preco: 85.00, includesSoda: true },
+            { nome: 'Combo 1', desc: '4 X-Tudo + 25 salgadinhos + Batata com Cheddar e Bacon', preco: 85.00, includesSoda: true },
+            { nome: 'Combo 2', desc: '100 Salgadinhos fritos grandes e sortidos', preco: 70.00 },
+            { nome: 'Combo 3', desc: '25 Salgadinhos + Porção de Calabresa + Batata com Cheddar', preco: 85.00, includesSoda: true },
+            { nome: 'Combo 4', desc: '4 X-Tudo + 25 Salgadinhos + Calabresa + Anéis de Cebola', preco: 85.00, includesSoda: true },
+            { nome: 'Combo 5', desc: '4 X-Tudo + 25 Salgadinhos + Batata com Cheddar e Bacon', preco: 85.00, includesSoda: true },
+            { nome: 'Combo 6', desc: '4 X-Tudo + Calabresa Acebolada + Batata Frita + Anéis de Cebola', preco: 85.00, includesSoda: true },
+            { nome: 'Petisco Frango a Passarinho + Fritas', desc: 'Pedaços de frango crocantes com batata frita sequinha. Inclui um refrigerante!', preco: 60.00, includesSoda: true }
         ],
         bebidas: [ { nome: 'Refrigerante Lata 350ml 🥤', desc: 'Geladinho para acompanhar seu pedido. Escolha seu sabor preferido!', preco: 5.00 }, { nome: 'Refrigerante 2 Litros 🥤', desc: 'Para dividir com a galera! O acompanhamento perfeito para qualquer pizza ou combo.', preco: 12.00 } ]
     };
-    
+
     let cart = [];
     const cartItemsContainer = document.getElementById('cartItems');
     const cartSubtotalEl = document.getElementById('cartSubtotal');
@@ -446,8 +450,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedSize = data.pizzas.tamanhos[pizzaSizesEl.value];
         bordaRecheadaEl.innerHTML = '';
         data.pizzas.bordas.forEach((borda, index) => {
-            const isMega = selectedSize.nome.includes('Mega');
-            const currentPrice = isMega ? borda.precoMega : borda.preco;
+            let currentPrice = borda.precoPadrao;
+            if (selectedSize.nome.includes('Mega')) {
+                currentPrice = borda.precoMega;
+            } else if (selectedSize.nome.includes('Média')) {
+                currentPrice = borda.precoMedia;
+            } else if (selectedSize.nome.includes('Individual')) {
+                currentPrice = borda.precoIndividual;
+            }
             const priceText = currentPrice > 0 ? `+ R$ ${formatCurrency(currentPrice)}` : '';
             bordaRecheadaEl.innerHTML += `<option value="${index}">${borda.nome} ${priceText}</option>`;
         });
@@ -532,8 +542,15 @@ document.addEventListener('DOMContentLoaded', () => {
         summaryFlavorsEl.innerHTML = selectedFlavors.length > 0 ? selectedFlavors.map(f => `<li>${f}</li>`).join('') : `<li>Selecione um sabor...</li>`;
         
         let total = selectedSize.preco;
-        const isMega = selectedSize.nome.includes('Mega');
-        total += isMega ? selectedBorda.precoMega : selectedBorda.preco;
+        let currentBordaPrice = selectedBorda.precoPadrao;
+        if (selectedSize.nome.includes('Mega')) {
+            currentBordaPrice = selectedBorda.precoMega;
+        } else if (selectedSize.nome.includes('Média')) {
+            currentBordaPrice = selectedBorda.precoMedia;
+        } else if (selectedSize.nome.includes('Individual')) {
+            currentBordaPrice = selectedBorda.precoIndividual;
+        }
+        total += currentBordaPrice;
 
         let sodaPrice = 0;
         const selectedSodas = [];
@@ -565,10 +582,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let description = [];
             let finalPrice = selectedSize.preco;
-            const isMega = selectedSize.nome.includes('Mega');
-            finalPrice += isMega ? selectedBorda.precoMega : selectedBorda.preco;
             
-            if (selectedBorda.preco > 0 || (isMega && selectedBorda.precoMega > 0)) {
+            let currentBordaPrice = selectedBorda.precoPadrao;
+            if (selectedSize.nome.includes('Mega')) {
+                currentBordaPrice = selectedBorda.precoMega;
+            } else if (selectedSize.nome.includes('Média')) {
+                currentBordaPrice = selectedBorda.precoMedia;
+            } else if (selectedSize.nome.includes('Individual')) {
+                currentBordaPrice = selectedBorda.precoIndividual;
+            }
+            finalPrice += currentBordaPrice;
+            
+            if (currentBordaPrice > 0) {
                 description.push(`Borda: ${selectedBorda.nome}`);
             }
 
@@ -638,6 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!section) return;
         let content = `<h2 class="text-3xl font-bold text-red-700 mb-6 border-l-4 border-red-500 pl-3">Nossas Esfihas Deliciosas 🥟</h2><h3 class="text-2xl font-semibold text-gray-800 mb-4">Combos Prontos</h3><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">`;
         data.esfihas.combos.forEach(item => {
+             const buttonClass = item.includesSoda ? 'open-promo-modal-btn' : 'add-to-cart-btn';
              content += `<div class="bg-white rounded-lg shadow-lg flex flex-col overflow-hidden">
                            <div class="p-5 flex flex-col flex-grow">
                              <div class="flex-grow">
@@ -646,7 +672,7 @@ document.addEventListener('DOMContentLoaded', () => {
                              </div>
                              <div class="mt-4 flex justify-between items-center">
                                <span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span>
-                               <button class="add-to-cart-btn bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-transform duration-100 active:scale-95" data-item='${JSON.stringify(item)}'>
+                               <button class="${buttonClass} bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-transform duration-100 active:scale-95" data-item='${JSON.stringify(item)}'>
                                    Quero esse!
                                </button>
                              </div>
@@ -926,6 +952,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize All Menu Sections
     if (buildPizzaForm) {
         populatePizzaOptions();
+        renderSodaSelection(); // Add this call to initialize soda section on page load
         updatePizzaSummary();
     }
     
