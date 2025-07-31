@@ -103,7 +103,7 @@
                            </div>
                         </div>
                         <div class="mt-6 text-center">
-                            <p class="text-2xl font-bold text-red-700 mb-4">Total: R$ <span id="pizzaTotal">0.00</span></p>
+                            <p class="text-2xl font-bold text-red-700 mb-4">Total: R$ <span id="pizzaTotal">0,00</span></p>
                             <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-colors duration-300">
                               <i class="fas fa-cart-plus mr-2"></i> Adicionar ao Pedido
                             </button>
@@ -216,12 +216,12 @@ document.addEventListener('DOMContentLoaded', () => {
             { nome: 'Guaraná Antarctica 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Kuat 2L (Grátis)', precoAdicional: 0 }, { nome: 'Pepsi 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Coca-Cola 2L', precoAdicional: 12.00 }, { nome: 'Pepsi 2L', precoAdicional: 5.00 }, { nome: 'Guaraná Antarctica 2L', precoAdicional: 5.00 }
         ],
         promocoes: [
-            { id: 'promo-combo', nome: 'Caixa Combo da Galera', desc: 'A festa completa! Uma caixa recheada com 4 X-Tudo, 5 pastéis sequinhos e uma porção generosa de batata com cheddar e bacon.', preco: 90.00, preco_antigo: 120.00, needsFlavor: false, includesSoda: true, imagem: 'https://i.imgur.com/3NihH3C.jpg' },
-            { id: 'promo-media', nome: 'Pizza Média (32cm) Premiada', desc: 'Sua pizza média preferida com aquele precinho especial que só a gente faz. Escolha seus sabores e aproveite!', preco: 52.00, preco_antigo: 60.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média', maxSabores: 2 }], imagem: 'https://i.imgur.com/jqxS3z7.jpg' },
-            { id: 'promo-familia', nome: 'Combo Família Feliz', desc: 'A combinação perfeita para a família: 1 Pizza Família (até 2 sabores), 1 pizza doce individual de brinde e 1 refrigerante para completar a festa.', preco: 90.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Família', maxSabores: 2 }], includesSweet: true, includesSoda: true, imagem: 'https://i.imgur.com/1E2a2f8.jpg' },
-            { id: 'promo-gigante', nome: 'Combo Gigante Imbatível', desc: 'Para matar a fome de verdade! 1 Pizza Gigante (até 3 sabores), 1 pizza doce individual de brinde e 1 refrigerante geladinho.', preco: 110.00, preco_antigo: 120.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }], includesSweet: true, includesSoda: true, imagem: 'https://i.imgur.com/R32aYJC.jpg' },
-            { id: 'promo-slim', nome: 'Promo Slim Gigante (47 cm)', desc: 'Sabor em tamanho gigante com um desconto incrível. Leve nossa pizza de 47cm e faça a festa em casa!', preco: 85.00, preco_antigo: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }], imagem: 'https://i.imgur.com/53B4i57.jpg' },
-            { id: 'promo-2medias', nome: 'Dose Dupla: 2 Médias + 1 Doce', desc: 'Duas vezes mais sabor! Peça 2 Pizzas Médias (até 2 sabores cada) e ganhe uma deliciosa pizza brotão doce para a sobremesa.', preco: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média 1', maxSabores: 2 }, { type: 'salgada', size: 'Média 2', maxSabores: 2 }], includesSweet: true, imagem: 'https://i.imgur.com/uPZUPYn.jpg' }
+            { id: 'promo-combo', nome: 'Caixa Combo da Galera', desc: 'A festa completa! Uma caixa recheada com 4 X-Tudo, 5 pastéis sequinhos e uma porção generosa de batata com cheddar e bacon.', preco: 90.00, preco_antigo: 120.00, needsFlavor: false, includesSoda: true },
+            { id: 'promo-media', nome: 'Pizza Média (32cm) Premiada', desc: 'Sua pizza média preferida com aquele precinho especial que só a gente faz. Escolha seus sabores e aproveite!', preco: 52.00, preco_antigo: 60.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média', maxSabores: 2 }] },
+            { id: 'promo-familia', nome: 'Combo Família Feliz', desc: 'A combinação perfeita para a família: 1 Pizza Família (até 2 sabores), 1 pizza doce individual de brinde e 1 refrigerante para completar a festa.', preco: 90.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Família', maxSabores: 2 }], includesSweet: true, includesSoda: true },
+            { id: 'promo-gigante', nome: 'Combo Gigante Imbatível', desc: 'Para matar a fome de verdade! 1 Pizza Gigante (até 3 sabores), 1 pizza doce individual de brinde e 1 refrigerante geladinho.', preco: 110.00, preco_antigo: 120.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }], includesSweet: true, includesSoda: true },
+            { id: 'promo-slim', nome: 'Promo Slim Gigante (47 cm)', desc: 'Sabor em tamanho gigante com um desconto incrível. Leve nossa pizza de 47cm e faça a festa em casa!', preco: 85.00, preco_antigo: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }] },
+            { id: 'promo-2medias', nome: 'Dose Dupla: 2 Médias + 1 Doce', desc: 'Duas vezes mais sabor! Peça 2 Pizzas Médias (até 2 sabores cada) e ganhe uma deliciosa pizza brotão doce para a sobremesa.', preco: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média 1', maxSabores: 2 }, { type: 'salgada', size: 'Média 2', maxSabores: 2 }], includesSweet: true }
         ],
         pizzas: {
             tamanhos: [ { nome: 'Individual (26cm)', preco: 30.00, maxSabores: 2 }, { nome: 'Média (32cm)', preco: 50.00, maxSabores: 2 }, { nome: 'Família (36cm)', preco: 75.00, maxSabores: 2 }, { nome: 'Gigante (47cm)', preco: 99.00, maxSabores: 3 }, { nome: 'Mega (70cm)', preco: 199.00, maxSabores: 5 } ],
@@ -229,33 +229,23 @@ document.addEventListener('DOMContentLoaded', () => {
             saboresSalogados: [ "Americana", "Atum", "Alho e Óleo", "Bacalhau", "Benevento", "Calabresa", "Carioca", "Capricciosa", "Frango com Catupiry", "Frango com Cheddar", "La Pizza", "Marguerita", "Moda da Casa", "Mussarela", "Moda da Casa 2", "Napolitana", "Palmito", "Pizza de Batata", "Portuguesa", "4 Queijos", "Super Pizza", "Siciliana", "Tomate Seco", "Tropicaliente", "Lombo Canadense", "Presunto", "Salaminho" ],
             saboresDoces: [ "Banana com Canela", "Cocada Cremosa", "Prestígio", "Romeu & Julieta" ]
         },
-        massas: [ 
-            { nome: 'Lasanha à Bolonhesa', desc: 'Camadas generosas de massa fresca, intercaladas com nosso suculento molho à bolonhesa e queijo derretido. Simplesmente irresistível!', preco: 45.00, imagem: 'https://i.imgur.com/bJk8yv2.jpg' }, 
-            { nome: 'Capeletti ao Sugo', desc: 'Delicados capelettis recheados com frango ou presunto, mergulhados em um autêntico molho de tomate italiano.', preco: 40.00, imagem: 'https://i.imgur.com/kP3i1s4.jpg' }, 
-            { nome: 'Espaguete com Camarão', desc: 'O clássico espaguete italiano salteado com camarões frescos e um molho saboroso que te transporta para a Itália.', preco: 38.00, imagem: 'https://i.imgur.com/6kGax5Q.jpg' },
-            { nome: 'Nhoque da Nonna', desc: 'A receita secreta da família! Nhoque de batata macio e saboroso, servido com um tradicional molho sugo ou à bolonhesa.', preco: 35.00, imagem: 'https://i.imgur.com/S8otx3S.jpg' }
-        ],
-        hamburgueres: [ 
-            { nome: 'Super X-Duplo 🍔', desc: 'Fome em dobro? Duas carnes suculentas, dois ovos, queijo, presunto, bacon crocante, calabresa e nossa salada fresca com molho especial.', preco: 17.00, imagem: 'https://i.imgur.com/i65AlT5.jpg' }, 
-            { nome: 'X-Tudo Clássico', desc: 'Nosso campeão de vendas! Uma suculenta carne, ovo, queijo, presunto, bacon, calabresa e uma explosão de sabor com nosso molho billy jack.', preco: 14.00, imagem: 'https://i.imgur.com/Q2yD7m3.jpg' }, 
-            { nome: 'X-Bacon Lover ❤️', desc: 'Para os apaixonados por bacon! Hambúrguer artesanal, queijo derretido e fatias generosas de bacon em dobro. Uma delícia!', preco: 11.00, imagem: 'https://i.imgur.com/k6wD80y.jpg' },
-            { nome: 'X-Egg Perfeito', desc: 'A combinação que todo mundo ama: carne, queijo e um ovo com a gema no ponto certo, abraçados por um pão macio.', preco: 10.00, imagem: 'https://i.imgur.com/T0PIE8Q.jpg' } 
-        ],
+        massas: [ { nome: 'Lasanha à Bolonhesa', desc: 'Camadas generosas de massa fresca, intercaladas com nosso suculento molho à bolonhesa e queijo derretido. Simplesmente irresistível!', preco: 45.00 }, { nome: 'Capeletti ao Sugo', desc: 'Delicados capelettis recheados com frango ou presunto, mergulhados em um autêntico molho de tomate italiano.', preco: 40.00 }, { nome: 'Espaguete com Camarão', desc: 'O clássico espaguete italiano salteado com camarões frescos e um molho saboroso que te transporta para a Itália.', preco: 38.00 }, { nome: 'Nhoque da Nonna', desc: 'A receita secreta da família! Nhoque de batata macio e saboroso, servido com um tradicional molho sugo ou à bolonhesa.', preco: 35.00 } ],
+        hamburgueres: [ { nome: 'Super X-Duplo 🍔', desc: 'Fome em dobro? Duas carnes suculentas, dois ovos, queijo, presunto, bacon crocante, calabresa e nossa salada fresca com molho especial.', preco: 17.00 }, { nome: 'X-Tudo Clássico', desc: 'Nosso campeão de vendas! Uma suculenta carne, ovo, queijo, presunto, bacon, calabresa e uma explosão de sabor com nosso molho billy jack.', preco: 14.00 }, { nome: 'X-Bacon Lover ❤️', desc: 'Para os apaixonados por bacon! Hambúrguer artesanal, queijo derretido e fatias generosas de bacon em dobro. Uma delícia!', preco: 11.00 }, { nome: 'X-Egg Perfeito', desc: 'A combinação que todo mundo ama: carne, queijo e um ovo com a gema no ponto certo, abraçados por um pão macio.', preco: 10.00 } ],
         esfihas: {
             saboresComPreco: [ { nome: 'Esfiha de Carne', preco: 3.50 }, { nome: 'Esfiha de Queijo', preco: 3.50 }, { nome: 'Esfiha de Calabresa', preco: 3.50 }, { nome: 'Esfiha de Presunto', preco: 3.50 }, { nome: 'Esfiha de Milho Verde', preco: 3.50 }, { nome: 'Esfiha de Atum', preco: 4.00 }, { nome: 'Esfiha Mista', preco: 4.00 }, { nome: 'Esfiha de Frango com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Calabresa com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Quatro Queijos', preco: 4.50 }, { nome: 'Esfiha de Tomate Seco', preco: 4.50 }, { nome: 'Esfiha Portuguesa', preco: 4.50 }, { nome: 'Esfiha Mussarela Napolitana', preco: 4.50 }, { nome: 'Esfiha de Carne Seca', preco: 5.00 }, { nome: 'Esfiha de Bacalhau com Catupiry', preco: 5.00 }, { nome: 'Esfiha de Lombo com Catupiry', preco: 5.00 }, { nome: 'Esfiha Supreme Pepperoni', preco: 5.00 }, { nome: 'Esfiha Maria Bonita', preco: 5.00 }, { nome: 'Esfiha Romeu & Julieta', preco: 3.50 }, { nome: 'Esfiha Banana c/ Canela', preco: 3.50 }, { nome: 'Esfiha Choco Duo', preco: 4.00 }, { nome: 'Esfiha Prestígio', preco: 4.00 }, { nome: 'Esfiha Morango com Chocolate Branco', preco: 4.50 }, { nome: 'Esfiha de Nutella', preco: 5.00 } ],
-            combos: [ 
-                { nome: 'Combo 20 Esfihas + Refri 2L', desc: 'A pedida certa para a galera: 10 esfihas de carne e 10 de queijo, acompanhadas de um refri gelado.', preco: 50.00, imagem: 'https://i.imgur.com/J3AG8Ze.jpg' }, 
-                { nome: 'Combo 15 Esfihas 3 Sabores', desc: 'Variedade e sabor! 5 esfihas de frango, 5 de carne e 5 de queijo para não ter briga na hora de escolher.', preco: 60.00, imagem: 'https://i.imgur.com/1GfH6dK.jpg' }
-            ]
+            combos: [ { nome: 'Combo 20 Esfihas + Refri 2L', desc: 'A pedida certa para a galera: 10 esfihas de carne e 10 de queijo, acompanhadas de um refri gelado.', preco: 50.00 }, { nome: 'Combo 15 Esfihas 3 Sabores', desc: 'Variedade e sabor! 5 esfihas de frango, 5 de carne e 5 de queijo para não ter briga na hora de escolher.', preco: 60.00 } ]
         },
         combos: [ 
-            { nome: 'Super Petisco de Frango', desc: 'Pedaços de frango a passarinho crocantes e suculentos, servidos com uma porção generosa de batata frita e um refri 2L.', preco: 60.00, imagem: 'https://i.imgur.com/Z4wPhnS.jpg' }, 
-            { nome: 'Porção de Gurjão', desc: 'Tirinhas de peixe ou frango empanadas e fritas na hora, perfeitas para petiscar. Crocância e sabor garantidos!', preco: 50.00, imagem: 'https://i.imgur.com/SFrWvjD.jpg' } 
+            { id: 'combo-1', nome: 'Combo 1', desc: '4 X-Tudo + 25 salgadinhos + Batata c/ Cheddar e Bacon', preco: 85.00, includesSoda: true },
+            { id: 'combo-2', nome: 'Combo 2', desc: '100 Salgadinhos fritos grandes e sortidos', preco: 70.00 },
+            { id: 'combo-3', nome: 'Combo 3', desc: '25 Salgadinhos + Porção de Calabresa + Batata c/ Cheddar', preco: 85.00, includesSoda: true },
+            { id: 'combo-4', nome: 'Combo 4', desc: '4 X-Tudo + 25 Salgadinhos + Porção de Calabresa + Anéis de Cebola', preco: 85.00, includesSoda: true },
+            { id: 'combo-5', nome: 'Combo 5', desc: '4 X-Tudo + 25 Salgadinhos + Batata c/ Cheddar e Bacon', preco: 85.00, includesSoda: true },
+            { id: 'combo-6', nome: 'Combo 6', desc: '4 X-Tudo + Calabresa Acebolada + Batata Frita + Anéis de Cebola', preco: 85.00, includesSoda: true },
+            { id: 'combo-7', nome: 'Petisco Frango a Passarinho + Fritas', desc: 'Frango a passarinho crocante com batata frita sequinha.', preco: 60.00 }, // Assumi que "Combo 7" era este
+            { id: 'combo-8', nome: 'Porção de Gurjão (Peixe ou Frango)', desc: 'Deliciosas tirinhas empanadas e crocantes.', preco: 50.00 }
         ],
-        bebidas: [ 
-            { nome: 'Refrigerante Lata 350ml', desc: 'Geladinho para acompanhar seu pedido. Escolha seu sabor preferido!', preco: 5.00, imagem: 'https://i.imgur.com/j43s4fn.jpg' }, 
-            { nome: 'Refrigerante 2 Litros', desc: 'Para dividir com a galera! O acompanhamento perfeito para qualquer pizza ou combo.', preco: 12.00, imagem: 'https://i.imgur.com/JkP52oJ.jpg' } 
-        ],
+        bebidas: [ { nome: 'Refrigerante Lata 350ml', desc: 'Geladinho para acompanhar seu pedido. Escolha seu sabor preferido!', preco: 5.00 }, { nome: 'Refrigerante 2 Litros', desc: 'Para dividir com a galera! O acompanhamento perfeito para qualquer pizza ou combo.', preco: 12.00 } ],
     };
     
     let cart = [];
@@ -325,6 +315,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function populatePizzaOptions() {
         if (!pizzaSizesEl) return;
+        pizzaSizesEl.innerHTML = ''; // Limpa as opções antes de adicionar para evitar duplicatas
+        bordaRecheadaEl.innerHTML = '';
+        flavorsListEl.innerHTML = '';
         data.pizzas.tamanhos.forEach((t, i) => {
             pizzaSizesEl.innerHTML += `<option value="${i}">${t.nome} (até ${t.maxSabores} ${t.maxSabores > 1 ? 'sabores' : 'sabor'}) - R$ ${formatCurrency(t.preco)}</option>`;
         });
@@ -380,10 +373,8 @@ document.addEventListener('DOMContentLoaded', () => {
         items.forEach(item => {
             const priceHtml = item.preco_antigo ? `<div class="text-right"><span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span><s class="text-gray-500 text-md ml-2">R$ ${formatCurrency(item.preco_antigo)}</s></div>` : `<span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span>`;
             const buttonClass = (item.needsFlavor || item.includesSoda) ? 'open-promo-modal-btn' : 'add-to-cart-btn';
-            const imageHtml = item.imagem ? `<img src="${item.imagem}" alt="${item.nome}" class="w-full h-40 object-cover rounded-t-lg mb-4">` : '';
             
             content += `<div class="bg-white rounded-lg shadow-lg flex flex-col overflow-hidden">
-                          ${imageHtml}
                           <div class="p-5 flex flex-col flex-grow">
                             <div class="flex-grow">
                                 <h4 class="text-xl font-bold text-gray-800">${item.nome}</h4>
@@ -405,9 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const section = document.getElementById('esfihas');
         let content = `<h2 class="text-3xl font-bold text-red-700 mb-6 border-l-4 border-red-500 pl-3">Nossas Esfihas Deliciosas 🥟</h2><h3 class="text-2xl font-semibold text-gray-800 mb-4">Combos Prontos</h3><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">`;
         data.esfihas.combos.forEach(item => {
-            const imageHtml = item.imagem ? `<img src="${item.imagem}" alt="${item.nome}" class="w-full h-40 object-cover rounded-t-lg mb-4">` : '';
              content += `<div class="bg-white rounded-lg shadow-lg flex flex-col overflow-hidden">
-                           ${imageHtml}
                            <div class="p-5 flex flex-col flex-grow">
                              <div class="flex-grow">
                                <h4 class="text-xl font-bold text-gray-800">${item.nome}</h4>
@@ -443,26 +432,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function createContatoSection(){
         document.getElementById('contato').innerHTML = `<h2 class="text-3xl font-bold text-red-700 mb-6 border-l-4 border-red-500 pl-3">Fale Conosco e Horários 📞</h2><div class="bg-white rounded-lg shadow-lg p-8 text-center"><i class="fab fa-whatsapp text-6xl text-green-500 mb-4"></i><h3 class="text-4xl font-bold text-gray-800 mb-2">98141-7594</h3><p class="text-lg text-gray-600 mb-6">Peça pelo WhatsApp ou ligue para nós!</p><div class="border-t border-b border-gray-200 py-6 my-6"><i class="fas fa-clock text-4xl text-red-500 mb-3"></i><h4 class="text-2xl font-semibold text-gray-800">Horário de Funcionamento</h4><p class="text-lg text-gray-700 mt-2">Todos os dias, das 18:00h à 00:00h</p></div><p class="text-gray-500">Super Pizza - Sempre perto de você com o melhor sabor!</p></div>`;
     }
-    
-    if (buildPizzaForm) populatePizzaOptions();
-    createMenuSection('Nossas Ofertas Imperdíveis! 🔥', data.promocoes, 'promocoes');
-    createMenuSection('Nossas Massas Artesanais 🍝', data.massas, 'massas');
-    createMenuSection('Nossos Hambúrgueres Suculentos 🍔', data.hamburgueres, 'hamburgueres');
-    createEsfihasSection();
-    createMenuSection('Combos & Petiscos para Compartilhar 🍟', data.combos, 'combos');
-    createMenuSection('Bebidas Geladinhas 🥤', data.bebidas, 'bebidas');
-    createContatoSection();
-
-    document.body.addEventListener('click', (e) => {
-        const target = e.target.closest('button');
-        if (!target) return;
-
-        if (target.classList.contains('open-promo-modal-btn')) {
-            openPromoModal(JSON.parse(target.dataset.item));
-        } else if (target.classList.contains('add-to-cart-btn')) {
-            addToCart(JSON.parse(target.dataset.item));
-        }
-    });
     
     function openPromoModal(promoItem) {
         const selectionContainer = document.getElementById('promoSelectionContainer');
@@ -530,7 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (promoItem.needsFlavor) {
             promoItem.pizzas.forEach((pizza, index) => {
-                const group = document.querySelector(`.promo-flavor-group[data-pizza-index="${index}"]`);
+                const group = document.querySelector(`#promoSelectionContainer .promo-flavor-group[data-pizza-index="${index}"]`);
                 const selectedFlavors = Array.from(group.querySelectorAll('.promo-flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent);
                 if (selectedFlavors.length === 0) allSelectionsMade = false;
                 description.push(`Pizza ${pizza.size}: ${selectedFlavors.join(', ')}`);
