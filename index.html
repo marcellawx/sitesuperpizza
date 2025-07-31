@@ -37,6 +37,7 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+    /* Efeito de clique nos botões */
     button {
       transition: transform 0.1s ease-in-out;
     }
@@ -266,6 +267,13 @@ document.addEventListener('DOMContentLoaded', () => {
         refrigerantesPromo: [
             { nome: 'Guaraná Antarctica 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Kuat 2L (Grátis)', precoAdicional: 0 }, { nome: 'Pepsi 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Coca-Cola 2L', precoAdicional: 12.00 }, { nome: 'Pepsi 2L', precoAdicional: 5.00 }, { nome: 'Guaraná Antarctica 2L', precoAdicional: 5.00 }
         ],
+        massaSizes: [
+            { nome: '400gr (serve 1 pessoa)', preco: 34.90 },
+            { nome: '1kg (serve até 3 pessoas)', preco: 59.90 }
+        ],
+        proteinasMassas: [
+            { nome: 'Presunto', precoAdicional: 0 }, { nome: 'Carne Moída', precoAdicional: 0 }, { nome: 'Frango', precoAdicional: 0 }, { nome: 'Carne Seca', precoAdicional: 10.00 }, { nome: 'Camarão', precoAdicional: 10.00 }, { nome: 'Bacalhau', precoAdicional: 10.00 }
+        ],
         promocoes: [
             { id: 'promo-combo-caixa', nome: 'Caixa Combo da Galera', desc: 'A festa completa! Uma caixa recheada com 4 X-Tudo, 5 pastéis sequinhos e uma porção generosa de batata com cheddar e bacon.', preco: 90.00, preco_antigo: 120.00, needsFlavor: false, includesSoda: true },
             { id: 'promo-media', nome: 'Pizza Média (32cm) Premiada', desc: 'Sua pizza média preferida com aquele precinho especial que só a gente faz. Escolha seus sabores e aproveite!', preco: 52.00, preco_antigo: 60.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média', maxSabores: 2 }] },
@@ -305,9 +313,26 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         esfihas: {
             saboresComPreco: [ { nome: 'Esfiha de Carne 🥩', preco: 3.50 }, { nome: 'Esfiha de Queijo 🧀', preco: 3.50 }, { nome: 'Esfiha de Calabresa', preco: 3.50 }, { nome: 'Esfiha de Presunto', preco: 3.50 }, { nome: 'Esfiha de Milho Verde 🌽', preco: 3.50 }, { nome: 'Esfiha de Atum', preco: 4.00 }, { nome: 'Esfiha Mista', preco: 4.00 }, { nome: 'Esfiha de Frango com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Calabresa com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Quatro Queijos 🧀🧀🧀🧀', preco: 4.50 }, { nome: 'Esfiha de Tomate Seco 🍅', preco: 4.50 }, { nome: 'Esfiha Portuguesa', preco: 4.50 }, { nome: 'Esfiha Mussarela Napolitana', preco: 4.50 }, { nome: 'Esfiha de Carne Seca', preco: 5.00 }, { nome: 'Esfiha de Bacalhau com Catupiry', preco: 5.00 }, { nome: 'Esfiha de Lombo com Catupiry', preco: 5.00 }, { nome: 'Esfiha Supreme Pepperoni', preco: 5.00 }, { nome: 'Esfiha Maria Bonita', preco: 5.00 }, { nome: 'Esfiha Romeu & Julieta ❤️🧀', preco: 3.50 }, { nome: 'Esfiha Banana c/ Canela 🍌', preco: 3.50 }, { nome: 'Esfiha Choco Duo 🍫', preco: 4.00 }, { nome: 'Esfiha Prestígio 🥥🍫', preco: 4.00 }, { nome: 'Esfiha Morango com Chocolate Branco 🍓', preco: 4.50 }, { nome: 'Esfiha de Nutella 😍', preco: 5.00 } ],
-            combos: [ 
-                { nome: 'Combo 20 Esfihas + Refri 2L 🥤', desc: 'A pedida certa para a galera: 10 esfihas de carne e 10 de queijo, acompanhadas de um refri gelado.', preco: 50.00, includesSoda: true }, 
-                { nome: 'Combo 15 Esfihas 3 Sabores 😋', desc: 'Variedade e sabor! 5 esfihas de frango, 5 de carne e 5 de queijo para não ter briga na hora de escolher.', preco: 60.00 } 
+combos: [ 
+                { 
+                    nome: 'Combo 20 Esfihas + Refri 2L 🥤', 
+                    desc: 'A combinação perfeita para a galera: 10 esfihas de carne, 10 de queijo e um refrigerante para acompanhar.', 
+                    // Lógica: (20 esfihas x R$ 3,00 = R$ 60,00) + Refri. O preço de R$ 50,00 é um ótimo desconto.
+                    preco: 55.00, 
+                    includesSoda: true 
+                }, 
+                { 
+                    nome: 'Combo 15 Esfihas (Carne, Queijo, Calabresa)', 
+                    desc: 'Monte seu trio de delícias! Leve 15 esfihas nos sabores carne, queijo e calabresa (5 de cada).', 
+                    // Lógica: (15 esfihas x R$ 3,00 = R$ 45,00). O preço de R$ 40,00 oferece um bom desconto.
+                    preco: 40.00 
+                },
+                {
+                    nome: 'Combo 30 Esfihas (Carne, Queijo, Calabresa)',
+                    desc: 'Para a fome de toda a turma! Leve 30 esfihas nos sabores carne, queijo e calabresa (10 de cada).',
+                    // Lógica: (30 esfihas x R$ 3,00 = R$ 90,00). O preço de R$ 70,00 é um excelente desconto.
+                    preco: 70.00
+                }
             ]
         },
         combos: [
@@ -319,18 +344,8 @@ document.addEventListener('DOMContentLoaded', () => {
             { nome: 'Combo 6', desc: '4 X-Tudo + Calabresa Acebolada + Batata Frita + Anéis de Cebola', preco: 85.00, includesSoda: true },
             { nome: 'Petisco Frango a Passarinho + Fritas', desc: 'Pedaços de frango crocantes com batata frita sequinha. Inclui um refrigerante!', preco: 60.00, includesSoda: true }
         ],
-        bebidas: [ { nome: 'Refrigerante Lata 350ml 🥤', desc: 'Geladinho para acompanhar seu pedido. Escolha seu sabor preferido!', preco: 5.00 }, { nome: 'Refrigerante 2 Litros 🥤', desc: 'Para dividir com a galera! O acompanhamento perfeito para qualquer pizza ou combo.', preco: 12.00 } ],
-        sobremesas: [] // Populado dinamicamente
+        bebidas: [ { nome: 'Refrigerante Lata 350ml 🥤', desc: 'Geladinho para acompanhar seu pedido. Escolha seu sabor preferido!', preco: 5.00 }, { nome: 'Refrigerante 2 Litros 🥤', desc: 'Para dividir com a galera! O acompanhamento perfeito para qualquer pizza ou combo.', preco: 12.00 } ]
     };
-    
-    // Popula as sobremesas
-    data.pizzas.saboresDoces.forEach(sabor => {
-        data.sobremesas.push({
-            nome: `Pizza Doce Individual de ${sabor}`,
-            desc: `Uma deliciosa pizza individual para adoçar sua noite. Cobertura generosa de ${sabor.toLowerCase()}.`,
-            preco: 20.00
-        });
-    });
 
     let cart = [];
     const cartItemsContainer = document.getElementById('cartItems');
