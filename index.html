@@ -56,7 +56,7 @@
         </h1>
       </div>
       <div class="mt-3 md:mt-0 text-center md:text-right text-sm md:text-base">
-        <p class="font-semibold"><i class="fas fa-motorcycle mr-2 text-yellow-300"></i>Entrega grátis em todos os pedidos!</p>
+        <p class="font-semibold"><i class="fas fa-motorcycle mr-2 text-yellow-300"></i>Entrega grátis em pedidos acima de R$ 30,00!</p>
         <p><i class="fas fa-credit-card mr-2 text-yellow-300"></i>Aceitamos cartões de refeição e alimentação</p>
       </div>
     </div>
@@ -139,11 +139,21 @@
                 <p id="emptyCart" class="text-gray-500 text-center py-8">Seu carrinho está vazio.</p>
             </div>
             <div class="border-t-2 border-red-200 pt-4">
-              <div class="flex justify-between items-center mb-4">
-                  <span class="text-lg font-semibold text-gray-800">Total:</span>
-                  <span id="cartTotal" class="text-2xl font-bold text-red-700">R$ 0,00</span>
-              </div>
-              <button id="checkoutButton" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-transform duration-100 active:scale-95 flex items-center justify-center gap-2" disabled>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-md text-gray-600">Subtotal:</span>
+                        <span id="cartSubtotal" class="text-md text-gray-800">R$ 0,00</span>
+                    </div>
+                    <div id="deliveryFeeContainer" class="hidden flex justify-between items-center">
+                        <span class="text-md text-gray-600">Taxa de Entrega:</span>
+                        <span id="cartDeliveryFee" class="text-md text-gray-800">R$ 8,00</span>
+                    </div>
+                    <div class="flex justify-between items-center border-t pt-2 mt-2">
+                        <span class="text-lg font-bold text-gray-800">Total:</span>
+                        <span id="cartTotal" class="text-2xl font-bold text-red-700">R$ 0,00</span>
+                    </div>
+                </div>
+              <button id="checkoutButton" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-transform duration-100 active:scale-95 flex items-center justify-center gap-2 mt-4" disabled>
                   <i class="fab fa-whatsapp"></i> Concluir Pedido
               </button>
             </div>
@@ -277,7 +287,15 @@ document.addEventListener('DOMContentLoaded', () => {
             saboresDoces: [ "Banana com Canela", "Cocada Cremosa", "Prestígio", "Romeu & Julieta" ]
         },
         massas: [ { nome: 'Lasanha' }, { nome: 'Capeletti' }, { nome: 'Raviolli' }, { nome: 'Espaguete' }, { nome: 'Talharim' }, { nome: 'Nhoque' } ],
-        hamburgueres: [ { nome: 'Super X-Duplo 🍔', desc: 'Fome em dobro? Duas carnes suculentas, dois ovos, queijo, presunto, bacon crocante, calabresa e nossa salada fresca com molho especial.', preco: 17.00 }, { nome: 'X-Tudo Clássico 🤤', desc: 'Nosso campeão de vendas! Uma suculenta carne, ovo, queijo, presunto, bacon, calabresa e uma explosão de sabor com nosso molho billy jack.', preco: 14.00 }, { nome: 'X-Bacon Lover ❤️', desc: 'Para os apaixonados por bacon! Hambúrguer artesanal, queijo derretido e fatias generosas de bacon em dobro. Uma delícia!', preco: 11.00 }, { nome: 'X-Egg Perfeito 🍳', desc: 'A combinação que todo mundo ama: carne, queijo e um ovo com a gema no ponto certo, abraçados por um pão macio.', preco: 10.00 } ],
+        hamburgueres: [
+            { nome: 'X-Duplo', desc: '2 carnes de hambúrguer, 2 ovos, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 17.00 },
+            { nome: 'X-Tudo', desc: '1 carne de hambúrguer, 1 ovo, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 14.00 },
+            { nome: 'X-Burguer Tropicaliente', desc: '1 carne de hambúrguer, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 12.00 },
+            { nome: 'X-Egg', desc: '1 carne de hambúrguer, 1 ovo, molho billy jack, alface, tomate, batata palha', preco: 10.00 },
+            { nome: 'X-Burguer Kids', desc: '1 carne de hambúrguer, queijo, molho billy jack, batata palha', preco: 5.00 },
+            { nome: 'X-Burguer Double Cheese', desc: '1 carne de hambúrguer, queijo, presunto, catupiry, cheddar, alface, tomate, batata palha', preco: 11.00 },
+            { nome: 'X-Bacon Lover', desc: '1 carne de hambúrguer, bacon em dobro, alface, tomate, batata palha', preco: 11.00 }
+        ],
         esfihas: {
             saboresComPreco: [ { nome: 'Esfiha de Carne 🥩', preco: 3.50 }, { nome: 'Esfiha de Queijo 🧀', preco: 3.50 }, { nome: 'Esfiha de Calabresa', preco: 3.50 }, { nome: 'Esfiha de Presunto', preco: 3.50 }, { nome: 'Esfiha de Milho Verde 🌽', preco: 3.50 }, { nome: 'Esfiha de Atum', preco: 4.00 }, { nome: 'Esfiha Mista', preco: 4.00 }, { nome: 'Esfiha de Frango com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Calabresa com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Quatro Queijos 🧀🧀🧀🧀', preco: 4.50 }, { nome: 'Esfiha de Tomate Seco 🍅', preco: 4.50 }, { nome: 'Esfiha Portuguesa', preco: 4.50 }, { nome: 'Esfiha Mussarela Napolitana', preco: 4.50 }, { nome: 'Esfiha de Carne Seca', preco: 5.00 }, { nome: 'Esfiha de Bacalhau com Catupiry', preco: 5.00 }, { nome: 'Esfiha de Lombo com Catupiry', preco: 5.00 }, { nome: 'Esfiha Supreme Pepperoni', preco: 5.00 }, { nome: 'Esfiha Maria Bonita', preco: 5.00 }, { nome: 'Esfiha Romeu & Julieta ❤️🧀', preco: 3.50 }, { nome: 'Esfiha Banana c/ Canela 🍌', preco: 3.50 }, { nome: 'Esfiha Choco Duo 🍫', preco: 4.00 }, { nome: 'Esfiha Prestígio 🥥🍫', preco: 4.00 }, { nome: 'Esfiha Morango com Chocolate Branco 🍓', preco: 4.50 }, { nome: 'Esfiha de Nutella 😍', preco: 5.00 } ],
             combos: [ { nome: 'Combo 20 Esfihas + Refri 2L 🥤', desc: 'A pedida certa para a galera: 10 esfihas de carne e 10 de queijo, acompanhadas de um refri gelado.', preco: 50.00 }, { nome: 'Combo 15 Esfihas 3 Sabores 😋', desc: 'Variedade e sabor! 5 esfihas de frango, 5 de carne e 5 de queijo para não ter briga na hora de escolher.', preco: 60.00 } ]
@@ -306,6 +324,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let cart = [];
     const cartItemsContainer = document.getElementById('cartItems');
+    const cartSubtotalEl = document.getElementById('cartSubtotal');
+    const deliveryFeeContainer = document.getElementById('deliveryFeeContainer');
+    const cartDeliveryFeeEl = document.getElementById('cartDeliveryFee');
     const cartTotalEl = document.getElementById('cartTotal');
     const floatingCartButton = document.getElementById('floatingCartButton');
     const floatingCartTotal = document.getElementById('floatingCartTotal');
@@ -324,6 +345,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateCart() {
         cartItemsContainer.innerHTML = '';
+        const subtotal = cart.reduce((sum, item) => sum + item.preco, 0);
+        let deliveryFee = 0;
+
+        if (subtotal > 0 && subtotal < 30.00) {
+            deliveryFee = 8.00;
+            deliveryFeeContainer.classList.remove('hidden');
+            cartDeliveryFeeEl.textContent = `R$ ${formatCurrency(deliveryFee)}`;
+        } else {
+            deliveryFeeContainer.classList.add('hidden');
+        }
+
+        const finalTotal = subtotal + deliveryFee;
+
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = '<p id="emptyCart" class="text-gray-500 text-center py-8">Seu carrinho está vazio.</p>';
             checkoutButton.disabled = true;
@@ -340,9 +374,10 @@ document.addEventListener('DOMContentLoaded', () => {
             checkoutButton.classList.remove('opacity-50', 'cursor-not-allowed');
             floatingCartButton.classList.remove('hidden');
         }
-        const total = cart.reduce((sum, item) => sum + item.preco, 0);
-        cartTotalEl.textContent = `R$ ${formatCurrency(total)}`;
-        floatingCartTotal.textContent = `R$ ${formatCurrency(total)}`;
+
+        cartSubtotalEl.textContent = `R$ ${formatCurrency(subtotal)}`;
+        cartTotalEl.textContent = `R$ ${formatCurrency(finalTotal)}`;
+        floatingCartTotal.textContent = `R$ ${formatCurrency(finalTotal)}`;
         
         document.querySelectorAll('.remove-item').forEach(button => {
             button.addEventListener('click', (e) => {
@@ -536,7 +571,6 @@ document.addEventListener('DOMContentLoaded', () => {
         pizzaSizesEl.addEventListener('change', () => {
             updateBordaOptions();
             renderSodaSelection();
-            updatePizzaSummary();
         });
         bordaRecheadaEl.addEventListener('change', updatePizzaSummary);
         flavorsAccordion.addEventListener('change', updatePizzaSummary);
@@ -833,11 +867,35 @@ document.addEventListener('DOMContentLoaded', () => {
         const customerAddress = document.getElementById('customerAddress').value;
         const paymentMethod = document.getElementById('paymentMethod').value;
         
-        let message = `*NOVO PEDIDO SUPER PIZZA* 🍕\n\n*PEDIDO Nº: ${orderNumber}*\n\n*CLIENTE:* ${customerName}\n*ENDEREÇO:* ${customerAddress}\n*PAGAMENTO:* ${paymentMethod}\n----------------------------------\n\n*ITENS DO PEDIDO:*\n\n`;
+        const subtotal = cart.reduce((sum, item) => sum + item.preco, 0);
+        let deliveryFee = 0;
+        if (subtotal > 0 && subtotal < 30.00) {
+            deliveryFee = 8.00;
+        }
+        const finalTotal = subtotal + deliveryFee;
+
+        let message = `*NOVO PEDIDO SUPER PIZZA* 🍕\n\n`;
+        message += `*PEDIDO Nº:* ${orderNumber}\n`;
+        message += `----------------------------------\n`;
+        message += `*DADOS DO CLIENTE:*\n`;
+        message += `*Nome:* ${customerName}\n`;
+        message += `*Endereço:* ${customerAddress}\n`;
+        message += `*Pagamento:* ${paymentMethod}\n`;
+        message += `----------------------------------\n\n`;
+        message += `*RESUMO DO PEDIDO:*\n\n`;
+
         cart.forEach(item => {
-            message += `*${item.nome}*\n${item.desc ? `  - ${item.desc}\n` : ''}  - Preço: R$ ${formatCurrency(item.preco)}\n\n`;
+            message += `*${item.nome}*\n`;
+            if (item.desc) { message += `  - _${item.desc}_\n`; }
+            message += `  - Preço: R$ ${formatCurrency(item.preco)}\n`;
+            message += `_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\n`;
         });
-        message += `*TOTAL DO PEDIDO: R$ ${formatCurrency(cart.reduce((sum, item) => sum + item.preco, 0))}*`;
+        
+        message += `*Subtotal:* R$ ${formatCurrency(subtotal)}\n`;
+        if (deliveryFee > 0) {
+            message += `*Taxa de Entrega:* R$ ${formatCurrency(deliveryFee)}\n`;
+        }
+        message += `*TOTAL A PAGAR: R$ ${formatCurrency(finalTotal)}*`;
         
         const whatsappNumber = "5521981417594";
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
