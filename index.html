@@ -49,7 +49,7 @@
         </h1>
       </div>
       <div class="mt-3 md:mt-0 text-center md:text-right text-sm md:text-base">
-        <p class="font-semibold"><i class="fas fa-motorcycle mr-2 text-yellow-300"></i>Entrega grátis em todos os pedidos</p>
+        <p class="font-semibold"><i class="fas fa-motorcycle mr-2 text-yellow-300"></i>Entrega grátis em todos os pedidos!</p>
         <p><i class="fas fa-credit-card mr-2 text-yellow-300"></i>Aceitamos cartões de refeição e alimentação</p>
       </div>
     </div>
@@ -58,22 +58,22 @@
   <main class="flex-grow max-w-7xl mx-auto p-4 md:p-6 flex flex-col w-full">
     <nav class="mb-8 flex flex-wrap justify-center border-b-2 border-red-200">
       <button class="tab-button tab-active px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="promocoes">Promoções 🔥</button>
-      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="pizzas">Pizzas</button>
-      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="massas">Massas</button>
-      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="hamburgueres">Hambúrgueres</button>
-      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="esfihas">Esfihas</button>
-      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="combos">Combos & Petiscos</button>
-      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="bebidas">Bebidas</button>
-      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="contato">Contato</button>
+      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="pizzas">Pizzas 🍕</button>
+      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="massas">Massas 🍝</button>
+      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="hamburgueres">Hambúrgueres 🍔</button>
+      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="esfihas">Esfihas 🥟</button>
+      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="combos">Combos & Petiscos 🍟</button>
+      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="bebidas">Bebidas 🥤</button>
+      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="contato">Contato 📞</button>
     </nav>
     
     <div class="flex flex-col lg:flex-row gap-8">
       <div class="flex-grow">
         <section id="promocoes" class="tab-content block"></section>
         <section id="pizzas" class="tab-content hidden">
-            <h2 class="text-3xl font-bold text-red-700 mb-6 border-l-4 border-red-500 pl-3">Nossas Pizzas</h2>
+            <h2 class="text-3xl font-bold text-red-700 mb-6 border-l-4 border-red-500 pl-3">Nossas Pizzas Irresistíveis 🍕</h2>
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-2xl font-semibold mb-4 text-gray-800">Monte sua Pizza</h3>
+                <h3 class="text-2xl font-semibold mb-4 text-gray-800">Monte sua Pizza do Seu Jeito! ✨</h3>
                 <form id="buildPizzaForm" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
                         <div class="mb-4">
@@ -105,7 +105,7 @@
                         <div class="mt-6 text-center">
                             <p class="text-2xl font-bold text-red-700 mb-4">Total: R$ <span id="pizzaTotal">0.00</span></p>
                             <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-colors duration-300">
-                              <i class="fas fa-cart-plus mr-2"></i> Adicionar ao Carrinho
+                              <i class="fas fa-cart-plus mr-2"></i> Adicionar ao Pedido
                             </button>
                         </div>
                     </div>
@@ -132,10 +132,10 @@
             <div class="border-t-2 border-red-200 pt-4">
               <div class="flex justify-between items-center mb-4">
                   <span class="text-lg font-semibold text-gray-800">Total:</span>
-                  <span id="cartTotal" class="text-2xl font-bold text-red-700">R$ 0.00</span>
+                  <span id="cartTotal" class="text-2xl font-bold text-red-700">R$ 0,00</span>
               </div>
               <button id="checkoutButton" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2" disabled>
-                  <i class="fab fa-whatsapp"></i> Finalizar Pedido
+                  <i class="fab fa-whatsapp"></i> Concluir Pedido
               </button>
             </div>
         </div>
@@ -145,8 +145,8 @@
   
   <div id="checkoutModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4 modal-enter">
       <div class="bg-white rounded-lg shadow-2xl p-6 md:p-8 w-full max-w-md">
-          <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Falta pouco!</h2>
-          <p class="text-center text-gray-600 mb-6">Preencha seus dados para concluir o pedido.</p>
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Quase lá! Faltam seus dados...</h2>
+          <p class="text-center text-gray-600 mb-6">Preencha abaixo para a gente saber onde entregar essa delícia.</p>
           <form id="customerInfoForm">
               <div class="mb-4">
                   <label for="customerName" class="block text-gray-700 text-sm font-bold mb-2">Nome Completo:</label>
@@ -172,7 +172,7 @@
                       Cancelar
                   </button>
                   <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors w-1/2">
-                      Enviar Pedido
+                      Confirmar e Enviar
                   </button>
               </div>
           </form>
@@ -190,7 +190,7 @@
                     Cancelar
                 </button>
                 <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors w-1/2">
-                    Adicionar ao Carrinho
+                    Adicionar ao Pedido
                 </button>
             </div>
         </form>
@@ -213,35 +213,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const data = {
         refrigerantesPromo: [
-            { nome: 'Guaraná Antarctica 1.5L (Grátis)', precoAdicional: 0 },
-            { nome: 'Kuat 2L (Grátis)', precoAdicional: 0 },
-            { nome: 'Pepsi 1.5L (Grátis)', precoAdicional: 0 },
-            { nome: 'Coca-Cola 2L', precoAdicional: 12.00 },
-            { nome: 'Pepsi 2L', precoAdicional: 5.00 },
-            { nome: 'Guaraná Antarctica 2L', precoAdicional: 5.00 }
+            { nome: 'Guaraná Antarctica 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Kuat 2L (Grátis)', precoAdicional: 0 }, { nome: 'Pepsi 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Coca-Cola 2L', precoAdicional: 12.00 }, { nome: 'Pepsi 2L', precoAdicional: 5.00 }, { nome: 'Guaraná Antarctica 2L', precoAdicional: 5.00 }
         ],
         promocoes: [
-            { id: 'promo-combo', nome: 'Caixa Combo', desc: '4 X-Tudo + 5 pastéis + Batata c/ cheddar +...', preco: 90.00, preco_antigo: 120.00, needsFlavor: false, includesSoda: true },
-            { id: 'promo-media', nome: 'Pizza Média 32cm em Promoção', desc: 'Escolha o sabor da sua pizza e pague menos!', preco: 52.00, preco_antigo: 60.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média', maxSabores: 2 }] },
-            { id: 'promo-familia', nome: 'Pizza Família 35cm + Doce + Refri', desc: 'Pizza família com até 2 sabores + pequena doce + refrigerante 2L', preco: 90.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Família', maxSabores: 2 }], includesSweet: true, includesSoda: true },
-            { id: 'promo-gigante', nome: 'Pizza Gigante + Doce + Refri', desc: 'Pizza Gigante (meio metro) + pequena doce + refrigerante', preco: 110.00, preco_antigo: 120.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }], includesSweet: true, includesSoda: true },
-            { id: 'promo-slim', nome: 'Promo Slim Pizza Gigante 47 cm', desc: 'Aproveite a pizza Gigante de 47cm com um super desconto!', preco: 85.00, preco_antigo: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }] },
-            { id: 'promo-2medias', nome: 'Promo 2 Pizzas Médias + Brotão Doce', desc: 'Duas pizzas médias (32cm) mais uma pizza brotão doce!', preco: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média 1', maxSabores: 2 }, { type: 'salgada', size: 'Média 2', maxSabores: 2 }], includesSweet: true }
+            { id: 'promo-combo', nome: 'Caixa Combo da Galera', desc: 'A festa completa! Uma caixa recheada com 4 X-Tudo, 5 pastéis sequinhos e uma porção generosa de batata com cheddar e bacon.', preco: 90.00, preco_antigo: 120.00, needsFlavor: false, includesSoda: true, imagem: 'https://i.imgur.com/3NihH3C.jpg' },
+            { id: 'promo-media', nome: 'Pizza Média (32cm) Premiada', desc: 'Sua pizza média preferida com aquele precinho especial que só a gente faz. Escolha seus sabores e aproveite!', preco: 52.00, preco_antigo: 60.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média', maxSabores: 2 }], imagem: 'https://i.imgur.com/jqxS3z7.jpg' },
+            { id: 'promo-familia', nome: 'Combo Família Feliz', desc: 'A combinação perfeita para a família: 1 Pizza Família (até 2 sabores), 1 pizza doce individual de brinde e 1 refrigerante para completar a festa.', preco: 90.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Família', maxSabores: 2 }], includesSweet: true, includesSoda: true, imagem: 'https://i.imgur.com/1E2a2f8.jpg' },
+            { id: 'promo-gigante', nome: 'Combo Gigante Imbatível', desc: 'Para matar a fome de verdade! 1 Pizza Gigante (até 3 sabores), 1 pizza doce individual de brinde e 1 refrigerante geladinho.', preco: 110.00, preco_antigo: 120.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }], includesSweet: true, includesSoda: true, imagem: 'https://i.imgur.com/R32aYJC.jpg' },
+            { id: 'promo-slim', nome: 'Promo Slim Gigante (47 cm)', desc: 'Sabor em tamanho gigante com um desconto incrível. Leve nossa pizza de 47cm e faça a festa em casa!', preco: 85.00, preco_antigo: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }], imagem: 'https://i.imgur.com/53B4i57.jpg' },
+            { id: 'promo-2medias', nome: 'Dose Dupla: 2 Médias + 1 Doce', desc: 'Duas vezes mais sabor! Peça 2 Pizzas Médias (até 2 sabores cada) e ganhe uma deliciosa pizza brotão doce para a sobremesa.', preco: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média 1', maxSabores: 2 }, { type: 'salgada', size: 'Média 2', maxSabores: 2 }], includesSweet: true, imagem: 'https://i.imgur.com/uPZUPYn.jpg' }
         ],
         pizzas: {
             tamanhos: [ { nome: 'Individual (26cm)', preco: 30.00, maxSabores: 2 }, { nome: 'Média (32cm)', preco: 50.00, maxSabores: 2 }, { nome: 'Família (36cm)', preco: 75.00, maxSabores: 2 }, { nome: 'Gigante (47cm)', preco: 99.00, maxSabores: 3 }, { nome: 'Mega (70cm)', preco: 199.00, maxSabores: 5 } ],
             bordas: [ { nome: 'Sem Borda Recheada', preco: 0.00 }, { nome: 'Catupiry', preco: 10.00 }, { nome: 'Cheddar', preco: 10.00 }, { nome: 'Cream Cheese', preco: 12.00 }, { nome: 'Goiabada', preco: 12.00 }, { nome: 'Doce de Leite', preco: 12.00 } ],
-            saboresSalgados: [ "Americana", "Atum", "Alho e Óleo", "Bacalhau", "Benevento", "Calabresa", "Carioca", "Capricciosa", "Frango com Catupiry", "Frango com Cheddar", "La Pizza", "Marguerita", "Moda da Casa", "Mussarela", "Moda da Casa 2", "Napolitana", "Palmito", "Pizza de Batata", "Portuguesa", "4 Queijos", "Super Pizza", "Siciliana", "Tomate Seco", "Tropicaliente", "Lombo Canadense", "Presunto", "Salaminho" ],
-            saboresDoces: [ "Banana", "Cocada", "Prestígio", "Romeu & Julieta" ]
+            saboresSalogados: [ "Americana", "Atum", "Alho e Óleo", "Bacalhau", "Benevento", "Calabresa", "Carioca", "Capricciosa", "Frango com Catupiry", "Frango com Cheddar", "La Pizza", "Marguerita", "Moda da Casa", "Mussarela", "Moda da Casa 2", "Napolitana", "Palmito", "Pizza de Batata", "Portuguesa", "4 Queijos", "Super Pizza", "Siciliana", "Tomate Seco", "Tropicaliente", "Lombo Canadense", "Presunto", "Salaminho" ],
+            saboresDoces: [ "Banana com Canela", "Cocada Cremosa", "Prestígio", "Romeu & Julieta" ]
         },
-        massas: [ { nome: 'Lasanha', recheio: 'Bolonhesa ou 4 Queijos', preco: 45.00 }, { nome: 'Capeletti', recheio: 'Frango ou Presunto', molho: 'Branco ou Sugo', preco: 40.00 }, { nome: 'Raviolli', recheio: 'Frango ou Presunto', molho: 'Branco ou Sugo', preco: 40.00 }, { nome: 'Espaguete', molho: 'Bolonhesa ou Camarão', preco: 38.00 }, { nome: 'Talharim', molho: 'Bolonhesa ou Camarão', preco: 38.00 }, { nome: 'Nhoque', molho: 'Sugo ou Bolonhesa', preco: 35.00 } ],
-        hamburgueres: [ { nome: 'X-Duplo', desc: '2 carnes de hambúrguer, 2 ovos, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 17.00 }, { nome: 'X-Tudo', desc: '1 carne de hambúrguer, 1 ovo, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 14.00 }, { nome: 'X-Burguer Tropicaliente', desc: '1 carne de hambúrguer, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 12.00 }, { nome: 'X-Egg', desc: '1 carne de hambúrguer, 1 ovo, molho billy jack, alface, tomate, batata palha', preco: 10.00 }, { nome: 'X-Burguer Kids', desc: '1 carne de hambúrguer, queijo, molho billy jack, batata palha', preco: 5.00 }, { nome: 'X-Burguer Double Cheese', desc: '1 carne de hambúrguer, queijo, presunto, catupiry, cheddar, alface, tomate, batata palha', preco: 11.00 }, { nome: 'X-Bacon Lover', desc: '1 carne de hambúrguer, bacon em dobro, alface, tomate, batata palha', preco: 11.00 } ],
+        massas: [ 
+            { nome: 'Lasanha à Bolonhesa', desc: 'Camadas generosas de massa fresca, intercaladas com nosso suculento molho à bolonhesa e queijo derretido. Simplesmente irresistível!', preco: 45.00, imagem: 'https://i.imgur.com/bJk8yv2.jpg' }, 
+            { nome: 'Capeletti ao Sugo', desc: 'Delicados capelettis recheados com frango ou presunto, mergulhados em um autêntico molho de tomate italiano.', preco: 40.00, imagem: 'https://i.imgur.com/kP3i1s4.jpg' }, 
+            { nome: 'Espaguete com Camarão', desc: 'O clássico espaguete italiano salteado com camarões frescos e um molho saboroso que te transporta para a Itália.', preco: 38.00, imagem: 'https://i.imgur.com/6kGax5Q.jpg' },
+            { nome: 'Nhoque da Nonna', desc: 'A receita secreta da família! Nhoque de batata macio e saboroso, servido com um tradicional molho sugo ou à bolonhesa.', preco: 35.00, imagem: 'https://i.imgur.com/S8otx3S.jpg' }
+        ],
+        hamburgueres: [ 
+            { nome: 'Super X-Duplo 🍔', desc: 'Fome em dobro? Duas carnes suculentas, dois ovos, queijo, presunto, bacon crocante, calabresa e nossa salada fresca com molho especial.', preco: 17.00, imagem: 'https://i.imgur.com/i65AlT5.jpg' }, 
+            { nome: 'X-Tudo Clássico', desc: 'Nosso campeão de vendas! Uma suculenta carne, ovo, queijo, presunto, bacon, calabresa e uma explosão de sabor com nosso molho billy jack.', preco: 14.00, imagem: 'https://i.imgur.com/Q2yD7m3.jpg' }, 
+            { nome: 'X-Bacon Lover ❤️', desc: 'Para os apaixonados por bacon! Hambúrguer artesanal, queijo derretido e fatias generosas de bacon em dobro. Uma delícia!', preco: 11.00, imagem: 'https://i.imgur.com/k6wD80y.jpg' },
+            { nome: 'X-Egg Perfeito', desc: 'A combinação que todo mundo ama: carne, queijo e um ovo com a gema no ponto certo, abraçados por um pão macio.', preco: 10.00, imagem: 'https://i.imgur.com/T0PIE8Q.jpg' } 
+        ],
         esfihas: {
             saboresComPreco: [ { nome: 'Esfiha de Carne', preco: 3.50 }, { nome: 'Esfiha de Queijo', preco: 3.50 }, { nome: 'Esfiha de Calabresa', preco: 3.50 }, { nome: 'Esfiha de Presunto', preco: 3.50 }, { nome: 'Esfiha de Milho Verde', preco: 3.50 }, { nome: 'Esfiha de Atum', preco: 4.00 }, { nome: 'Esfiha Mista', preco: 4.00 }, { nome: 'Esfiha de Frango com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Calabresa com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Quatro Queijos', preco: 4.50 }, { nome: 'Esfiha de Tomate Seco', preco: 4.50 }, { nome: 'Esfiha Portuguesa', preco: 4.50 }, { nome: 'Esfiha Mussarela Napolitana', preco: 4.50 }, { nome: 'Esfiha de Carne Seca', preco: 5.00 }, { nome: 'Esfiha de Bacalhau com Catupiry', preco: 5.00 }, { nome: 'Esfiha de Lombo com Catupiry', preco: 5.00 }, { nome: 'Esfiha Supreme Pepperoni', preco: 5.00 }, { nome: 'Esfiha Maria Bonita', preco: 5.00 }, { nome: 'Esfiha Romeu & Julieta', preco: 3.50 }, { nome: 'Esfiha Banana c/ Canela', preco: 3.50 }, { nome: 'Esfiha Choco Duo', preco: 4.00 }, { nome: 'Esfiha Prestígio', preco: 4.00 }, { nome: 'Esfiha Morango com Chocolate Branco', preco: 4.50 }, { nome: 'Esfiha de Nutella', preco: 5.00 } ],
-            combos: [ { nome: 'Combo 20 Esfihas + Refri 2L', desc: '10 de carne + 10 de queijo', preco: 50.00 }, { nome: 'Combo 15 Esfihas 3 Sabores', desc: '5 de frango + 5 de carne + 5 de queijo', preco: 60.00 }, { nome: 'Combo 10 Esfihas Premium', preco: 50.00 }, { nome: 'Combo 20 Esfihas Premium', preco: 80.00 }, { nome: 'Combo 30 Esfihas Premium', preco: 120.00 } ]
+            combos: [ 
+                { nome: 'Combo 20 Esfihas + Refri 2L', desc: 'A pedida certa para a galera: 10 esfihas de carne e 10 de queijo, acompanhadas de um refri gelado.', preco: 50.00, imagem: 'https://i.imgur.com/J3AG8Ze.jpg' }, 
+                { nome: 'Combo 15 Esfihas 3 Sabores', desc: 'Variedade e sabor! 5 esfihas de frango, 5 de carne e 5 de queijo para não ter briga na hora de escolher.', preco: 60.00, imagem: 'https://i.imgur.com/1GfH6dK.jpg' }
+            ]
         },
-        combos: [ { nome: 'Combo 1', desc: '4 X-Tudo + 25 salgadinhos grandes + Batata frita com Cheddar e Bacon + Refri 2 Litros', preco: 85.00 }, { nome: 'Combo 2', desc: '100 Salgadinhos fritos grandes sortidos', preco: 70.00 }, { nome: 'Combo 3', desc: '25 Salgadinhos fritos grandes + Porção de calabresa + Batata frita com cheddar + Refri 2 Litros', preco: 85.00 }, { nome: 'Combo 4', desc: '4 X-Tudo + 25 salgadinhos grandes + Porção de calabresa + Anéis de cebola + Refri 2 Litros', preco: 85.00 }, { nome: 'Combo 5', desc: '4 X-Tudo + 25 salgadinhos grandes + Porção de batata com cheddar e bacon + Refri 2 Litros', preco: 85.00 }, { nome: 'Combo 6', desc: '4 X-Tudo + Calabresa acebolada + Porção de batata frita + Anéis de cebola + Refri 2 Litros', preco: 85.00 }, { nome: 'Petisco Frango a Passarinho', desc: 'Frango a passarinho + Batata frita + Refri 2 Litros', preco: 60.00 }, { nome: 'Petisco Gurjão', desc: 'Gurjão de peixe ou frango', preco: 50.00 } ],
-        bebidas: [ { nome: 'Refrigerante Lata', preco: 5.00 }, { nome: 'Refrigerante 2L', preco: 12.00 }, { nome: 'Suco Natural', preco: 8.00 }, { nome: 'Água Mineral', preco: 3.00 } ],
+        combos: [ 
+            { nome: 'Super Petisco de Frango', desc: 'Pedaços de frango a passarinho crocantes e suculentos, servidos com uma porção generosa de batata frita e um refri 2L.', preco: 60.00, imagem: 'https://i.imgur.com/Z4wPhnS.jpg' }, 
+            { nome: 'Porção de Gurjão', desc: 'Tirinhas de peixe ou frango empanadas e fritas na hora, perfeitas para petiscar. Crocância e sabor garantidos!', preco: 50.00, imagem: 'https://i.imgur.com/SFrWvjD.jpg' } 
+        ],
+        bebidas: [ 
+            { nome: 'Refrigerante Lata 350ml', desc: 'Geladinho para acompanhar seu pedido. Escolha seu sabor preferido!', preco: 5.00, imagem: 'https://i.imgur.com/j43s4fn.jpg' }, 
+            { nome: 'Refrigerante 2 Litros', desc: 'Para dividir com a galera! O acompanhamento perfeito para qualquer pizza ou combo.', preco: 12.00, imagem: 'https://i.imgur.com/JkP52oJ.jpg' } 
+        ],
     };
     
     let cart = [];
@@ -317,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
         data.pizzas.bordas.forEach((b, i) => {
             bordaRecheadaEl.innerHTML += `<option value="${i}">${b.nome} ${b.preco > 0 ? `+ R$ ${formatCurrency(b.preco)}` : ''}</option>`;
         });
-        const allFlavors = [...data.pizzas.saboresSalgados, ...data.pizzas.saboresDoces].sort();
+        const allFlavors = [...data.pizzas.saboresSalogados, ...data.pizzas.saboresDoces].sort();
         allFlavors.forEach(flavor => {
             flavorsListEl.innerHTML += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100 cursor-pointer"><input type="checkbox" class="flavor-checkbox h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500"><span class="ml-2 text-gray-700">${flavor}</span></label>`;
         });
@@ -364,38 +378,79 @@ document.addEventListener('DOMContentLoaded', () => {
         const section = document.getElementById(targetId);
         let content = `<h2 class="text-3xl font-bold text-red-700 mb-6 border-l-4 border-red-500 pl-3">${title}</h2><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
         items.forEach(item => {
-            const priceHtml = item.preco_antigo ? `<span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span><s class="text-gray-500 text-md ml-2">R$ ${formatCurrency(item.preco_antigo)}</s>` : `<span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span>`;
+            const priceHtml = item.preco_antigo ? `<div class="text-right"><span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span><s class="text-gray-500 text-md ml-2">R$ ${formatCurrency(item.preco_antigo)}</s></div>` : `<span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span>`;
             const buttonClass = (item.needsFlavor || item.includesSoda) ? 'open-promo-modal-btn' : 'add-to-cart-btn';
-            content += `<div class="bg-white rounded-lg shadow-lg p-5 flex flex-col"><div class="flex-grow"><h4 class="text-xl font-bold text-gray-800">${item.nome}</h4>${item.desc ? `<p class="text-gray-600 my-2 text-sm">${item.desc}</p>` : ''}</div><div class="mt-4 flex justify-between items-center">${priceHtml}<button class="${buttonClass} bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors" data-item='${JSON.stringify(item)}'>Adicionar</button></div></div>`;
+            const imageHtml = item.imagem ? `<img src="${item.imagem}" alt="${item.nome}" class="w-full h-40 object-cover rounded-t-lg mb-4">` : '';
+            
+            content += `<div class="bg-white rounded-lg shadow-lg flex flex-col overflow-hidden">
+                          ${imageHtml}
+                          <div class="p-5 flex flex-col flex-grow">
+                            <div class="flex-grow">
+                                <h4 class="text-xl font-bold text-gray-800">${item.nome}</h4>
+                                ${item.desc ? `<p class="text-gray-600 my-2 text-sm">${item.desc}</p>` : ''}
+                            </div>
+                            <div class="mt-4 flex justify-between items-center">
+                                ${priceHtml}
+                                <button class="${buttonClass} bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors" data-item='${JSON.stringify(item)}'>
+                                    Quero esse!
+                                </button>
+                            </div>
+                          </div>
+                       </div>`;
         });
         section.innerHTML = content + '</div>';
     }
 
     function createEsfihasSection() {
         const section = document.getElementById('esfihas');
-        let content = `<h2 class="text-3xl font-bold text-red-700 mb-6 border-l-4 border-red-500 pl-3">Esfihas</h2><h3 class="text-2xl font-semibold text-gray-800 mb-4">Combos Prontos</h3><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">`;
+        let content = `<h2 class="text-3xl font-bold text-red-700 mb-6 border-l-4 border-red-500 pl-3">Nossas Esfihas Deliciosas 🥟</h2><h3 class="text-2xl font-semibold text-gray-800 mb-4">Combos Prontos</h3><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">`;
         data.esfihas.combos.forEach(item => {
-             content += `<div class="bg-white rounded-lg shadow-lg p-5 flex flex-col"><div class="flex-grow"><h4 class="text-xl font-bold text-gray-800">${item.nome}</h4><p class="text-gray-600 my-2 text-sm">${item.desc}</p></div><div class="mt-4 flex justify-between items-center"><span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span><button class="add-to-cart-btn bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors" data-item='${JSON.stringify(item)}'>Adicionar</button></div></div>`;
+            const imageHtml = item.imagem ? `<img src="${item.imagem}" alt="${item.nome}" class="w-full h-40 object-cover rounded-t-lg mb-4">` : '';
+             content += `<div class="bg-white rounded-lg shadow-lg flex flex-col overflow-hidden">
+                           ${imageHtml}
+                           <div class="p-5 flex flex-col flex-grow">
+                             <div class="flex-grow">
+                               <h4 class="text-xl font-bold text-gray-800">${item.nome}</h4>
+                               <p class="text-gray-600 my-2 text-sm">${item.desc}</p>
+                             </div>
+                             <div class="mt-4 flex justify-between items-center">
+                               <span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span>
+                               <button class="add-to-cart-btn bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors" data-item='${JSON.stringify(item)}'>
+                                   Quero esse!
+                               </button>
+                             </div>
+                           </div>
+                         </div>`;
         });
         content += '</div>'
-        content += `<h3 class="text-2xl font-semibold text-gray-800 mb-4 mt-12 border-t pt-8">Monte seu combo de esfiha</h3><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
+        content += `<h3 class="text-2xl font-semibold text-gray-800 mb-4 mt-12 border-t pt-8">Monte seu combo de esfihas</h3><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
         data.esfihas.saboresComPreco.forEach(item => {
-            content += `<div class="bg-white rounded-lg shadow-lg p-5 flex flex-col"><div class="flex-grow"><h4 class="text-xl font-bold text-gray-800">${item.nome}</h4></div><div class="mt-4 flex justify-between items-center"><span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span><button class="add-to-cart-btn bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors" data-item='${JSON.stringify(item)}'>Adicionar</button></div></div>`;
+            content += `<div class="bg-white rounded-lg shadow-lg p-5 flex flex-col">
+                          <div class="flex-grow">
+                              <h4 class="text-xl font-bold text-gray-800">${item.nome}</h4>
+                          </div>
+                          <div class="mt-4 flex justify-between items-center">
+                              <span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span>
+                              <button class="add-to-cart-btn bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors" data-item='${JSON.stringify(item)}'>
+                                  Quero essa!
+                              </button>
+                          </div>
+                        </div>`;
         });
         section.innerHTML = content + '</div>';
     }
 
     function createContatoSection(){
-        document.getElementById('contato').innerHTML = `<h2 class="text-3xl font-bold text-red-700 mb-6 border-l-4 border-red-500 pl-3">Contato e Horários</h2><div class="bg-white rounded-lg shadow-lg p-8 text-center"><i class="fab fa-whatsapp text-6xl text-green-500 mb-4"></i><h3 class="text-4xl font-bold text-gray-800 mb-2">98141-7594</h3><p class="text-lg text-gray-600 mb-6">Peça pelo WhatsApp ou ligue para nós!</p><div class="border-t border-b border-gray-200 py-6 my-6"><i class="fas fa-clock text-4xl text-red-500 mb-3"></i><h4 class="text-2xl font-semibold text-gray-800">Horário de Funcionamento</h4><p class="text-lg text-gray-700 mt-2">Todos os dias, das 18:00h às 00:00h</p></div><p class="text-gray-500">Super Pizza - Sempre perto de você com o melhor sabor!</p></div>`;
+        document.getElementById('contato').innerHTML = `<h2 class="text-3xl font-bold text-red-700 mb-6 border-l-4 border-red-500 pl-3">Fale Conosco e Horários 📞</h2><div class="bg-white rounded-lg shadow-lg p-8 text-center"><i class="fab fa-whatsapp text-6xl text-green-500 mb-4"></i><h3 class="text-4xl font-bold text-gray-800 mb-2">98141-7594</h3><p class="text-lg text-gray-600 mb-6">Peça pelo WhatsApp ou ligue para nós!</p><div class="border-t border-b border-gray-200 py-6 my-6"><i class="fas fa-clock text-4xl text-red-500 mb-3"></i><h4 class="text-2xl font-semibold text-gray-800">Horário de Funcionamento</h4><p class="text-lg text-gray-700 mt-2">Todos os dias, das 18:00h à 00:00h</p></div><p class="text-gray-500">Super Pizza - Sempre perto de você com o melhor sabor!</p></div>`;
     }
     
-    populatePizzaOptions();
-    createMenuSection('Promoções da Semana 🔥', data.promocoes, 'promocoes');
-    createMenuSection('Nossas Massas', data.massas, 'massas');
-    createMenuSection('Nossos Hambúrgueres', data.hamburgueres, 'hamburgueres');
+    if (buildPizzaForm) populatePizzaOptions();
+    createMenuSection('Nossas Ofertas Imperdíveis! 🔥', data.promocoes, 'promocoes');
+    createMenuSection('Nossas Massas Artesanais 🍝', data.massas, 'massas');
+    createMenuSection('Nossos Hambúrgueres Suculentos 🍔', data.hamburgueres, 'hamburgueres');
     createEsfihasSection();
-    createMenuSection('Combos & Petiscos', data.combos, 'combos');
-    createMenuSection('Bebidas', data.bebidas, 'bebidas');
+    createMenuSection('Combos & Petiscos para Compartilhar 🍟', data.combos, 'combos');
+    createMenuSection('Bebidas Geladinhas 🥤', data.bebidas, 'bebidas');
     createContatoSection();
 
     document.body.addEventListener('click', (e) => {
@@ -403,11 +458,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!target) return;
 
         if (target.classList.contains('open-promo-modal-btn')) {
-            const item = JSON.parse(target.dataset.item);
-            openPromoModal(item);
+            openPromoModal(JSON.parse(target.dataset.item));
         } else if (target.classList.contains('add-to-cart-btn')) {
-            const item = JSON.parse(target.dataset.item);
-            addToCart(item);
+            addToCart(JSON.parse(target.dataset.item));
         }
     });
     
@@ -418,8 +471,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (promoItem.needsFlavor) {
             promoItem.pizzas.forEach((pizza, index) => {
-                let pizzaHtml = `<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">Pizza ${pizza.size} (até ${pizza.maxSabores} sabores)</h4><div class="grid grid-cols-2 md:grid-cols-3 gap-2 promo-flavor-group" data-max-flavors="${pizza.maxSabores}" data-pizza-index="${index}">`;
-                data.pizzas.saboresSalgados.sort().forEach(flavor => {
+                let pizzaHtml = `<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">🍕 Pizza ${pizza.size} (até ${pizza.maxSabores} sabores)</h4><div class="grid grid-cols-2 md:grid-cols-3 gap-2 promo-flavor-group" data-max-flavors="${pizza.maxSabores}" data-pizza-index="${index}">`;
+                data.pizzas.saboresSalogados.sort().forEach(flavor => {
                     pizzaHtml += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100 cursor-pointer"><input type="checkbox" class="promo-flavor-checkbox h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500"><span class="ml-2 text-sm text-gray-700">${flavor}</span></label>`;
                 });
                 pizzaHtml += `</div><p class="text-red-600 text-sm mt-2 hidden" id="promo-warning-${index}"></p></div>`;
@@ -428,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (promoItem.includesSweet) {
-            let sweetPizzaHtml = `<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">Pizza Doce Individual (Grátis)</h4><div class="grid grid-cols-2 md:grid-cols-3 gap-2">`;
+            let sweetPizzaHtml = `<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">🍰 Pizza Doce Individual (Grátis)</h4><div class="grid grid-cols-2 md:grid-cols-3 gap-2">`;
             data.pizzas.saboresDoces.sort().forEach(flavor => {
                 sweetPizzaHtml += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100 cursor-pointer"><input type="radio" name="sweet-flavor" value="${flavor}" class="h-4 w-4 border-gray-300 text-red-600 focus:ring-red-500"><span class="ml-2 text-sm text-gray-700">${flavor}</span></label>`;
             });
@@ -437,7 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (promoItem.includesSoda) {
-            let sodaHtml = `<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">Escolha seu Refrigerante</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-2">`;
+            let sodaHtml = `<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">🥤 Escolha seu Refrigerante</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-2">`;
             data.refrigerantesPromo.forEach((soda, index) => {
                 const priceText = soda.precoAdicional > 0 ? ` (+ R$ ${formatCurrency(soda.precoAdicional)})` : '';
                 sodaHtml += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100 cursor-pointer"><input type="radio" name="promo-soda" value="${soda.nome}" data-price="${soda.precoAdicional}" class="h-4 w-4 border-gray-300 text-red-600 focus:ring-red-500" ${index === 0 ? 'checked' : ''}><span class="ml-2 text-sm text-gray-700">${soda.nome}${priceText}</span></label>`;
@@ -548,12 +601,14 @@ document.addEventListener('DOMContentLoaded', () => {
         populatePizzaOptions();
         updatePizzaSummary();
     }
-    createMenuSection('Promoções da Semana 🔥', data.promocoes, 'promocoes');
-    createMenuSection('Nossas Massas', data.massas, 'massas');
-    createMenuSection('Nossos Hambúrgueres', data.hamburgueres, 'hamburgueres');
+    
+    // Initialize All Menu Sections
+    createMenuSection('Nossas Ofertas Imperdíveis! 🔥', data.promocoes, 'promocoes');
+    createMenuSection('Nossas Massas Artesanais 🍝', data.massas, 'massas');
+    createMenuSection('Nossos Hambúrgueres Suculentos 🍔', data.hamburgueres, 'hamburgueres');
     createEsfihasSection();
-    createMenuSection('Combos & Petiscos', data.combos, 'combos');
-    createMenuSection('Bebidas', data.bebidas, 'bebidas');
+    createMenuSection('Combos & Petiscos para Compartilhar 🍟', data.combos, 'combos');
+    createMenuSection('Bebidas Geladinhas 🥤', data.bebidas, 'bebidas');
     createContatoSection();
     updateCart();
 });
