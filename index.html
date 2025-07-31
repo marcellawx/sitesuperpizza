@@ -494,11 +494,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     customerInfoForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        const orderNumber = Math.floor(1000 + Math.random() * 9000);
         const customerName = document.getElementById('customerName').value;
         const customerAddress = document.getElementById('customerAddress').value;
         const paymentMethod = document.getElementById('paymentMethod').value;
         
-        let message = `*NOVO PEDIDO SUPER PIZZA* 🍕\n\n*CLIENTE:* ${customerName}\n*ENDEREÇO:* ${customerAddress}\n*PAGAMENTO:* ${paymentMethod}\n----------------------------------\n\n*ITENS DO PEDIDO:*\n\n`;
+        let message = `*NOVO PEDIDO SUPER PIZZA* 🍕\n\n*PEDIDO Nº: ${orderNumber}*\n\n*CLIENTE:* ${customerName}\n*ENDEREÇO:* ${customerAddress}\n*PAGAMENTO:* ${paymentMethod}\n----------------------------------\n\n*ITENS DO PEDIDO:*\n\n`;
         cart.forEach(item => {
             message += `*${item.nome}*\n${item.desc ? `  - ${item.desc}\n` : ''}  - Preço: R$ ${formatCurrency(item.preco)}\n\n`;
         });
@@ -530,4 +531,3 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
-
