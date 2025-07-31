@@ -71,7 +71,6 @@
       <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="esfihas">Esfihas 🥟</button>
       <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="combos">Combos & Petiscos 🍟</button>
       <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="bebidas">Bebidas 🥤</button>
-      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="sobremesas">Sobremesas 🍰</button>
       <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="contato">Contato 📞</button>
     </nav>
     
@@ -124,7 +123,6 @@
         <section id="esfihas" class="tab-content hidden"></section>
         <section id="combos" class="tab-content hidden"></section>
         <section id="bebidas" class="tab-content hidden"></section>
-        <section id="sobremesas" class="tab-content hidden"></section>
         <section id="contato" class="tab-content hidden"></section>
       </div>
       
@@ -295,14 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sobremesas: [] // Populado dinamicamente
     };
     
-    // Popula as sobremesas
-    data.pizzas.saboresDoces.forEach(sabor => {
-        data.sobremesas.push({
-            nome: `Pizza Doce Individual de ${sabor}`,
-            desc: `Uma deliciosa pizza individual para adoçar sua noite. Cobertura generosa de ${sabor.toLowerCase()}.`,
-            preco: 20.00
-        });
-    });
+   
 
     let cart = [];
     const cartItemsContainer = document.getElementById('cartItems');
@@ -770,7 +761,6 @@ document.addEventListener('DOMContentLoaded', () => {
     createEsfihasSection();
     createMenuSection('Combos & Petiscos para Compartilhar 🍟', data.combos, 'combos');
     createMenuSection('Bebidas Geladinhas 🥤', data.bebidas, 'bebidas');
-    createMenuSection('Nossas Sobremesas Deliciosas 🍰', data.sobremesas, 'sobremesas');
     createContatoSection();
     updateCart();
 });
