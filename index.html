@@ -71,6 +71,7 @@
       <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="esfihas">Esfihas 🥟</button>
       <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="combos">Combos & Petiscos 🍟</button>
       <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="bebidas">Bebidas 🥤</button>
+      <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="sobremesas">Sobremesas 🍰</button>
       <button class="tab-button px-3 py-2 md:px-4 md:text-lg font-semibold" data-tab="contato">Contato 📞</button>
     </nav>
     
@@ -208,7 +209,7 @@
         <h2 id="massaModalTitle" class="text-2xl font-bold text-gray-800 mb-4 text-center">Monte sua Massa</h2>
         <form id="massaForm">
             <div id="massaSelectionContainer" class="space-y-6">
-            </div>
+                 </div>
             <p class="text-xl font-bold text-red-700 text-center mt-6">Total do Prato: R$ <span id="massaTotal">0,00</span></p>
             <div class="flex items-center justify-between gap-4 mt-8">
                 <button type="button" id="cancelMassa" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-transform duration-100 active:scale-95 w-1/2">
@@ -268,7 +269,15 @@ document.addEventListener('DOMContentLoaded', () => {
             saboresDoces: [ "Banana com Canela", "Cocada Cremosa", "Prestígio", "Romeu & Julieta" ]
         },
         massas: [ { nome: 'Lasanha' }, { nome: 'Capeletti' }, { nome: 'Raviolli' }, { nome: 'Espaguete' }, { nome: 'Talharim' }, { nome: 'Nhoque' } ],
-        hamburgueres: [ { nome: 'Super X-Duplo 🍔', desc: 'Fome em dobro? Duas carnes suculentas, dois ovos, queijo, presunto, bacon crocante, calabresa e nossa salada fresca com molho especial.', preco: 17.00 }, { nome: 'X-Tudo Clássico 🤤', desc: 'Nosso campeão de vendas! Uma suculenta carne, ovo, queijo, presunto, bacon, calabresa e uma explosão de sabor com nosso molho billy jack.', preco: 14.00 }, { nome: 'X-Bacon Lover ❤️', desc: 'Para os apaixonados por bacon! Hambúrguer artesanal, queijo derretido e fatias generosas de bacon em dobro. Uma delícia!', preco: 11.00 }, { nome: 'X-Egg Perfeito 🍳', desc: 'A combinação que todo mundo ama: carne, queijo e um ovo com a gema no ponto certo, abraçados por um pão macio.', preco: 10.00 } ],
+        hamburgueres: [
+            { nome: 'X-Duplo', desc: '2 carnes de hambúrguer, 2 ovos, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 17.00 },
+            { nome: 'X-Tudo', desc: '1 carne de hambúrguer, 1 ovo, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 14.00 },
+            { nome: 'X-Burguer Tropicaliente', desc: '1 carne de hambúrguer, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 12.00 },
+            { nome: 'X-Egg', desc: '1 carne de hambúrguer, 1 ovo, molho billy jack, alface, tomate, batata palha', preco: 10.00 },
+            { nome: 'X-Burguer Kids', desc: '1 carne de hambúrguer, queijo, molho billy jack, batata palha', preco: 5.00 },
+            { nome: 'X-Burguer Double Cheese', desc: '1 carne de hambúrguer, queijo, presunto, catupiry, cheddar, alface, tomate, batata palha', preco: 11.00 },
+            { nome: 'X-Bacon Lover', desc: '1 carne de hambúrguer, bacon em dobro, alface, tomate, batata palha', preco: 11.00 }
+        ],
         esfihas: {
             saboresComPreco: [ { nome: 'Esfiha de Carne 🥩', preco: 3.50 }, { nome: 'Esfiha de Queijo 🧀', preco: 3.50 }, { nome: 'Esfiha de Calabresa', preco: 3.50 }, { nome: 'Esfiha de Presunto', preco: 3.50 }, { nome: 'Esfiha de Milho Verde 🌽', preco: 3.50 }, { nome: 'Esfiha de Atum', preco: 4.00 }, { nome: 'Esfiha Mista', preco: 4.00 }, { nome: 'Esfiha de Frango com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Calabresa com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Quatro Queijos 🧀🧀🧀🧀', preco: 4.50 }, { nome: 'Esfiha de Tomate Seco 🍅', preco: 4.50 }, { nome: 'Esfiha Portuguesa', preco: 4.50 }, { nome: 'Esfiha Mussarela Napolitana', preco: 4.50 }, { nome: 'Esfiha de Carne Seca', preco: 5.00 }, { nome: 'Esfiha de Bacalhau com Catupiry', preco: 5.00 }, { nome: 'Esfiha de Lombo com Catupiry', preco: 5.00 }, { nome: 'Esfiha Supreme Pepperoni', preco: 5.00 }, { nome: 'Esfiha Maria Bonita', preco: 5.00 }, { nome: 'Esfiha Romeu & Julieta ❤️🧀', preco: 3.50 }, { nome: 'Esfiha Banana c/ Canela 🍌', preco: 3.50 }, { nome: 'Esfiha Choco Duo 🍫', preco: 4.00 }, { nome: 'Esfiha Prestígio 🥥🍫', preco: 4.00 }, { nome: 'Esfiha Morango com Chocolate Branco 🍓', preco: 4.50 }, { nome: 'Esfiha de Nutella 😍', preco: 5.00 } ],
             combos: [ { nome: 'Combo 20 Esfihas + Refri 2L 🥤', desc: 'A pedida certa para a galera: 10 esfihas de carne e 10 de queijo, acompanhadas de um refri gelado.', preco: 50.00 }, { nome: 'Combo 15 Esfihas 3 Sabores 😋', desc: 'Variedade e sabor! 5 esfihas de frango, 5 de carne e 5 de queijo para não ter briga na hora de escolher.', preco: 60.00 } ]
@@ -280,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { nome: 'Combo 4', desc: '4 X-Tudo + 25 Salgadinhos + Calabresa + Anéis de Cebola', preco: 85.00, includesSoda: true },
             { nome: 'Combo 5', desc: '4 X-Tudo + 25 Salgadinhos + Batata com Cheddar e Bacon', preco: 85.00, includesSoda: true },
             { nome: 'Combo 6', desc: '4 X-Tudo + Calabresa Acebolada + Batata Frita + Anéis de Cebola', preco: 85.00, includesSoda: true },
-            { nome: 'Petisco Frango a Passarinho + Fritas', desc: 'Pedaços de frango crocantes com batata frita sequinha. Inclui um refrigerante!', preco: 60.00, includesSoda: true } // Combo 7
+            { nome: 'Petisco Frango a Passarinho + Fritas', desc: 'Pedaços de frango crocantes com batata frita sequinha. Inclui um refrigerante!', preco: 60.00, includesSoda: true }
         ],
         bebidas: [ { nome: 'Refrigerante Lata 350ml 🥤', desc: 'Geladinho para acompanhar seu pedido. Escolha seu sabor preferido!', preco: 5.00 }, { nome: 'Refrigerante 2 Litros 🥤', desc: 'Para dividir com a galera! O acompanhamento perfeito para qualquer pizza ou combo.', preco: 12.00 } ],
         sobremesas: [] // Populado dinamicamente
@@ -590,8 +599,8 @@ document.addEventListener('DOMContentLoaded', () => {
         selectionContainer.innerHTML = content;
         
         const updateMassaTotal = () => {
-            const selectedSizeIndex = document.querySelector('input[name="massa-size"]:checked').value;
-            const selectedProteinaIndex = document.querySelector('input[name="massa-proteina"]:checked').value;
+            const selectedSizeIndex = document.querySelector('#massaSelectionContainer input[name="massa-size"]:checked').value;
+            const selectedProteinaIndex = document.querySelector('#massaSelectionContainer input[name="massa-proteina"]:checked').value;
             const basePrice = data.massaSizes[selectedSizeIndex].preco;
             const proteinaPrice = data.proteinasMassas[selectedProteinaIndex].precoAdicional;
             massaTotalEl.textContent = formatCurrency(basePrice + proteinaPrice);
@@ -757,10 +766,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     createMenuSection('Nossas Ofertas Imperdíveis! 🔥', data.promocoes, 'promocoes');
     createMenuSection('Nossas Massas Artesanais 🍝', data.massas, 'massas');
-    createMenuSession('Nossos Hambúrgueres Suculentos 🍔', data.hamburgueres, 'hamburgueres');
+    createMenuSection('Nossos Hambúrgueres Suculentos 🍔', data.hamburgueres, 'hamburgueres');
     createEsfihasSection();
     createMenuSection('Combos & Petiscos para Compartilhar 🍟', data.combos, 'combos');
     createMenuSection('Bebidas Geladinhas 🥤', data.bebidas, 'bebidas');
+    createMenuSection('Nossas Sobremesas Deliciosas 🍰', data.sobremesas, 'sobremesas');
     createContatoSection();
     updateCart();
 });
