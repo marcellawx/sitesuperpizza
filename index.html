@@ -56,7 +56,7 @@
         </h1>
       </div>
       <div class="mt-3 md:mt-0 text-center md:text-right text-sm md:text-base">
-        <p class="font-semibold"><i class="fas fa-motorcycle mr-2 text-yellow-300"></i>Entrega grátis em pedidos acima de R$ 30,00!</p>
+        <p class="font-semibold"><i class="fas fa-motorcycle mr-2 text-yellow-300"></i>Entrega grátis em pedidos acima de R$ 35,00!</p>
         <p><i class="fas fa-credit-card mr-2 text-yellow-300"></i>Aceitamos cartões de refeição e alimentação</p>
       </div>
     </div>
@@ -83,19 +83,21 @@
                 <h3 class="text-2xl font-semibold mb-4 text-gray-800">Monte sua Pizza do Seu Jeito! ✨</h3>
                 <form id="buildPizzaForm" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <div class="mb-4">
+                        <div class="mb-4 bg-white p-4 rounded-lg shadow">
                             <label class="block font-semibold mb-2 text-gray-700" for="pizzaSizes">1. Escolha o Tamanho:</label>
                             <select id="pizzaSizes" name="pizzaSize" required class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"></select>
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-4 bg-white p-4 rounded-lg shadow">
                            <label class="block font-semibold mb-2 text-gray-700" for="bordaRecheada">2. Borda Recheada (Opcional):</label>
                            <select id="bordaRecheada" name="bordaRecheada" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"></select>
                         </div>
-                        <div id="sodaSelectionContainer" class="space-y-4 mb-4">
+                        <div id="sodaSelectionContainer" class="space-y-4 mb-4 bg-white p-4 rounded-lg shadow">
                         </div>
-                         <div id="flavorsAccordion" class="space-y-2">
-                        </div>
-                        <p id="flavorWarning" class="text-red-600 text-sm mt-2 hidden"></p>
+                         <div class="bg-white p-4 rounded-lg shadow">
+                            <label class="block font-semibold mb-2 text-gray-700">3. Escolha os Sabores:</label>
+                            <div id="flavorsAccordion" class="space-y-2"></div>
+                            <p id="flavorWarning" class="text-red-600 text-sm mt-2 hidden"></p>
+                         </div>
                     </div>
                     <div class="bg-yellow-50 p-5 rounded-lg shadow-inner border border-yellow-200 flex flex-col">
                         <h4 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Resumo da sua Pizza</h4>
@@ -163,7 +165,7 @@
   
   <div id="checkoutModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4 modal-enter">
       <div class="bg-white rounded-lg shadow-2xl p-6 md:p-8 w-full max-w-md">
-          <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Quase lá! Faltam seus dados...</h2>
+          <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Quase lá! Faltam seus dados...</h2>
           <p class="text-center text-gray-600 mb-6">Preencha abaixo para a gente saber onde entregar essa delícia.</p>
           <form id="customerInfoForm">
               <div class="mb-4">
@@ -173,6 +175,10 @@
               <div class="mb-4">
                   <label for="customerAddress" class="block text-gray-700 text-sm font-bold mb-2">Endereço de Entrega (Rua, Nº, Bairro):</label>
                   <input type="text" id="customerAddress" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-red-500" required>
+              </div>
+              <div class="mb-4">
+                  <label for="customerObs" class="block text-gray-700 text-sm font-bold mb-2">Observações (opcional):</label>
+                  <textarea id="customerObs" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-red-500" rows="2" placeholder="Ex: sem cebola, ponto da carne, etc."></textarea>
               </div>
               <div class="mb-6">
                   <label for="paymentMethod" class="block text-gray-700 text-sm font-bold mb-2">Forma de Pagamento:</label>
@@ -184,6 +190,9 @@
                       <option value="PIX">PIX</option>
                       <option value="Vale Refeição/Alimentação">Vale Refeição/Alimentação</option>
                   </select>
+              </div>
+              <div class="text-center mb-4 text-sm text-gray-500">
+                  <p>Após enviar, seu pedido será confirmado pelo WhatsApp.</p>
               </div>
               <div class="flex items-center justify-between gap-4">
                   <button type="button" id="cancelButton" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-transform duration-100 active:scale-95 w-1/2">
@@ -287,30 +296,29 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         massas: [ { nome: 'Lasanha' }, { nome: 'Capeletti' }, { nome: 'Raviolli' }, { nome: 'Espaguete' }, { nome: 'Talharim' }, { nome: 'Nhoque' } ],
         hamburgueres: [
-            { nome: 'X-Duplo', desc: '2 carnes de hambúrguer, 2 ovos, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 17.00 },
-            { nome: 'X-Tudo', desc: '1 carne de hambúrguer, 1 ovo, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 14.00 },
-            { nome: 'X-Burguer Tropicaliente', desc: '1 carne de hambúrguer, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 12.00 },
-            { nome: 'X-Egg', desc: '1 carne de hambúrguer, 1 ovo, molho billy jack, alface, tomate, batata palha', preco: 10.00 },
-            { nome: 'X-Burguer Kids', desc: '1 carne de hambúrguer, queijo, molho billy jack, batata palha', preco: 5.00 },
-            { nome: 'X-Burguer Double Cheese', desc: '1 carne de hambúrguer, queijo, presunto, catupiry, cheddar, alface, tomate, batata palha', preco: 11.00 },
-            { nome: 'X-Bacon Lover', desc: '1 carne de hambúrguer, bacon em dobro, alface, tomate, batata palha', preco: 11.00 }
+            { nome: 'X-Duplo 🍔', desc: 'Pra quem tem fome de leão! Duas carnes suculentas, dois ovos no ponto, queijo derretido, presunto, bacon crocante, calabresa, salada fresca e nosso irresistível molho Billy Jack.', preco: 17.00 },
+            { nome: 'X-Tudo Clássico 🤤', desc: 'O campeão de vendas! Uma carne de hambúrguer suculenta, ovo, queijo, presunto, bacon, calabresa e uma explosão de sabor com molho Billy Jack e salada.', preco: 14.00 },
+            { nome: 'X-Burguer Tropicaliente 🌴', desc: 'Um toque tropical no seu burguer! Carne, queijo, presunto, bacon, calabresa, e a combinação perfeita de molho Billy Jack e batata palha.', preco: 12.00 },
+            { nome: 'X-Egg Perfeito 🍳', desc: 'Aquele clássico que não tem erro: carne de primeira, queijo derretido e um ovo frito no capricho, com salada e molho Billy Jack.', preco: 10.00 },
+            { nome: 'X-Burguer Kids 🧒', desc: 'O tamanho ideal para a fome dos pequenos! Pão macio, carne saborosa, queijo, molho Billy Jack e batata palha pra completar a festa.', preco: 5.00 },
+            { nome: 'X-Burguer Double Cheese 🧀', desc: 'Queijo em dobro, sabor em dobro! Uma carne suculenta, presunto, e uma avalanche de queijo catupiry e cheddar. Um sonho!', preco: 11.00 },
+            { nome: 'X-Bacon Lover ❤️', desc: 'Atenção, viciados em bacon! Pão, carne, queijo e o dobro de bacon crocante e delicioso. Simplesmente imperdível.', preco: 11.00 }
         ],
         esfihas: {
             saboresComPreco: [ { nome: 'Esfiha de Carne 🥩', preco: 3.50 }, { nome: 'Esfiha de Queijo 🧀', preco: 3.50 }, { nome: 'Esfiha de Calabresa', preco: 3.50 }, { nome: 'Esfiha de Presunto', preco: 3.50 }, { nome: 'Esfiha de Milho Verde 🌽', preco: 3.50 }, { nome: 'Esfiha de Atum', preco: 4.00 }, { nome: 'Esfiha Mista', preco: 4.00 }, { nome: 'Esfiha de Frango com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Calabresa com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Quatro Queijos 🧀🧀🧀🧀', preco: 4.50 }, { nome: 'Esfiha de Tomate Seco 🍅', preco: 4.50 }, { nome: 'Esfiha Portuguesa', preco: 4.50 }, { nome: 'Esfiha Mussarela Napolitana', preco: 4.50 }, { nome: 'Esfiha de Carne Seca', preco: 5.00 }, { nome: 'Esfiha de Bacalhau com Catupiry', preco: 5.00 }, { nome: 'Esfiha de Lombo com Catupiry', preco: 5.00 }, { nome: 'Esfiha Supreme Pepperoni', preco: 5.00 }, { nome: 'Esfiha Maria Bonita', preco: 5.00 }, { nome: 'Esfiha Romeu & Julieta ❤️🧀', preco: 3.50 }, { nome: 'Esfiha Banana c/ Canela 🍌', preco: 3.50 }, { nome: 'Esfiha Choco Duo 🍫', preco: 4.00 }, { nome: 'Esfiha Prestígio 🥥🍫', preco: 4.00 }, { nome: 'Esfiha Morango com Chocolate Branco 🍓', preco: 4.50 }, { nome: 'Esfiha de Nutella 😍', preco: 5.00 } ],
             combos: [ { nome: 'Combo 20 Esfihas + Refri 2L 🥤', desc: 'A pedida certa para a galera: 10 esfihas de carne e 10 de queijo, acompanhadas de um refri gelado.', preco: 50.00 }, { nome: 'Combo 15 Esfihas 3 Sabores 😋', desc: 'Variedade e sabor! 5 esfihas de frango, 5 de carne e 5 de queijo para não ter briga na hora de escolher.', preco: 60.00 } ]
         },
         combos: [
-            { nome: 'Combo 1', desc: '4 X-Tudo + 25 salgadinhos + Batata com Cheddar e Bacon', preco: 85.00, includesSoda: true },
-            { nome: 'Combo 2', desc: '100 Salgadinhos fritos grandes e sortidos', preco: 70.00 },
-            { nome: 'Combo 3', desc: '25 Salgadinhos + Porção de Calabresa + Batata com Cheddar', preco: 85.00, includesSoda: true },
-            { nome: 'Combo 4', desc: '4 X-Tudo + 25 Salgadinhos + Calabresa + Anéis de Cebola', preco: 85.00, includesSoda: true },
-            { nome: 'Combo 5', desc: '4 X-Tudo + 25 Salgadinhos + Batata com Cheddar e Bacon', preco: 85.00, includesSoda: true },
-            { nome: 'Combo 6', desc: '4 X-Tudo + Calabresa Acebolada + Batata Frita + Anéis de Cebola', preco: 85.00, includesSoda: true },
-            { nome: 'Petisco Frango a Passarinho + Fritas', desc: 'Pedaços de frango crocantes com batata frita sequinha. Inclui um refrigerante!', preco: 60.00, includesSoda: true }
+            { nome: 'Combo 1', desc: 'Para dividir (ou não!): 4 X-Tudo + 25 salgadinhos + Batata generosa com Cheddar e Bacon.', preco: 85.00, includesSoda: true },
+            { nome: 'Combo 2', desc: 'Festa de Salgadinhos! Um cento (100 unidades) de salgadinhos fritos, grandes e sortidos pra galera toda.', preco: 70.00 },
+            { nome: 'Combo 3', desc: 'Aquele petisco de respeito: 25 Salgadinhos, uma porção de calabresa acebolada e batata frita com cheddar.', preco: 85.00, includesSoda: true },
+            { nome: 'Combo 4', desc: 'O preferido da galera: 4 X-Tudo, 25 salgadinhos, calabresa acebolada e anéis de cebola crocantes.', preco: 85.00, includesSoda: true },
+            { nome: 'Combo 5', desc: 'Combinação perfeita: 4 X-Tudo, 25 salgadinhos e uma super porção de batata com cheddar e bacon.', preco: 85.00, includesSoda: true },
+            { nome: 'Combo 6', desc: 'Explosão de sabor: 4 X-Tudo, calabresa acebolada quentinha, batata frita e anéis de cebola.', preco: 85.00, includesSoda: true },
         ],
         bebidas: [ { nome: 'Refrigerante Lata 350ml 🥤', desc: 'Geladinho para acompanhar seu pedido. Escolha seu sabor preferido!', preco: 5.00 }, { nome: 'Refrigerante 2 Litros 🥤', desc: 'Para dividir com a galera! O acompanhamento perfeito para qualquer pizza ou combo.', preco: 12.00 } ]
     };
-
+    
     let cart = [];
     const cartItemsContainer = document.getElementById('cartItems');
     const cartSubtotalEl = document.getElementById('cartSubtotal');
@@ -337,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const subtotal = cart.reduce((sum, cartItem) => sum + (cartItem.product.preco * cartItem.quantity), 0);
         let deliveryFee = 0;
 
-        if (subtotal > 0 && subtotal < 30.00) {
+        if (subtotal > 0 && subtotal < 35.00) {
             deliveryFee = 8.00;
             deliveryFeeContainer.classList.remove('hidden');
             cartDeliveryFeeEl.textContent = `R$ ${formatCurrency(deliveryFee)}`;
@@ -357,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const itemEl = document.createElement('div');
                 itemEl.className = 'flex justify-between items-center mb-3 p-2 bg-gray-50 rounded cart-item-enter';
                 itemEl.innerHTML = `
-                    <div class="flex-grow">
+                    <div class="flex-grow pr-2">
                         <p class="font-bold text-gray-800">${cartItem.product.nome}</p>
                         ${cartItem.product.desc ? `<p class="text-xs text-gray-600">${cartItem.product.desc}</p>` : ''}
                     </div>
@@ -870,10 +878,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const customerName = document.getElementById('customerName').value;
         const customerAddress = document.getElementById('customerAddress').value;
         const paymentMethod = document.getElementById('paymentMethod').value;
+        const customerObs = document.getElementById('customerObs').value;
         
         const subtotal = cart.reduce((sum, cartItem) => sum + (cartItem.product.preco * cartItem.quantity), 0);
         let deliveryFee = 0;
-        if (subtotal > 0 && subtotal < 30.00) {
+        if (subtotal > 0 && subtotal < 35.00) {
             deliveryFee = 8.00;
         }
         const finalTotal = subtotal + deliveryFee;
@@ -885,6 +894,9 @@ document.addEventListener('DOMContentLoaded', () => {
         message += `*Nome:* ${customerName}\n`;
         message += `*Endereço:* ${customerAddress}\n`;
         message += `*Pagamento:* ${paymentMethod}\n`;
+        if (customerObs) {
+            message += `*Observações:* ${customerObs}\n`;
+        }
         message += `----------------------------------\n\n`;
         message += `*RESUMO DO PEDIDO:*\n\n`;
 
