@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,10 +37,17 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+    /* Efeito de clique nos botões */
+    button {
+      transition: transform 0.1s ease-in-out;
+    }
+    button:active {
+      transform: scale(0.95);
+    }
   </style>
 </head>
 <body class="bg-gradient-to-br from-yellow-50 via-red-50 to-yellow-100 min-h-screen flex flex-col font-sans">
-  <header class="bg-red-700 text-white p-4 shadow-xl sticky top-0 z-50">
+  <header id="header" class="bg-red-700 text-white p-4 shadow-xl sticky top-0 z-50">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
       <div class="flex items-center gap-3">
         <i class="fas fa-pizza-slice text-4xl text-yellow-300"></i>
@@ -85,11 +92,9 @@
                            <label class="block font-semibold mb-2 text-gray-700" for="bordaRecheada">2. Borda Recheada (Opcional):</label>
                            <select id="bordaRecheada" name="bordaRecheada" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"></select>
                         </div>
-                         <div class="mb-4">
-                          <label class="block font-semibold mb-2 text-gray-700">3. Escolha os Sabores:</label>
-                           <div id="flavorsList" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-80 overflow-y-auto custom-scroll rounded border border-gray-300 bg-gray-50 p-4 shadow-inner"></div>
+                         <div id="flavorsAccordion" class="space-y-2">
+                            </div>
                            <p id="flavorWarning" class="text-red-600 text-sm mt-2 hidden"></p>
-                        </div>
                     </div>
                     <div class="bg-yellow-50 p-5 rounded-lg shadow-inner border border-yellow-200 flex flex-col">
                         <h4 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Resumo da sua Pizza</h4>
@@ -105,7 +110,7 @@
                         </div>
                         <div class="mt-6 text-center">
                             <p class="text-2xl font-bold text-red-700 mb-4">Total: R$ <span id="pizzaTotal">0,00</span></p>
-                            <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-colors duration-300">
+                            <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-transform duration-100 active:scale-95">
                               <i class="fas fa-cart-plus mr-2"></i> Adicionar ao Pedido
                             </button>
                         </div>
@@ -123,7 +128,7 @@
         <section id="contato" class="tab-content hidden"></section>
       </div>
       
-      <div class="w-full lg:w-1/3 xl:w-1/4">
+      <div id="cartSection" class="w-full lg:w-1/3 xl:w-1/4">
         <div class="bg-white p-4 rounded-lg shadow-lg sticky top-28">
             <h3 class="text-2xl font-bold text-red-700 mb-4 border-b-2 border-red-200 pb-2 flex items-center gap-3">
               <i class="fas fa-shopping-cart text-red-600"></i> Meu Pedido
@@ -136,7 +141,7 @@
                   <span class="text-lg font-semibold text-gray-800">Total:</span>
                   <span id="cartTotal" class="text-2xl font-bold text-red-700">R$ 0,00</span>
               </div>
-              <button id="checkoutButton" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2" disabled>
+              <button id="checkoutButton" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-transform duration-100 active:scale-95 flex items-center justify-center gap-2" disabled>
                   <i class="fab fa-whatsapp"></i> Concluir Pedido
               </button>
             </div>
@@ -170,10 +175,10 @@
                   </select>
               </div>
               <div class="flex items-center justify-between gap-4">
-                  <button type="button" id="cancelButton" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors w-1/2">
+                  <button type="button" id="cancelButton" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-transform duration-100 active:scale-95 w-1/2">
                       Cancelar
                   </button>
-                  <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors w-1/2">
+                  <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-transform duration-100 active:scale-95 w-1/2">
                       Confirmar e Enviar
                   </button>
               </div>
@@ -188,10 +193,10 @@
             <div id="promoSelectionContainer" class="space-y-6">
             </div>
             <div class="flex items-center justify-between gap-4 mt-8">
-                <button type="button" id="cancelPromo" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors w-1/2">
+                <button type="button" id="cancelPromo" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-transform duration-100 active:scale-95 w-1/2">
                     Cancelar
                 </button>
-                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors w-1/2">
+                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-transform duration-100 active:scale-95 w-1/2">
                     Adicionar ao Pedido
                 </button>
             </div>
@@ -206,16 +211,22 @@
             <div id="massaSelectionContainer" class="space-y-6">
                  </div>
             <div class="flex items-center justify-between gap-4 mt-8">
-                <button type="button" id="cancelMassa" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors w-1/2">
+                <button type="button" id="cancelMassa" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-transform duration-100 active:scale-95 w-1/2">
                     Cancelar
                 </button>
-                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors w-1/2">
+                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-transform duration-100 active:scale-95 w-1/2">
                     Adicionar ao Pedido
                 </button>
             </div>
         </form>
     </div>
   </div>
+
+  <button id="floatingCartButton" class="hidden fixed bottom-4 right-4 bg-green-600 text-white py-3 px-5 rounded-full shadow-lg z-40 transition-transform duration-300 hover:bg-green-700 active:scale-95">
+    <i class="fas fa-shopping-cart mr-2"></i>
+    <span>Ver Pedido</span>
+    <span id="floatingCartTotal" class="ml-2 font-bold">R$ 0,00</span>
+  </button>
 
   <footer class="bg-red-800 text-yellow-100 p-6 mt-12">
     <div class="max-w-7xl mx-auto text-center">
@@ -258,13 +269,15 @@ document.addEventListener('DOMContentLoaded', () => {
             saboresComPreco: [ { nome: 'Esfiha de Carne 🥩', preco: 3.50 }, { nome: 'Esfiha de Queijo 🧀', preco: 3.50 }, { nome: 'Esfiha de Calabresa', preco: 3.50 }, { nome: 'Esfiha de Presunto', preco: 3.50 }, { nome: 'Esfiha de Milho Verde 🌽', preco: 3.50 }, { nome: 'Esfiha de Atum', preco: 4.00 }, { nome: 'Esfiha Mista', preco: 4.00 }, { nome: 'Esfiha de Frango com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Calabresa com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Quatro Queijos 🧀🧀🧀🧀', preco: 4.50 }, { nome: 'Esfiha de Tomate Seco 🍅', preco: 4.50 }, { nome: 'Esfiha Portuguesa', preco: 4.50 }, { nome: 'Esfiha Mussarela Napolitana', preco: 4.50 }, { nome: 'Esfiha de Carne Seca', preco: 5.00 }, { nome: 'Esfiha de Bacalhau com Catupiry', preco: 5.00 }, { nome: 'Esfiha de Lombo com Catupiry', preco: 5.00 }, { nome: 'Esfiha Supreme Pepperoni', preco: 5.00 }, { nome: 'Esfiha Maria Bonita', preco: 5.00 }, { nome: 'Esfiha Romeu & Julieta ❤️🧀', preco: 3.50 }, { nome: 'Esfiha Banana c/ Canela 🍌', preco: 3.50 }, { nome: 'Esfiha Choco Duo 🍫', preco: 4.00 }, { nome: 'Esfiha Prestígio 🥥🍫', preco: 4.00 }, { nome: 'Esfiha Morango com Chocolate Branco 🍓', preco: 4.50 }, { nome: 'Esfiha de Nutella 😍', preco: 5.00 } ],
             combos: [ { nome: 'Combo 20 Esfihas + Refri 2L 🥤', desc: 'A pedida certa para a galera: 10 esfihas de carne e 10 de queijo, acompanhadas de um refri gelado.', preco: 50.00 }, { nome: 'Combo 15 Esfihas 3 Sabores 😋', desc: 'Variedade e sabor! 5 esfihas de frango, 5 de carne e 5 de queijo para não ter briga na hora de escolher.', preco: 60.00 } ]
         },
-        combos: [ 
-            { nome: 'Combo 1', desc: '4 X-Tudo + 25 salgadinhos + Batata c/ Cheddar e Bacon', preco: 85.00, includesSoda: true },
-            { nome: 'Combo 2', desc: '100 Salgadinhos fritos grandes e sortidos', preco: 70.00 },
-            { nome: 'Combo 3', desc: '25 Salgadinhos + Porção de Calabresa + Batata c/ Cheddar', preco: 85.00, includesSoda: true },
-            { nome: 'Combo 4', desc: '4 X-Tudo + 25 Salgadinhos + Porção de Calabresa + Anéis de Cebola', preco: 85.00, includesSoda: true },
-            { nome: 'Combo 5', desc: '4 X-Tudo + 25 Salgadinhos + Batata c/ Cheddar e Bacon', preco: 85.00, includesSoda: true },
-            { nome: 'Combo 6', desc: '4 X-Tudo + Calabresa Acebolada + Batata Frita + Anéis de Cebola', preco: 85.00, includesSoda: true },
+        combos: [
+            { id: 'combo-original-1', nome: 'Combo 1', desc: '4 X-Tudo + 25 salgadinhos + Batata com Cheddar e Bacon', preco: 85.00, includesSoda: true },
+            { id: 'combo-original-2', nome: 'Combo 2', desc: '100 Salgadinhos fritos grandes e sortidos', preco: 70.00 },
+            { id: 'combo-original-3', nome: 'Combo 3', desc: '25 Salgadinhos + Porção de Calabresa + Batata com Cheddar', preco: 85.00, includesSoda: true },
+            { id: 'combo-original-4', nome: 'Combo 4', desc: '4 X-Tudo + 25 Salgadinhos + Calabresa + Anéis de Cebola', preco: 85.00, includesSoda: true },
+            { id: 'combo-original-5', nome: 'Combo 5', desc: '4 X-Tudo + 25 Salgadinhos + Batata com Cheddar e Bacon', preco: 85.00, includesSoda: true },
+            { id: 'combo-original-6', nome: 'Combo 6', desc: '4 X-Tudo + Calabresa Acebolada + Batata Frita + Anéis de Cebola', preco: 85.00, includesSoda: true },
+            { id: 'combo-original-7', nome: 'Super Petisco de Frango 🍗 + Fritas 🍟', desc: 'Pedaços de frango a passarinho crocantes e suculentos, servidos com uma porção generosa de batata frita.', preco: 60.00 },
+            { id: 'combo-original-8', nome: 'Porção de Gurjão (Peixe 🐟 ou Frango 🍗)', desc: 'Deliciosas tirinhas empanadas e crocantes.', preco: 50.00 }
         ],
         bebidas: [ { nome: 'Refrigerante Lata 350ml 🥤', desc: 'Geladinho para acompanhar seu pedido. Escolha seu sabor preferido!', preco: 5.00 }, { nome: 'Refrigerante 2 Litros 🥤', desc: 'Para dividir com a galera! O acompanhamento perfeito para qualquer pizza ou combo.', preco: 12.00 } ],
         sobremesas: [] // Será populado dinamicamente
@@ -282,6 +295,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let cart = [];
     const cartItemsContainer = document.getElementById('cartItems');
     const cartTotalEl = document.getElementById('cartTotal');
+    const floatingCartButton = document.getElementById('floatingCartButton');
+    const floatingCartTotal = document.getElementById('floatingCartTotal');
     const checkoutButton = document.getElementById('checkoutButton');
     const checkoutModal = document.getElementById('checkoutModal');
     const customerInfoForm = document.getElementById('customerInfoForm');
@@ -301,6 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cartItemsContainer.innerHTML = '<p id="emptyCart" class="text-gray-500 text-center py-8">Seu carrinho está vazio.</p>';
             checkoutButton.disabled = true;
             checkoutButton.classList.add('opacity-50', 'cursor-not-allowed');
+            floatingCartButton.classList.add('hidden');
         } else {
             cart.forEach((item, index) => {
                 const itemEl = document.createElement('div');
@@ -310,8 +326,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             checkoutButton.disabled = false;
             checkoutButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            floatingCartButton.classList.remove('hidden');
         }
-        cartTotalEl.textContent = `R$ ${formatCurrency(cart.reduce((sum, item) => sum + item.preco, 0))}`;
+        const total = cart.reduce((sum, item) => sum + item.preco, 0);
+        cartTotalEl.textContent = `R$ ${formatCurrency(total)}`;
+        floatingCartTotal.textContent = `R$ ${formatCurrency(total)}`;
+        
         document.querySelectorAll('.remove-item').forEach(button => {
             button.addEventListener('click', (e) => {
                 cart.splice(e.currentTarget.dataset.index, 1);
@@ -339,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const pizzaSizesEl = document.getElementById('pizzaSizes');
     const bordaRecheadaEl = document.getElementById('bordaRecheada');
-    const flavorsListEl = document.getElementById('flavorsList');
+    const flavorsAccordion = document.getElementById('flavorsAccordion');
     const flavorWarningEl = document.getElementById('flavorWarning');
     const summarySizeEl = document.getElementById('summarySize');
     const summaryBordaEl = document.getElementById('summaryBorda');
@@ -351,17 +371,35 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!pizzaSizesEl) return;
         pizzaSizesEl.innerHTML = ''; 
         bordaRecheadaEl.innerHTML = '';
-        flavorsListEl.innerHTML = '';
+        flavorsAccordion.innerHTML = '';
         data.pizzas.tamanhos.forEach((t, i) => {
             pizzaSizesEl.innerHTML += `<option value="${i}">${t.nome} (até ${t.maxSabores} ${t.maxSabores > 1 ? 'sabores' : 'sabor'}) - R$ ${formatCurrency(t.preco)}</option>`;
         });
         data.pizzas.bordas.forEach((b, i) => {
             bordaRecheadaEl.innerHTML += `<option value="${i}">${b.nome} ${b.preco > 0 ? `+ R$ ${formatCurrency(b.preco)}` : ''}</option>`;
         });
-        const allFlavors = [...data.pizzas.saboresSalgados, ...data.pizzas.saboresDoces].sort();
-        allFlavors.forEach(flavor => {
-            flavorsListEl.innerHTML += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100 cursor-pointer"><input type="checkbox" class="flavor-checkbox h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500"><span class="ml-2 text-gray-700">${flavor}</span></label>`;
-        });
+
+        const allFlavors = {
+            "Sabores Salgados 🍕": data.pizzas.saboresSalgados,
+            "Sabores Doces 🍰": data.pizzas.saboresDoces
+        };
+
+        for (const category in allFlavors) {
+            let accordionHtml = `
+                <div>
+                    <button type="button" class="w-full flex justify-between items-center p-3 font-semibold text-left bg-gray-100 rounded-lg hover:bg-gray-200 focus:outline-none" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <span>${category}</span>
+                        <i class="fas fa-chevron-down transform transition-transform"></i>
+                    </button>
+                    <div class="hidden pt-2 pb-4 px-2 space-y-2 grid grid-cols-1 sm:grid-cols-2 gap-3 custom-scroll rounded border-gray-300 bg-gray-50 shadow-inner">`;
+            
+            allFlavors[category].sort().forEach(flavor => {
+                accordionHtml += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100 cursor-pointer"><input type="checkbox" class="flavor-checkbox h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500"><span class="ml-2 text-gray-700">${flavor}</span></label>`;
+            });
+
+            accordionHtml += `</div></div>`;
+            flavorsAccordion.innerHTML += accordionHtml;
+        }
     }
 
     function updatePizzaSummary() {
@@ -370,13 +408,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedBorda = data.pizzas.bordas[bordaRecheadaEl.value];
         summarySizeEl.textContent = selectedSize.nome;
         summaryBordaEl.textContent = selectedBorda.nome;
-        let selectedFlavors = Array.from(document.querySelectorAll('#flavorsList .flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent);
+        let selectedFlavors = Array.from(document.querySelectorAll('#flavorsAccordion .flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent);
         if (selectedFlavors.length > selectedSize.maxSabores) {
             flavorWarningEl.textContent = `Para este tamanho, você pode escolher no máximo ${selectedSize.maxSabores} ${selectedSize.maxSabores > 1 ? 'sabores' : 'sabor'}!`;
             flavorWarningEl.classList.remove('hidden');
-            const lastChecked = Array.from(document.querySelectorAll('#flavorsList .flavor-checkbox:checked')).pop();
+            const lastChecked = Array.from(document.querySelectorAll('#flavorsAccordion .flavor-checkbox:checked')).pop();
             if (lastChecked) lastChecked.checked = false;
-            selectedFlavors = Array.from(document.querySelectorAll('#flavorsList .flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent);
+            selectedFlavors = Array.from(document.querySelectorAll('#flavorsAccordion .flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent);
         } else {
             flavorWarningEl.classList.add('hidden');
         }
@@ -389,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const selectedSize = data.pizzas.tamanhos[pizzaSizesEl.value];
             const selectedBorda = data.pizzas.bordas[bordaRecheadaEl.value];
-            const selectedFlavors = Array.from(document.querySelectorAll('#flavorsList .flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent);
+            const selectedFlavors = Array.from(document.querySelectorAll('#flavorsAccordion .flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent);
             if (selectedFlavors.length === 0) return alert('Por favor, escolha pelo menos um sabor!');
             addToCart({ nome: `Pizza ${selectedSize.nome.split(' ')[0]} (${selectedFlavors.join(', ')})`, desc: selectedBorda.preco > 0 ? `Borda: ${selectedBorda.nome}` : '', preco: selectedSize.preco + selectedBorda.preco });
             buildPizzaForm.reset();
@@ -398,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         pizzaSizesEl.addEventListener('change', updatePizzaSummary);
         bordaRecheadaEl.addEventListener('change', updatePizzaSummary);
-        flavorsListEl.addEventListener('change', updatePizzaSummary);
+        flavorsAccordion.addEventListener('change', updatePizzaSummary);
     }
 
     function createMenuSection(title, items, targetId) {
@@ -422,7 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             <div class="mt-4 flex justify-between items-center">
                                 ${priceHtml}
-                                <button class="${buttonClass} bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors" data-item='${JSON.stringify(item)}'>
+                                <button class="${buttonClass} bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-transform duration-100 active:scale-95" data-item='${JSON.stringify(item)}'>
                                     Quero esse!
                                 </button>
                             </div>
@@ -444,7 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
                              </div>
                              <div class="mt-4 flex justify-between items-center">
                                <span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span>
-                               <button class="add-to-cart-btn bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors" data-item='${JSON.stringify(item)}'>
+                               <button class="add-to-cart-btn bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-transform duration-100 active:scale-95" data-item='${JSON.stringify(item)}'>
                                    Quero esse!
                                </button>
                              </div>
@@ -460,7 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
                           </div>
                           <div class="mt-4 flex justify-between items-center">
                               <span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span>
-                              <button class="add-to-cart-btn bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors" data-item='${JSON.stringify(item)}'>
+                              <button class="add-to-cart-btn bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-transform duration-100 active:scale-95" data-item='${JSON.stringify(item)}'>
                                   Quero essa!
                               </button>
                           </div>
@@ -672,6 +710,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize All Menu Sections
     createMenuSection('Nossas Ofertas Imperdíveis! 🔥', data.promocoes, 'promocoes');
+    createMenuSection('Nossas Pizzas Irresistíveis 🍕', data.pizzas.tamanhos, 'pizzas_sabores'); // This line was added, please check if it is correct.
     createMenuSection('Nossas Massas Artesanais 🍝', data.massas, 'massas');
     createMenuSection('Nossos Hambúrgueres Suculentos 🍔', data.hamburgueres, 'hamburgueres');
     createEsfihasSection();
