@@ -126,7 +126,6 @@
         <section id="esfihas" class="tab-content hidden"></section>
         <section id="combos" class="tab-content hidden"></section>
         <section id="bebidas" class="tab-content hidden"></section>
-        <section id="sobremesas" class="tab-content hidden"></section>
         <section id="contato" class="tab-content hidden"></section>
       </div>
       
@@ -309,18 +308,8 @@ document.addEventListener('DOMContentLoaded', () => {
             { nome: 'Combo 6', desc: '4 X-Tudo + Calabresa Acebolada + Batata Frita + Anéis de Cebola', preco: 85.00, includesSoda: true },
             { nome: 'Petisco Frango a Passarinho + Fritas', desc: 'Pedaços de frango crocantes com batata frita sequinha. Inclui um refrigerante!', preco: 60.00, includesSoda: true }
         ],
-        bebidas: [ { nome: 'Refrigerante Lata 350ml 🥤', desc: 'Geladinho para acompanhar seu pedido. Escolha seu sabor preferido!', preco: 5.00 }, { nome: 'Refrigerante 2 Litros 🥤', desc: 'Para dividir com a galera! O acompanhamento perfeito para qualquer pizza ou combo.', preco: 12.00 } ],
-        sobremesas: [] // Populado dinamicamente
+        bebidas: [ { nome: 'Refrigerante Lata 350ml 🥤', desc: 'Geladinho para acompanhar seu pedido. Escolha seu sabor preferido!', preco: 5.00 }, { nome: 'Refrigerante 2 Litros 🥤', desc: 'Para dividir com a galera! O acompanhamento perfeito para qualquer pizza ou combo.', preco: 12.00 } ]
     };
-    
-    // Popula as sobremesas
-    data.pizzas.saboresDoces.forEach(sabor => {
-        data.sobremesas.push({
-            nome: `Pizza Doce Individual de ${sabor}`,
-            desc: `Uma deliciosa pizza individual para adoçar sua noite. Cobertura generosa de ${sabor.toLowerCase()}.`,
-            preco: 20.00
-        });
-    });
 
     let cart = [];
     const cartItemsContainer = document.getElementById('cartItems');
@@ -345,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateCart() {
         cartItemsContainer.innerHTML = '';
-        const subtotal = cart.reduce((sum, item) => sum + item.preco, 0);
+        const subtotal = cart.reduce((sum, cartItem) => sum + (cartItem.product.preco * cartItem.quantity), 0);
         let deliveryFee = 0;
 
         if (subtotal > 0 && subtotal < 30.00) {
@@ -364,10 +353,22 @@ document.addEventListener('DOMContentLoaded', () => {
             checkoutButton.classList.add('opacity-50', 'cursor-not-allowed');
             floatingCartButton.classList.add('hidden');
         } else {
-            cart.forEach((item, index) => {
+            cart.forEach((cartItem, index) => {
                 const itemEl = document.createElement('div');
                 itemEl.className = 'flex justify-between items-center mb-3 p-2 bg-gray-50 rounded cart-item-enter';
-                itemEl.innerHTML = `<div class="flex-grow"><p class="font-bold text-gray-800">${item.nome}</p>${item.desc ? `<p class="text-xs text-gray-600">${item.desc}</p>` : ''}</div><div class="flex items-center"><span class="font-semibold text-gray-700 w-20 text-right">R$ ${formatCurrency(item.preco)}</span><button class="ml-4 text-red-500 hover:text-red-700 remove-item" data-index="${index}"><i class="fas fa-trash-alt"></i></button></div>`;
+                itemEl.innerHTML = `
+                    <div class="flex-grow">
+                        <p class="font-bold text-gray-800">${cartItem.product.nome}</p>
+                        ${cartItem.product.desc ? `<p class="text-xs text-gray-600">${cartItem.product.desc}</p>` : ''}
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-2 border rounded-md p-1">
+                            <button class="qty-change-btn text-red-500" data-index="${index}" data-action="decrease"><i class="fas fa-minus-circle"></i></button>
+                            <span class="font-bold w-5 text-center">${cartItem.quantity}</span>
+                            <button class="qty-change-btn text-green-500" data-index="${index}" data-action="increase"><i class="fas fa-plus-circle"></i></button>
+                        </div>
+                        <span class="font-semibold text-gray-700 w-20 text-right">R$ ${formatCurrency(cartItem.product.preco * cartItem.quantity)}</span>
+                    </div>`;
                 cartItemsContainer.appendChild(itemEl);
             });
             checkoutButton.disabled = false;
@@ -379,16 +380,32 @@ document.addEventListener('DOMContentLoaded', () => {
         cartTotalEl.textContent = `R$ ${formatCurrency(finalTotal)}`;
         floatingCartTotal.textContent = `R$ ${formatCurrency(finalTotal)}`;
         
-        document.querySelectorAll('.remove-item').forEach(button => {
+        document.querySelectorAll('.qty-change-btn').forEach(button => {
             button.addEventListener('click', (e) => {
-                cart.splice(e.currentTarget.dataset.index, 1);
+                const index = parseInt(e.currentTarget.dataset.index);
+                const action = e.currentTarget.dataset.action;
+                if (action === 'increase') {
+                    cart[index].quantity++;
+                } else if (action === 'decrease') {
+                    cart[index].quantity--;
+                    if (cart[index].quantity === 0) {
+                        cart.splice(index, 1);
+                    }
+                }
                 updateCart();
             });
         });
     }
 
     function addToCart(item) {
-        cart.push(item);
+        const itemIdentifier = item.nome + (item.desc || '');
+        const existingItem = cart.find(cartItem => cartItem.id === itemIdentifier);
+
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            cart.push({ product: item, quantity: 1, id: itemIdentifier });
+        }
         updateCart();
     }
     
@@ -713,13 +730,6 @@ document.addEventListener('DOMContentLoaded', () => {
             content += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100 cursor-pointer"><input type="radio" name="massa-proteina" value="${index}" class="h-4 w-4 border-gray-300 text-red-600 focus:ring-red-500" ${index === 0 ? 'checked' : ''}><span class="ml-2 text-sm text-gray-700">${proteina.nome}${priceText}</span></label>`;
         });
         content += `</div></div>`;
-
-        content += `<div class="border p-4 rounded-lg border-dashed"><h4 class="font-bold text-lg mb-2">4. Deseja adicionar uma sobremesa? (Opcional)</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-2">`;
-        content += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100 cursor-pointer"><input type="radio" name="massa-sobremesa" value="nenhuma" class="h-4 w-4 border-gray-300 text-red-600 focus:ring-red-500" checked><span class="ml-2 text-sm text-gray-700 font-semibold">Não, obrigado</span></label>`;
-        data.sobremesas.forEach(sobremesa => {
-             content += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100 cursor-pointer"><input type="radio" name="massa-sobremesa" value='${JSON.stringify(sobremesa)}' class="h-4 w-4 border-gray-300 text-red-600 focus:ring-red-500"><span class="ml-2 text-sm text-gray-700">${sobremesa.nome} (+ R$ ${formatCurrency(sobremesa.preco)})</span></label>`;
-        });
-        content += `</div></div>`;
         
         selectionContainer.innerHTML = content;
         
@@ -813,7 +823,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedMolho = document.querySelector('input[name="massa-molho"]:checked');
         const selectedProteinaIndex = document.querySelector('input[name="massa-proteina"]:checked').value;
         const selectedProteina = data.proteinasMassas[selectedProteinaIndex];
-        const selectedSobremesaRadio = document.querySelector('input[name="massa-sobremesa"]:checked');
 
         if (!selectedMolho || !selectedProteina) {
             return alert('Por favor, escolha o molho e a proteína.');
@@ -827,11 +836,6 @@ document.addEventListener('DOMContentLoaded', () => {
             desc: description,
             preco: finalPrice
         });
-
-        if (selectedSobremesaRadio && selectedSobremesaRadio.value !== 'nenhuma') {
-            const sobremesaItem = JSON.parse(selectedSobremesaRadio.value);
-            addToCart(sobremesaItem);
-        }
 
         massaModal.classList.add('hidden');
     });
@@ -867,7 +871,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const customerAddress = document.getElementById('customerAddress').value;
         const paymentMethod = document.getElementById('paymentMethod').value;
         
-        const subtotal = cart.reduce((sum, item) => sum + item.preco, 0);
+        const subtotal = cart.reduce((sum, cartItem) => sum + (cartItem.product.preco * cartItem.quantity), 0);
         let deliveryFee = 0;
         if (subtotal > 0 && subtotal < 30.00) {
             deliveryFee = 8.00;
@@ -884,10 +888,10 @@ document.addEventListener('DOMContentLoaded', () => {
         message += `----------------------------------\n\n`;
         message += `*RESUMO DO PEDIDO:*\n\n`;
 
-        cart.forEach(item => {
-            message += `*${item.nome}*\n`;
-            if (item.desc) { message += `  - _${item.desc}_\n`; }
-            message += `  - Preço: R$ ${formatCurrency(item.preco)}\n`;
+        cart.forEach(cartItem => {
+            message += `*${cartItem.quantity}x - ${cartItem.product.nome}*\n`;
+            if (cartItem.product.desc) { message += `  - _${cartItem.product.desc}_\n`; }
+            message += `  - Preço Unit.: R$ ${formatCurrency(cartItem.product.preco)}\n`;
             message += `_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\n`;
         });
         
@@ -919,7 +923,6 @@ document.addEventListener('DOMContentLoaded', () => {
     createEsfihasSection();
     createMenuSection('Combos & Petiscos para Compartilhar 🍟', data.combos, 'combos');
     createMenuSection('Bebidas Geladinhas 🥤', data.bebidas, 'bebidas');
-    createMenuSection('Nossas Sobremesas Deliciosas 🍰', data.sobremesas, 'sobremesas');
     createContatoSection();
     updateCart();
 });
