@@ -91,15 +91,18 @@
                            <label class="block font-semibold mb-2 text-gray-700" for="bordaRecheada">2. Borda Recheada (Opcional):</label>
                            <select id="bordaRecheada" name="bordaRecheada" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"></select>
                         </div>
+                        <div id="sodaSelectionContainer" class="space-y-4 mb-4">
+                        </div>
                          <div id="flavorsAccordion" class="space-y-2">
-                            </div>
-                           <p id="flavorWarning" class="text-red-600 text-sm mt-2 hidden"></p>
+                        </div>
+                        <p id="flavorWarning" class="text-red-600 text-sm mt-2 hidden"></p>
                     </div>
                     <div class="bg-yellow-50 p-5 rounded-lg shadow-inner border border-yellow-200 flex flex-col">
                         <h4 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Resumo da sua Pizza</h4>
                         <div class="flex-grow">
                            <p><strong>Tamanho:</strong> <span id="summarySize">--</span></p>
                            <p><strong>Borda:</strong> <span id="summaryBorda">Nenhuma</span></p>
+                           <p id="summarySodaContainer" class="hidden"><strong>Refrigerante(s):</strong> <span id="summarySoda">--</span></p>
                            <div class="mt-2">
                               <p><strong>Sabores:</strong></p>
                               <ul id="summaryFlavors" class="list-disc list-inside text-gray-700">
@@ -123,6 +126,7 @@
         <section id="esfihas" class="tab-content hidden"></section>
         <section id="combos" class="tab-content hidden"></section>
         <section id="bebidas" class="tab-content hidden"></section>
+        <section id="sobremesas" class="tab-content hidden"></section>
         <section id="contato" class="tab-content hidden"></section>
       </div>
       
@@ -245,13 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
         refrigerantesPromo: [
             { nome: 'Guaraná Antarctica 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Kuat 2L (Grátis)', precoAdicional: 0 }, { nome: 'Pepsi 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Coca-Cola 2L', precoAdicional: 12.00 }, { nome: 'Pepsi 2L', precoAdicional: 5.00 }, { nome: 'Guaraná Antarctica 2L', precoAdicional: 5.00 }
         ],
-        massaSizes: [
-            { nome: '400gr (serve 1 pessoa)', preco: 34.90 },
-            { nome: '1kg (serve até 3 pessoas)', preco: 59.90 }
-        ],
-        proteinasMassas: [
-            { nome: 'Presunto', precoAdicional: 0 }, { nome: 'Carne Moída', precoAdicional: 0 }, { nome: 'Frango', precoAdicional: 0 }, { nome: 'Carne Seca', precoAdicional: 10.00 }, { nome: 'Camarão', precoAdicional: 10.00 }, { nome: 'Bacalhau', precoAdicional: 10.00 }
-        ],
         promocoes: [
             { id: 'promo-combo-caixa', nome: 'Caixa Combo da Galera', desc: 'A festa completa! Uma caixa recheada com 4 X-Tudo, 5 pastéis sequinhos e uma porção generosa de batata com cheddar e bacon.', preco: 90.00, preco_antigo: 120.00, needsFlavor: false, includesSoda: true },
             { id: 'promo-media', nome: 'Pizza Média (32cm) Premiada', desc: 'Sua pizza média preferida com aquele precinho especial que só a gente faz. Escolha seus sabores e aproveite!', preco: 52.00, preco_antigo: 60.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média', maxSabores: 2 }] },
@@ -261,21 +258,26 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'promo-2medias', nome: 'Dose Dupla: 2 Médias + 1 Doce', desc: 'Duas vezes mais sabor! Peça 2 Pizzas Médias (até 2 sabores cada) e ganhe uma deliciosa pizza brotão doce para a sobremesa.', preco: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média 1', maxSabores: 2 }, { type: 'salgada', size: 'Média 2', maxSabores: 2 }], includesSweet: true }
         ],
         pizzas: {
-            tamanhos: [ { nome: 'Individual (26cm)', preco: 30.00, maxSabores: 2 }, { nome: 'Média (32cm)', preco: 50.00, maxSabores: 2 }, { nome: 'Família (36cm)', preco: 70.00, maxSabores: 2 }, { nome: 'Gigante (47cm)', preco: 90.00, maxSabores: 3 }, { nome: 'Mega (70cm)', preco: 199.00, maxSabores: 5 } ],
-            bordas: [ { nome: 'Sem Borda Recheada', preco: 0.00 }, { nome: 'Catupiry', preco: 10.00 }, { nome: 'Cheddar', preco: 10.00 }, { nome: 'Cream Cheese', preco: 12.00 }, { nome: 'Goiabada', preco: 12.00 }, { nome: 'Doce de Leite', preco: 12.00 } ],
+            tamanhos: [ 
+                { nome: 'Individual (26cm)', preco: 30.00, maxSabores: 2, sodasInclusas: 0 }, 
+                { nome: 'Média (32cm)', preco: 50.00, maxSabores: 2, sodasInclusas: 0 }, 
+                { nome: 'Família (36cm)', preco: 75.00, maxSabores: 2, sodasInclusas: 1 }, 
+                { nome: 'Gigante (47cm)', preco: 90.00, maxSabores: 3, sodasInclusas: 1 }, 
+                { nome: 'Mega (70cm)', preco: 199.00, maxSabores: 5, sodasInclusas: 2 } 
+            ],
+            bordas: [ 
+                { nome: 'Sem Borda Recheada', preco: 0.00, precoMega: 0.00 }, 
+                { nome: 'Catupiry', preco: 10.00, precoMega: 15.00 }, 
+                { nome: 'Cheddar', preco: 10.00, precoMega: 15.00 }, 
+                { nome: 'Cream Cheese', preco: 12.00, precoMega: 17.00 }, 
+                { nome: 'Goiabada', preco: 12.00, precoMega: 17.00 }, 
+                { nome: 'Doce de Leite', preco: 12.00, precoMega: 17.00 } 
+            ],
             saboresSalgados: [ "Americana", "Atum", "Alho e Óleo", "Bacalhau", "Benevento", "Calabresa", "Carioca", "Capricciosa", "Frango com Catupiry", "Frango com Cheddar", "La Pizza", "Marguerita", "Moda da Casa", "Mussarela", "Moda da Casa 2", "Napolitana", "Palmito", "Pizza de Batata", "Portuguesa", "4 Queijos", "Super Pizza", "Siciliana", "Tomate Seco", "Tropicaliente", "Lombo Canadense", "Presunto", "Salaminho" ],
             saboresDoces: [ "Banana com Canela", "Cocada Cremosa", "Prestígio", "Romeu & Julieta" ]
         },
         massas: [ { nome: 'Lasanha' }, { nome: 'Capeletti' }, { nome: 'Raviolli' }, { nome: 'Espaguete' }, { nome: 'Talharim' }, { nome: 'Nhoque' } ],
-        hamburgueres: [
-            { nome: 'X-Duplo', desc: '2 carnes de hambúrguer, 2 ovos, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 17.00 },
-            { nome: 'X-Tudo', desc: '1 carne de hambúrguer, 1 ovo, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 14.00 },
-            { nome: 'X-Burguer Tropicaliente', desc: '1 carne de hambúrguer, queijo, presunto, bacon, calabresa, molho billy jack, alface, tomate, batata palha', preco: 12.00 },
-            { nome: 'X-Egg', desc: '1 carne de hambúrguer, 1 ovo, molho billy jack, alface, tomate, batata palha', preco: 10.00 },
-            { nome: 'X-Burguer Kids', desc: '1 carne de hambúrguer, queijo, molho billy jack, batata palha', preco: 5.00 },
-            { nome: 'X-Burguer Double Cheese', desc: '1 carne de hambúrguer, queijo, presunto, catupiry, cheddar, alface, tomate, batata palha', preco: 11.00 },
-            { nome: 'X-Bacon Lover', desc: '1 carne de hambúrguer, bacon em dobro, alface, tomate, batata palha', preco: 11.00 }
-        ],
+        hamburgueres: [ { nome: 'Super X-Duplo 🍔', desc: 'Fome em dobro? Duas carnes suculentas, dois ovos, queijo, presunto, bacon crocante, calabresa e nossa salada fresca com molho especial.', preco: 17.00 }, { nome: 'X-Tudo Clássico 🤤', desc: 'Nosso campeão de vendas! Uma suculenta carne, ovo, queijo, presunto, bacon, calabresa e uma explosão de sabor com nosso molho billy jack.', preco: 14.00 }, { nome: 'X-Bacon Lover ❤️', desc: 'Para os apaixonados por bacon! Hambúrguer artesanal, queijo derretido e fatias generosas de bacon em dobro. Uma delícia!', preco: 11.00 }, { nome: 'X-Egg Perfeito 🍳', desc: 'A combinação que todo mundo ama: carne, queijo e um ovo com a gema no ponto certo, abraçados por um pão macio.', preco: 10.00 } ],
         esfihas: {
             saboresComPreco: [ { nome: 'Esfiha de Carne 🥩', preco: 3.50 }, { nome: 'Esfiha de Queijo 🧀', preco: 3.50 }, { nome: 'Esfiha de Calabresa', preco: 3.50 }, { nome: 'Esfiha de Presunto', preco: 3.50 }, { nome: 'Esfiha de Milho Verde 🌽', preco: 3.50 }, { nome: 'Esfiha de Atum', preco: 4.00 }, { nome: 'Esfiha Mista', preco: 4.00 }, { nome: 'Esfiha de Frango com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Calabresa com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Quatro Queijos 🧀🧀🧀🧀', preco: 4.50 }, { nome: 'Esfiha de Tomate Seco 🍅', preco: 4.50 }, { nome: 'Esfiha Portuguesa', preco: 4.50 }, { nome: 'Esfiha Mussarela Napolitana', preco: 4.50 }, { nome: 'Esfiha de Carne Seca', preco: 5.00 }, { nome: 'Esfiha de Bacalhau com Catupiry', preco: 5.00 }, { nome: 'Esfiha de Lombo com Catupiry', preco: 5.00 }, { nome: 'Esfiha Supreme Pepperoni', preco: 5.00 }, { nome: 'Esfiha Maria Bonita', preco: 5.00 }, { nome: 'Esfiha Romeu & Julieta ❤️🧀', preco: 3.50 }, { nome: 'Esfiha Banana c/ Canela 🍌', preco: 3.50 }, { nome: 'Esfiha Choco Duo 🍫', preco: 4.00 }, { nome: 'Esfiha Prestígio 🥥🍫', preco: 4.00 }, { nome: 'Esfiha Morango com Chocolate Branco 🍓', preco: 4.50 }, { nome: 'Esfiha de Nutella 😍', preco: 5.00 } ],
             combos: [ { nome: 'Combo 20 Esfihas + Refri 2L 🥤', desc: 'A pedida certa para a galera: 10 esfihas de carne e 10 de queijo, acompanhadas de um refri gelado.', preco: 50.00 }, { nome: 'Combo 15 Esfihas 3 Sabores 😋', desc: 'Variedade e sabor! 5 esfihas de frango, 5 de carne e 5 de queijo para não ter briga na hora de escolher.', preco: 60.00 } ]
@@ -293,7 +295,14 @@ document.addEventListener('DOMContentLoaded', () => {
         sobremesas: [] // Populado dinamicamente
     };
     
-   
+    // Popula as sobremesas
+    data.pizzas.saboresDoces.forEach(sabor => {
+        data.sobremesas.push({
+            nome: `Pizza Doce Individual de ${sabor}`,
+            desc: `Uma deliciosa pizza individual para adoçar sua noite. Cobertura generosa de ${sabor.toLowerCase()}.`,
+            preco: 20.00
+        });
+    });
 
     let cart = [];
     const cartItemsContainer = document.getElementById('cartItems');
@@ -366,21 +375,58 @@ document.addEventListener('DOMContentLoaded', () => {
     const flavorWarningEl = document.getElementById('flavorWarning');
     const summarySizeEl = document.getElementById('summarySize');
     const summaryBordaEl = document.getElementById('summaryBorda');
+    const summarySodaContainer = document.getElementById('summarySodaContainer');
+    const summarySoda = document.getElementById('summarySoda');
     const summaryFlavorsEl = document.getElementById('summaryFlavors');
     const pizzaTotalEl = document.getElementById('pizzaTotal');
     const buildPizzaForm = document.getElementById('buildPizzaForm');
+    const sodaSelectionContainer = document.getElementById('sodaSelectionContainer');
+
+    function updateBordaOptions() {
+        const selectedSize = data.pizzas.tamanhos[pizzaSizesEl.value];
+        bordaRecheadaEl.innerHTML = '';
+        data.pizzas.bordas.forEach((borda, index) => {
+            const isMega = selectedSize.nome.includes('Mega');
+            const currentPrice = isMega ? borda.precoMega : borda.preco;
+            const priceText = currentPrice > 0 ? `+ R$ ${formatCurrency(currentPrice)}` : '';
+            bordaRecheadaEl.innerHTML += `<option value="${index}">${borda.nome} ${priceText}</option>`;
+        });
+    }
+
+    function renderSodaSelection() {
+        const selectedSize = data.pizzas.tamanhos[pizzaSizesEl.value];
+        sodaSelectionContainer.innerHTML = ''; 
+        if (!selectedSize.sodasInclusas || selectedSize.sodasInclusas === 0) {
+            updatePizzaSummary();
+            return;
+        }
+
+        for (let i = 1; i <= selectedSize.sodasInclusas; i++) {
+            let sodaHtml = `<div class="mb-4"><label class="block font-semibold mb-2 text-gray-700">Escolha seu ${i}º Refrigerante:</label><select name="pizza-soda" class="pizza-soda-select w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500">`;
+            data.refrigerantesPromo.forEach(soda => {
+                const priceText = soda.precoAdicional > 0 ? ` (+ R$ ${formatCurrency(soda.precoAdicional)})` : '';
+                sodaHtml += `<option value="${soda.nome}" data-price="${soda.precoAdicional}">${soda.nome}${priceText}</option>`;
+            });
+            sodaHtml += `</select></div>`;
+            sodaSelectionContainer.innerHTML += sodaHtml;
+        }
+
+        document.querySelectorAll('.pizza-soda-select').forEach(select => {
+            select.addEventListener('change', updatePizzaSummary);
+        });
+        updatePizzaSummary();
+    }
 
     function populatePizzaOptions() {
         if (!pizzaSizesEl) return;
         pizzaSizesEl.innerHTML = ''; 
-        bordaRecheadaEl.innerHTML = '';
         flavorsAccordion.innerHTML = '';
+
         data.pizzas.tamanhos.forEach((t, i) => {
-            pizzaSizesEl.innerHTML += `<option value="${i}">${t.nome} (até ${t.maxSabores} ${t.maxSabores > 1 ? 'sabores' : 'sabor'}) - R$ ${formatCurrency(t.preco)}</option>`;
+            pizzaSizesEl.innerHTML += `<option value="${i}">${t.nome} (até ${t.maxSabores} ${t.maxSabores > 1 ? 'sabores' : 'sabor'})</option>`;
         });
-        data.pizzas.bordas.forEach((b, i) => {
-            bordaRecheadaEl.innerHTML += `<option value="${i}">${b.nome} ${b.preco > 0 ? `+ R$ ${formatCurrency(b.preco)}` : ''}</option>`;
-        });
+        
+        updateBordaOptions();
 
         const allFlavors = {
             "Sabores Salgados 🍕": data.pizzas.saboresSalgados,
@@ -409,8 +455,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!buildPizzaForm) return;
         const selectedSize = data.pizzas.tamanhos[pizzaSizesEl.value];
         const selectedBorda = data.pizzas.bordas[bordaRecheadaEl.value];
+        
         summarySizeEl.textContent = selectedSize.nome;
         summaryBordaEl.textContent = selectedBorda.nome;
+        
         let selectedFlavors = Array.from(document.querySelectorAll('#flavorsAccordion .flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent);
         if (selectedFlavors.length > selectedSize.maxSabores) {
             flavorWarningEl.textContent = `Para este tamanho, você pode escolher no máximo ${selectedSize.maxSabores} ${selectedSize.maxSabores > 1 ? 'sabores' : 'sabor'}!`;
@@ -422,7 +470,28 @@ document.addEventListener('DOMContentLoaded', () => {
             flavorWarningEl.classList.add('hidden');
         }
         summaryFlavorsEl.innerHTML = selectedFlavors.length > 0 ? selectedFlavors.map(f => `<li>${f}</li>`).join('') : `<li>Selecione um sabor...</li>`;
-        pizzaTotalEl.textContent = formatCurrency(selectedSize.preco + selectedBorda.preco);
+        
+        let total = selectedSize.preco;
+        const isMega = selectedSize.nome.includes('Mega');
+        total += isMega ? selectedBorda.precoMega : selectedBorda.preco;
+
+        let sodaPrice = 0;
+        const selectedSodas = [];
+        document.querySelectorAll('.pizza-soda-select').forEach(select => {
+            const selectedOption = select.options[select.selectedIndex];
+            sodaPrice += parseFloat(selectedOption.dataset.price);
+            selectedSodas.push(selectedOption.value);
+        });
+
+        if (selectedSodas.length > 0) {
+            summarySodaContainer.classList.remove('hidden');
+            summarySoda.textContent = selectedSodas.join(', ');
+        } else {
+            summarySodaContainer.classList.add('hidden');
+        }
+
+        total += sodaPrice;
+        pizzaTotalEl.textContent = formatCurrency(total);
     }
     
     if (buildPizzaForm) {
@@ -431,13 +500,44 @@ document.addEventListener('DOMContentLoaded', () => {
             const selectedSize = data.pizzas.tamanhos[pizzaSizesEl.value];
             const selectedBorda = data.pizzas.bordas[bordaRecheadaEl.value];
             const selectedFlavors = Array.from(document.querySelectorAll('#flavorsAccordion .flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent);
+            
             if (selectedFlavors.length === 0) return alert('Por favor, escolha pelo menos um sabor!');
-            addToCart({ nome: `Pizza ${selectedSize.nome.split(' ')[0]} (${selectedFlavors.join(', ')})`, desc: selectedBorda.preco > 0 ? `Borda: ${selectedBorda.nome}` : '', preco: selectedSize.preco + selectedBorda.preco });
+
+            let description = [];
+            let finalPrice = selectedSize.preco;
+            const isMega = selectedSize.nome.includes('Mega');
+            finalPrice += isMega ? selectedBorda.precoMega : selectedBorda.preco;
+            
+            if (selectedBorda.preco > 0 || (isMega && selectedBorda.precoMega > 0)) {
+                description.push(`Borda: ${selectedBorda.nome}`);
+            }
+
+            const selectedSodas = [];
+            document.querySelectorAll('.pizza-soda-select').forEach(select => {
+                const selectedOption = select.options[select.selectedIndex];
+                finalPrice += parseFloat(selectedOption.dataset.price);
+                selectedSodas.push(selectedOption.value);
+            });
+            if(selectedSodas.length > 0) {
+                 description.push(`Bebida(s): ${selectedSodas.join(', ')}`);
+            }
+
+            addToCart({ 
+                nome: `Pizza ${selectedSize.nome.split(' ')[0]} (${selectedFlavors.join(', ')})`, 
+                desc: description.join(' | '), 
+                preco: finalPrice 
+            });
+
             buildPizzaForm.reset();
             document.querySelectorAll('.flavor-checkbox').forEach(cb => cb.checked = false);
+            renderSodaSelection();
             updatePizzaSummary();
         });
-        pizzaSizesEl.addEventListener('change', updatePizzaSummary);
+        pizzaSizesEl.addEventListener('change', () => {
+            updateBordaOptions();
+            renderSodaSelection();
+            updatePizzaSummary();
+        });
         bordaRecheadaEl.addEventListener('change', updatePizzaSummary);
         flavorsAccordion.addEventListener('change', updatePizzaSummary);
     }
@@ -447,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!section) return;
         let content = `<h2 class="text-3xl font-bold text-red-700 mb-6 border-l-4 border-red-500 pl-3">${title}</h2><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
         items.forEach(item => {
-            const priceHtml = item.preco_antigo ? `<div class="text-right"><span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span><s class="text-gray-500 text-md ml-2">R$ ${formatCurrency(item.preco_antigo)}</s></div>` : (item.preco ? `<span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span>` : '');
+            const priceHtml = item.preco_antigo ? `<div class="text-right"><span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span><s class="text-gray-500 text-md ml-2">R$ ${formatCurrency(item.preco_antigo)}</s></div>` : (item.preco !== undefined ? `<span class="text-xl font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span>` : '');
             
             let buttonClass = 'add-to-cart-btn';
             if (item.needsFlavor || item.includesSoda) {
@@ -761,6 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createEsfihasSection();
     createMenuSection('Combos & Petiscos para Compartilhar 🍟', data.combos, 'combos');
     createMenuSection('Bebidas Geladinhas 🥤', data.bebidas, 'bebidas');
+    createMenuSection('Nossas Sobremesas Deliciosas 🍰', data.sobremesas, 'sobremesas');
     createContatoSection();
     updateCart();
 });
