@@ -313,9 +313,26 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         esfihas: {
             saboresComPreco: [ { nome: 'Esfiha de Carne 🥩', preco: 3.50 }, { nome: 'Esfiha de Queijo 🧀', preco: 3.50 }, { nome: 'Esfiha de Calabresa', preco: 3.50 }, { nome: 'Esfiha de Presunto', preco: 3.50 }, { nome: 'Esfiha de Milho Verde 🌽', preco: 3.50 }, { nome: 'Esfiha de Atum', preco: 4.00 }, { nome: 'Esfiha Mista', preco: 4.00 }, { nome: 'Esfiha de Frango com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Calabresa com Catupiry', preco: 4.50 }, { nome: 'Esfiha de Quatro Queijos 🧀🧀🧀🧀', preco: 4.50 }, { nome: 'Esfiha de Tomate Seco 🍅', preco: 4.50 }, { nome: 'Esfiha Portuguesa', preco: 4.50 }, { nome: 'Esfiha Mussarela Napolitana', preco: 4.50 }, { nome: 'Esfiha de Carne Seca', preco: 5.00 }, { nome: 'Esfiha de Bacalhau com Catupiry', preco: 5.00 }, { nome: 'Esfiha de Lombo com Catupiry', preco: 5.00 }, { nome: 'Esfiha Supreme Pepperoni', preco: 5.00 }, { nome: 'Esfiha Maria Bonita', preco: 5.00 }, { nome: 'Esfiha Romeu & Julieta ❤️🧀', preco: 3.50 }, { nome: 'Esfiha Banana c/ Canela 🍌', preco: 3.50 }, { nome: 'Esfiha Choco Duo 🍫', preco: 4.00 }, { nome: 'Esfiha Prestígio 🥥🍫', preco: 4.00 }, { nome: 'Esfiha Morango com Chocolate Branco 🍓', preco: 4.50 }, { nome: 'Esfiha de Nutella 😍', preco: 5.00 } ],
-            combos: [ 
-                { nome: 'Combo 20 Esfihas + Refri 2L 🥤', desc: 'A pedida certa para a galera: 10 esfihas de carne e 10 de queijo, acompanhadas de um refri gelado.', preco: 50.00, includesSoda: true }, 
-                { nome: 'Combo 15 Esfihas 3 Sabores 😋', desc: 'Variedade e sabor! 5 esfihas de frango, 5 de carne e 5 de queijo para não ter briga na hora de escolher.', preco: 60.00 } 
+combos: [ 
+                { 
+                    nome: 'Combo 20 Esfihas + Refri 2L 🥤', 
+                    desc: 'A combinação perfeita para a galera: 10 esfihas de carne, 10 de queijo e um refrigerante para acompanhar.', 
+                    // Lógica: (20 esfihas x R$ 3,00 = R$ 60,00) + Refri. O preço de R$ 50,00 é um ótimo desconto.
+                    preco: 55.00, 
+                    includesSoda: true 
+                }, 
+                { 
+                    nome: 'Combo 15 Esfihas (Carne, Queijo, Calabresa)', 
+                    desc: 'Monte seu trio de delícias! Leve 15 esfihas nos sabores carne, queijo e calabresa (5 de cada).', 
+                    // Lógica: (15 esfihas x R$ 3,00 = R$ 45,00). O preço de R$ 40,00 oferece um bom desconto.
+                    preco: 40.00 
+                },
+                {
+                    nome: 'Combo 30 Esfihas (Carne, Queijo, Calabresa)',
+                    desc: 'Para a fome de toda a turma! Leve 30 esfihas nos sabores carne, queijo e calabresa (10 de cada).',
+                    // Lógica: (30 esfihas x R$ 3,00 = R$ 90,00). O preço de R$ 70,00 é um excelente desconto.
+                    preco: 70.00
+                }
             ]
         },
         combos: [
