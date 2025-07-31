@@ -135,14 +135,27 @@
             <h3 class="text-2xl font-bold text-red-700 mb-4 border-b-2 border-red-200 pb-2 flex items-center gap-3">
               <i class="fas fa-shopping-cart text-red-600"></i> Meu Pedido
             </h3>
-            <div id="cartItems" class="mb-4 max-h-96 overflow-y-auto custom-scroll">
+            <div id="cartItems" class="mb-4 max-h-80 overflow-y-auto custom-scroll">
                 <p id="emptyCart" class="text-gray-500 text-center py-8">Seu carrinho está vazio.</p>
             </div>
             <div class="border-t-2 border-red-200 pt-4">
+
+                <div class="mb-4">
+                  <div class="flex gap-2">
+                    <input type="text" id="couponInput" placeholder="Tem um cupom?" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 text-sm">
+                    <button id="applyCouponBtn" class="bg-gray-800 text-white px-4 rounded-md hover:bg-gray-700 text-sm font-bold">Aplicar</button>
+                  </div>
+                  <p id="couponMessage" class="text-xs mt-1"></p>
+                </div>
                 <div class="space-y-2">
                     <div class="flex justify-between items-center">
                         <span class="text-md text-gray-600">Subtotal:</span>
                         <span id="cartSubtotal" class="text-md text-gray-800">R$ 0,00</span>
+                    </div>
+
+                    <div id="discountContainer" class="hidden flex justify-between items-center text-green-600">
+                      <span class="text-md font-semibold">Desconto:</span>
+                      <span id="discountAmount" class="text-md font-semibold">- R$ 0,00</span>
                     </div>
                     <div id="deliveryFeeContainer" class="hidden flex justify-between items-center">
                         <span class="text-md text-gray-600">Taxa de Entrega:</span>
@@ -203,11 +216,10 @@
                   <select id="paymentMethod" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-red-500" required>
                       <option value="" disabled selected>Selecione uma opção</option>
                       <option value="Vale Refeição/Alimentação">Vale Refeição/Alimentação</option>
-                      <option value="PIX">PIX</option> 
+                      <option value="PIX">PIX</option>
                       <option value="Cartão de Crédito">Cartão de Crédito</option>
                       <option value="Cartão de Débito">Cartão de Débito</option>
                       <option value="Dinheiro">Dinheiro</option>
-                    
                   </select>
               </div>
               <div class="text-center mb-4 text-sm text-gray-500">
@@ -308,6 +320,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
+    // BANCO DE DADOS E CUPONS
     const data = {
         refrigerantesPromo: [
             { nome: 'Guaraná Antarctica 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Kuat 2L (Grátis)', precoAdicional: 0 }, { nome: 'Pepsi 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Coca-Cola 2L', precoAdicional: 12.00 }, { nome: 'Pepsi 2L', precoAdicional: 5.00 }, { nome: 'Guaraná Antarctica 2L', precoAdicional: 5.00 }
@@ -376,7 +389,15 @@ document.addEventListener('DOMContentLoaded', () => {
         bebidas: [ { nome: 'Refrigerante Lata 350ml 🥤', desc: 'Geladinho para acompanhar seu pedido. Escolha seu sabor preferido!', preco: 5.00 }, { nome: 'Refrigerante 2 Litros 🥤', desc: 'Para dividir com a galera! O acompanhamento perfeito para qualquer pizza ou combo.', preco: 12.00 } ]
     };
 
+    const validCoupons = {
+        "APPSUPERPIZZA": { type: "percentage", value: 10 } // 10% de desconto
+    };
+
+    // VARIÁVEIS GLOBAIS
     let cart = [];
+    let appliedCoupon = null;
+
+    // ELEMENTOS DO DOM
     const cartItemsContainer = document.getElementById('cartItems');
     const cartSubtotalEl = document.getElementById('cartSubtotal');
     const deliveryFeeContainer = document.getElementById('deliveryFeeContainer');
@@ -397,15 +418,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const esfihaComboModal = document.getElementById('esfihaComboModal');
     const esfihaComboForm = document.getElementById('esfihaComboForm');
     const cancelEsfihaCombo = document.getElementById('cancelEsfihaCombo');
+    const couponInput = document.getElementById('couponInput');
+    const applyCouponBtn = document.getElementById('applyCouponBtn');
+    const couponMessage = document.getElementById('couponMessage');
+    const discountContainer = document.getElementById('discountContainer');
+    const discountAmountEl = document.getElementById('discountAmount');
 
+    // FUNÇÕES
     function formatCurrency(value) { return value.toFixed(2).replace('.', ','); }
 
     function updateCart() {
         cartItemsContainer.innerHTML = '';
         const subtotal = cart.reduce((sum, cartItem) => sum + (cartItem.product.preco * cartItem.quantity), 0);
         let deliveryFee = 0;
+        let discount = 0;
 
-        if (subtotal > 0 && subtotal < 35.00) {
+        // Calcula desconto
+        if (appliedCoupon && subtotal > 0) {
+            if (appliedCoupon.type === 'percentage') {
+                discount = subtotal * (appliedCoupon.value / 100);
+            }
+            discountContainer.classList.remove('hidden');
+            discountAmountEl.textContent = `- R$ ${formatCurrency(discount)}`;
+        } else {
+            discountContainer.classList.add('hidden');
+        }
+
+        // Calcula taxa de entrega
+        const totalAfterDiscount = subtotal - discount;
+        if (totalAfterDiscount > 0 && totalAfterDiscount < 35.00) {
             deliveryFee = 8.00;
             deliveryFeeContainer.classList.remove('hidden');
             cartDeliveryFeeEl.textContent = `R$ ${formatCurrency(deliveryFee)}`;
@@ -413,13 +454,19 @@ document.addEventListener('DOMContentLoaded', () => {
             deliveryFeeContainer.classList.add('hidden');
         }
 
-        const finalTotal = subtotal + deliveryFee;
+        const finalTotal = totalAfterDiscount + deliveryFee;
 
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = '<p id="emptyCart" class="text-gray-500 text-center py-8">Seu carrinho está vazio.</p>';
             checkoutButton.disabled = true;
             checkoutButton.classList.add('opacity-50', 'cursor-not-allowed');
             floatingCartButton.classList.add('hidden');
+            // Reseta cupom se o carrinho estiver vazio
+            appliedCoupon = null;
+            couponInput.value = '';
+            couponMessage.textContent = '';
+            couponInput.classList.remove('border-green-500', 'border-red-500');
+            discountContainer.classList.add('hidden');
         } else {
             cart.forEach((cartItem, index) => {
                 const itemEl = document.createElement('div');
@@ -463,6 +510,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateCart();
             });
         });
+    }
+
+    function applyCoupon() {
+        const code = couponInput.value.toUpperCase();
+        if (validCoupons[code]) {
+            appliedCoupon = { ...validCoupons[code], code: code };
+            couponMessage.textContent = 'Cupom de 10% aplicado com sucesso!';
+            couponMessage.classList.remove('text-red-500');
+            couponMessage.classList.add('text-green-600');
+            couponInput.classList.add('border-green-500');
+            couponInput.classList.remove('border-red-500');
+        } else {
+            appliedCoupon = null;
+            couponMessage.textContent = 'Cupom inválido.';
+            couponMessage.classList.add('text-red-500');
+            couponMessage.classList.remove('text-green-600');
+            couponInput.classList.add('border-red-500');
+            couponInput.classList.remove('border-green-500');
+        }
+        updateCart();
     }
 
     function addToCart(item) {
@@ -1072,7 +1139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         esfihaComboModal.classList.add('hidden');
     });
 
-
+    // EVENT LISTENERS GERAIS
     document.body.addEventListener('click', (e) => {
         const target = e.target.closest('button');
         if (!target) return;
@@ -1088,6 +1155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    applyCouponBtn.addEventListener('click', applyCoupon);
     checkoutButton.addEventListener('click', () => {
         if (cart.length > 0) checkoutModal.classList.remove('hidden');
     });
@@ -1095,8 +1163,6 @@ document.addEventListener('DOMContentLoaded', () => {
     cancelPromo.addEventListener('click', () => promoModal.classList.add('hidden'));
     cancelMassa.addEventListener('click', () => massaModal.classList.add('hidden'));
     cancelEsfihaCombo.addEventListener('click', () => esfihaComboModal.classList.add('hidden'));
-
-
     floatingCartButton.addEventListener('click', () => {
         document.getElementById('cartSection').scrollIntoView({ behavior: 'smooth' });
     });
@@ -1113,11 +1179,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const mustardQty = document.getElementById('mustardQty').value;
         
         const subtotal = cart.reduce((sum, cartItem) => sum + (cartItem.product.preco * cartItem.quantity), 0);
+        let discount = 0;
+        if (appliedCoupon) {
+            if (appliedCoupon.type === 'percentage') {
+                discount = subtotal * (appliedCoupon.value / 100);
+            }
+        }
+
+        const totalAfterDiscount = subtotal - discount;
         let deliveryFee = 0;
-        if (subtotal > 0 && subtotal < 35.00) {
+        if (totalAfterDiscount > 0 && totalAfterDiscount < 35.00) {
             deliveryFee = 8.00;
         }
-        const finalTotal = subtotal + deliveryFee;
+        const finalTotal = totalAfterDiscount + deliveryFee;
 
         let message = `*NOVO PEDIDO SUPER PIZZA* 🍕\n\n`;
         message += `*PEDIDO Nº:* ${orderNumber}\n`;
@@ -1145,6 +1219,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         message += `*Subtotal:* R$ ${formatCurrency(subtotal)}\n`;
+        if (discount > 0) {
+            message += `*Desconto (${appliedCoupon.code}):* - R$ ${formatCurrency(discount)}\n`;
+        }
         if (deliveryFee > 0) {
             message += `*Taxa de Entrega:* R$ ${formatCurrency(deliveryFee)}\n`;
         }
@@ -1160,7 +1237,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCart();
     });
 
-    // Initialize All Menu Sections
+    // INICIALIZAÇÃO
     if (buildPizzaForm) {
         populatePizzaOptions();
         renderSodaSelection(); 
