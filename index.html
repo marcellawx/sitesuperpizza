@@ -7,28 +7,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
-    .tab-active {
-      border-bottom: 4px solid #ef4444;
-      color: #ef4444;
-      font-weight: bold;
-    }
+    .tab-active { border-bottom: 4px solid #ef4444; color: #ef4444; font-weight: bold; }
     .custom-scroll::-webkit-scrollbar { width: 8px; }
     .custom-scroll::-webkit-scrollbar-track { background: #fef3c7; }
-    .custom-scroll::-webkit-scrollbar-thumb {
-      background-color: #f87171;
-      border-radius: 10px;
-      border: 2px solid #fef3c7;
-    }
+    .custom-scroll::-webkit-scrollbar-thumb { background-color: #f87171; border-radius: 10px; border: 2px solid #fef3c7; }
     .cart-item-enter { animation: slide-in 0.3s ease-out forwards; }
-    @keyframes slide-in {
-      from { opacity: 0; transform: translateX(20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
+    @keyframes slide-in { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
     .modal-enter { animation: fade-in 0.3s ease-out forwards; }
-    @keyframes fade-in {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
     button { transition: transform 0.1s ease-in-out; }
     button:active { transform: scale(0.95); }
   </style>
@@ -274,28 +260,33 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-
     const data = {
-        refrigerantesPromo: [ { nome: 'Guaraná Antarctica 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Kuat 2L (Grátis)', precoAdicional: 0 }, { nome: 'Pepsi 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Coca-Cola 2L', precoAdicional: 12.00 }, { nome: 'Pepsi 2L', precoAdicional: 5.00 }, { nome: 'Guaraná Antarctica 2L', precoAdicional: 5.00 } ],
-        massaSizes: [ { nome: '400gr (serve 1 pessoa)', preco: 34.90 }, { nome: '1kg (serve até 3 pessoas)', preco: 59.90 } ],
-        proteinasMassas: [ { nome: 'Presunto', precoAdicional: 0 }, { nome: 'Carne Moída', precoAdicional: 0 }, { nome: 'Frango', precoAdicional: 0 }, { nome: 'Carne Seca', precoAdicional: 10.00 }, { nome: 'Camarão', precoAdicional: 10.00 }, { nome: 'Bacalhau', precoAdicional: 10.00 } ],
-        promocoes: [ { id: 'promo-combo-caixa', nome: 'Caixa Combo da Galera', desc: '4 X-Tudo, 5 pastéis e batata com cheddar e bacon.', preco: 90.00, preco_antigo: 120.00, needsFlavor: false, includesSoda: true }, { id: 'promo-media', nome: 'Pizza Média (32cm) Premiada', desc: 'Sua pizza média preferida com um preço especial.', preco: 52.00, preco_antigo: 60.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média', maxSabores: 2 }] }, { id: 'promo-familia', nome: 'Combo Família Feliz', desc: '1 Pizza Família (2 sabores), 1 pizza doce individual e 1 refri.', preco: 90.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Família', maxSabores: 2 }], includesSweet: true, includesSoda: true }, { id: 'promo-gigante', nome: 'Combo Gigante Imbatível', desc: '1 Pizza Gigante (3 sabores), 1 pizza doce individual e 1 refri.', preco: 110.00, preco_antigo: 120.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }], includesSweet: true, includesSoda: true }, { id: 'promo-slim', nome: 'Promo Slim Gigante (47 cm)', desc: 'Sabor em tamanho gigante com um desconto incrível.', preco: 85.00, preco_antigo: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }] }, { id: 'promo-2medias', nome: 'Dose Dupla: 2 Médias + 1 Doce', desc: '2 Pizzas Médias (2 sabores cada) e ganhe 1 brotão doce.', preco: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média 1', maxSabores: 2 }, { type: 'salgada', size: 'Média 2', maxSabores: 2 }], includesSweet: true } ],
-        pizzas: {
-            tamanhos: [ { nome: 'Individual (26cm)', preco: 30.00, maxSabores: 2, sodasInclusas: 0 }, { nome: 'Média (32cm)', preco: 50.00, maxSabores: 2, sodasInclusas: 0 }, { nome: 'Família (36cm)', preco: 75.00, maxSabores: 2, sodasInclusas: 1 }, { nome: 'Gigante (47cm)', preco: 90.00, maxSabores: 3, sodasInclusas: 1 }, { nome: 'Mega (70cm)', preco: 199.00, maxSabores: 5, sodasInclusas: 2 } ],
-            bordas: [ { nome: 'Sem Borda', precoPadrao: 0.00 }, { nome: 'Catupiry', precoPadrao: 10.00, precoMega: 15.00, precoMedia: 7.00, precoIndividual: 5.00 }, { nome: 'Cheddar', precoPadrao: 10.00, precoMega: 15.00, precoMedia: 7.00, precoIndividual: 5.00 }, { nome: 'Cream Cheese', precoPadrao: 12.00, precoMega: 17.00, precoMedia: 9.00, precoIndividual: 7.00 }, { nome: 'Goiabada', precoPadrao: 12.00, precoMega: 17.00, precoMedia: 9.00, precoIndividual: 7.00 }, { nome: 'Doce de Leite', precoPadrao: 12.00, precoMega: 17.00, precoMedia: 9.00, precoIndividual: 7.00 } ],
-            saboresSalgados: [ "Americana", "Atum", "Alho e Óleo", "Bacalhau", "Benevento", "Calabresa", "Carioca", "Capricciosa", "Frango com Catupiry", "Frango com Cheddar", "La Pizza", "Marguerita", "Moda da Casa", "Mussarela", "Moda da Casa 2", "Napolitana", "Palmito", "Pizza de Batata", "Portuguesa", "4 Queijos", "Super Pizza", "Siciliana", "Tomate Seco", "Tropicaliente", "Lombo Canadense", "Presunto", "Salaminho" ],
-            saboresDoces: [ "Banana com Canela", "Cocada Cremosa", "Prestígio", "Romeu & Julieta" ]
-        },
-        massas: [ { nome: 'Lasanha' }, { nome: 'Capeletti' }, { nome: 'Raviolli' }, { nome: 'Espaguete' }, { nome: 'Talharim' }, { nome: 'Nhoque' } ],
-        hamburgueres: [ { nome: 'X-Duplo', desc: '2 Carnes, 2 ovos, queijo, presunto, bacon, calabresa, salada e molho.', preco: 17.00 }, { nome: 'X-Tudo', desc: 'Carne, ovo, queijo, presunto, bacon, calabresa, molho e salada.', preco: 14.00 }, { nome: 'X-Burguer Tropicaliente', desc: 'Carne, queijo, presunto, bacon, calabresa, molho e batata palha.', preco: 12.00 }, { nome: 'X-Egg', desc: 'Carne, queijo, ovo, salada e molho.', preco: 10.00 }, { nome: 'X-Burguer Kids', desc: 'Pão, carne, queijo, molho e batata palha.', preco: 5.00 }, { nome: 'X-Burguer Double Cheese', desc: 'Carne, presunto, dobro de catupiry e cheddar.', preco: 11.00 }, { nome: 'X-Bacon Lover', desc: 'Pão, carne, queijo e o dobro de bacon crocante.', preco: 11.00 } ],
-        esfihas: {
-            saboresComPreco: [ { nome: 'Carne 🥩', preco: 3.50, precoAdicional: 0 }, { nome: 'Queijo 🧀', preco: 3.50, precoAdicional: 0 }, { nome: 'Calabresa', preco: 3.50, precoAdicional: 0 }, { nome: 'Presunto', preco: 3.50, precoAdicional: 0.50 }, { nome: 'Milho 🌽', preco: 3.50, precoAdicional: 0.50 }, { nome: 'Atum', preco: 4.00, precoAdicional: 1.00 }, { nome: 'Mista', preco: 4.00, precoAdicional: 1.00 }, { nome: 'Frango c/ Catupiry', preco: 4.50, precoAdicional: 1.50 }, { nome: 'Calabresa c/ Catupiry', preco: 4.50, precoAdicional: 1.50 }, { nome: '4 Queijos 🧀', preco: 4.50, precoAdicional: 1.50 }, { nome: 'Tomate Seco 🍅', preco: 4.50, precoAdicional: 1.50 }, { nome: 'Portuguesa', preco: 4.50, precoAdicional: 1.50 }, { nome: 'Carne Seca', preco: 5.00, precoAdicional: 2.00 }, { nome: 'Bacalhau c/ Catupiry', preco: 5.00, precoAdicional: 2.00 }, { nome: 'Romeu & Julieta ❤️', preco: 3.50, precoAdicional: 0.50 }, { nome: 'Banana c/ Canela 🍌', preco: 3.50, precoAdicional: 0.50 }, { nome: 'Choco Duo 🍫', preco: 4.00, precoAdicional: 1.00 }, { nome: 'Prestígio 🥥🍫', preco: 4.00, precoAdicional: 1.00 }, { nome: 'Morango c/ Choco 🍓', preco: 4.50, precoAdicional: 1.50 }, { nome: 'Nutella 😍', preco: 5.00, precoAdicional: 2.00 } ],
-            combos: [ { id: 'esfiha-combo-20', nome: 'Combo 20 Esfihas + Refri 2L', desc: 'Monte seu combo com 20 esfihas!', preco: 50.00, quantidade: 20, includesSoda: true, isCustomizable: true }, { id: 'esfiha-combo-15', nome: 'Combo 15 Esfihas', desc: 'Escolha 15 esfihas do seu jeito!', preco: 40.00, quantidade: 15, isCustomizable: true }, { id: 'esfiha-combo-30', nome: 'Combo 30 Esfihas', desc: 'Monte seu combo com 30 esfihas!', preco: 70.00, quantidade: 30, isCustomizable: true } ]
-        },
-        combos: [ { nome: 'Combo 1', desc: '4 X-Tudo + 25 salgados + Batata c/ Cheddar e Bacon', preco: 85.00, includesSoda: true }, { nome: 'Combo 2', desc: '100 Salgadinhos fritos grandes e sortidos', preco: 70.00 }, { nome: 'Combo 3', desc: '25 Salgados + Porção de Calabresa + Batata c/ Cheddar', preco: 85.00, includesSoda: true }, { nome: 'Combo 4', desc: '4 X-Tudo + 25 Salgados + Calabresa + Anéis de Cebola', preco: 85.00, includesSoda: true }, { nome: 'Combo 5', desc: '4 X-Tudo + 25 Salgados + Batata c/ Cheddar e Bacon', preco: 85.00, includesSoda: true }, { nome: 'Combo 6', desc: '4 X-Tudo + Calabresa Acebolada + Batata Frita + Anéis de Cebola', preco: 85.00, includesSoda: true }, { nome: 'Petisco Frango a Passarinho + Fritas', desc: 'Frango crocante com fritas. Inclui um refri!', preco: 60.00, includesSoda: true } ],
-        bebidas: [ { nome: 'Refrigerante Lata 350ml', desc: 'Escolha seu sabor.', preco: 5.00 }, { nome: 'Refrigerante 2 Litros', desc: 'Para dividir com a galera!', preco: 12.00 } ]
+        refrigerantesPromo: [ { nome: 'Guaraná Antarctica 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Kuat 2L (Grátis)', precoAdicional: 0 }, { nome: 'Pepsi 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Coca-Cola 2L', precoAdicional: 12.00 }, { nome: 'Pepsi 2L', precoAdicional: 5.00 }, { nome: 'Guaraná Antarctica 2L', precoAdicional: 5.00 } ],
+        massaSizes: [ { nome: '400gr (serve 1 pessoa)', preco: 34.90 }, { nome: '1kg (serve até 3 pessoas)', preco: 59.90 } ],
+        proteinasMassas: [ { nome: 'Presunto', precoAdicional: 0 }, { nome: 'Carne Moída', precoAdicional: 0 }, { nome: 'Frango', precoAdicional: 0 }, { nome: 'Carne Seca', precoAdicional: 10.00 }, { nome: 'Camarão', precoAdicional: 10.00 }, { nome: 'Bacalhau', precoAdicional: 10.00 } ],
+        // ✅ NOVOS INGREDIENTES PARA MASSAS
+        ingredientesMassas: [
+            { nome: 'Alho', precoAdicional: 1.50 }, { nome: 'Atum', precoAdicional: 3.50 }, { nome: 'Bacon', precoAdicional: 3.50 }, { nome: 'Calabresa', precoAdicional: 2.50 }, { nome: 'Cebola', precoAdicional: 1.50 }, { nome: 'Lombo Canadense', precoAdicional: 3.50 }, { nome: 'Ovo', precoAdicional: 1.50 }, { nome: 'Palmito', precoAdicional: 3.50 }, { nome: 'Presunto', precoAdicional: 2.50 }, { nome: 'Salaminho', precoAdicional: 3.50 }, { nome: 'Tomate Seco', precoAdicional: 3.50 }
+        ],
+        promocoes: [ { id: 'promo-combo-caixa', nome: 'Caixa Combo da Galera', desc: '4 X-Tudo, 5 pastéis e batata com cheddar e bacon.', preco: 90.00, preco_antigo: 120.00, needsFlavor: false, includesSoda: true }, { id: 'promo-media', nome: 'Pizza Média (32cm) Premiada', desc: 'Sua pizza média preferida com um preço especial.', preco: 52.00, preco_antigo: 60.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média', maxSabores: 2 }] }, { id: 'promo-familia', nome: 'Combo Família Feliz', desc: '1 Pizza Família (2 sabores), 1 pizza doce individual e 1 refri.', preco: 90.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Família', maxSabores: 2 }], includesSweet: true, includesSoda: true }, { id: 'promo-gigante', nome: 'Combo Gigante Imbatível', desc: '1 Pizza Gigante (3 sabores), 1 pizza doce individual e 1 refri.', preco: 110.00, preco_antigo: 120.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }], includesSweet: true, includesSoda: true }, { id: 'promo-slim', nome: 'Promo Slim Gigante (47 cm)', desc: 'Sabor em tamanho gigante com um desconto incrível.', preco: 85.00, preco_antigo: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }] }, { id: 'promo-2medias', nome: 'Dose Dupla: 2 Médias + 1 Doce', desc: '2 Pizzas Médias (2 sabores cada) e ganhe 1 brotão doce.', preco: 100.00, needsFlavor: true, pizzas: [{ type: 'salgada', size: 'Média 1', maxSabores: 2 }, { type: 'salgada', size: 'Média 2', maxSabores: 2 }], includesSweet: true } ],
+        pizzas: {
+            tamanhos: [ { nome: 'Individual (26cm)', preco: 30.00, maxSabores: 2, sodasInclusas: 0 }, { nome: 'Média (32cm)', preco: 50.00, maxSabores: 2, sodasInclusas: 0 }, { nome: 'Família (36cm)', preco: 75.00, maxSabores: 2, sodasInclusas: 1 }, { nome: 'Gigante (47cm)', preco: 90.00, maxSabores: 3, sodasInclusas: 1 }, { nome: 'Mega (70cm)', preco: 199.00, maxSabores: 5, sodasInclusas: 2 } ],
+            bordas: [ { nome: 'Sem Borda', precoPadrao: 0.00 }, { nome: 'Catupiry', precoPadrao: 10.00, precoMega: 15.00, precoMedia: 7.00, precoIndividual: 5.00 }, { nome: 'Cheddar', precoPadrao: 10.00, precoMega: 15.00, precoMedia: 7.00, precoIndividual: 5.00 }, { nome: 'Cream Cheese', precoPadrao: 12.00, precoMega: 17.00, precoMedia: 9.00, precoIndividual: 7.00 }, { nome: 'Goiabada', precoPadrao: 12.00, precoMega: 17.00, precoMedia: 9.00, precoIndividual: 7.00 }, { nome: 'Doce de Leite', precoPadrao: 12.00, precoMega: 17.00, precoMedia: 9.00, precoIndividual: 7.00 } ],
+            saboresSalgados: [ "Americana", "Atum", "Alho", "Bacon", "Bacalhau", "Benevento", "Calabresa", "Cebola", "Carioca", "Capricciosa", "Frango com Catupiry", "Frango com Cheddar", "La Pizza", "Marguerita", "Moda da Casa", "Mussarela", "Moda da Casa 2", "Napolitana", "Ovo", "Palmito", "Pizza de Batata", "Portuguesa", "4 Queijos", "Super Pizza", "Siciliana", "Tomate Seco", "Tropicaliente", "Lombo Canadense", "Presunto", "Salaminho" ],
+            saboresDoces: [ "Banana com Canela", "Cocada Cremosa", "Prestígio", "Romeu & Julieta" ]
+        },
+        // ✅ NOVA MASSA "PENNE" ADICIONADA
+        massas: [ { nome: 'Lasanha' }, { nome: 'Capeletti' }, { nome: 'Raviolli' }, { nome: 'Espaguete' }, { nome: 'Talharim' }, { nome: 'Nhoque' }, { nome: 'Penne' } ],
+        hamburgueres: [ { nome: 'X-Duplo', desc: '2 Carnes, 2 ovos, queijo, presunto, bacon, calabresa, salada e molho.', preco: 17.00 }, { nome: 'X-Tudo', desc: 'Carne, ovo, queijo, presunto, bacon, calabresa, molho e salada.', preco: 14.00 }, { nome: 'X-Burguer Tropicaliente', desc: 'Carne, queijo, presunto, bacon, calabresa, molho e batata palha.', preco: 12.00 }, { nome: 'X-Egg', desc: 'Carne, queijo, ovo, salada e molho.', preco: 10.00 }, { nome: 'X-Burguer Kids', desc: 'Pão, carne, queijo, molho e batata palha.', preco: 5.00 }, { nome: 'X-Burguer Double Cheese', desc: 'Carne, presunto, dobro de catupiry e cheddar.', preco: 11.00 }, { nome: 'X-Bacon Lover', desc: 'Pão, carne, queijo e o dobro de bacon crocante.', preco: 11.00 } ],
+        esfihas: {
+            saboresComPreco: [ { nome: 'Carne 🥩', preco: 3.50, precoAdicional: 0 }, { nome: 'Queijo 🧀', preco: 3.50, precoAdicional: 0 }, { nome: 'Calabresa', preco: 3.50, precoAdicional: 0 }, { nome: 'Presunto', preco: 3.50, precoAdicional: 0.50 }, { nome: 'Milho 🌽', preco: 3.50, precoAdicional: 0.50 }, { nome: 'Atum', preco: 4.00, precoAdicional: 1.00 }, { nome: 'Mista', preco: 4.00, precoAdicional: 1.00 }, { nome: 'Frango c/ Catupiry', preco: 4.50, precoAdicional: 1.50 }, { nome: 'Calabresa c/ Catupiry', preco: 4.50, precoAdicional: 1.50 }, { nome: '4 Queijos 🧀', preco: 4.50, precoAdicional: 1.50 }, { nome: 'Tomate Seco 🍅', preco: 4.50, precoAdicional: 1.50 }, { nome: 'Portuguesa', preco: 4.50, precoAdicional: 1.50 }, { nome: 'Carne Seca', preco: 5.00, precoAdicional: 2.00 }, { nome: 'Bacalhau c/ Catupiry', preco: 5.00, precoAdicional: 2.00 }, { nome: 'Romeu & Julieta ❤️', preco: 3.50, precoAdicional: 0.50 }, { nome: 'Banana c/ Canela 🍌', preco: 3.50, precoAdicional: 0.50 }, { nome: 'Choco Duo 🍫', preco: 4.00, precoAdicional: 1.00 }, { nome: 'Prestígio 🥥🍫', preco: 4.00, precoAdicional: 1.00 }, { nome: 'Morango c/ Choco 🍓', preco: 4.50, precoAdicional: 1.50 }, { nome: 'Nutella 😍', preco: 5.00, precoAdicional: 2.00 } ],
+            combos: [ { id: 'esfiha-combo-20', nome: 'Combo 20 Esfihas + Refri 2L', desc: 'Monte seu combo com 20 esfihas!', preco: 50.00, quantidade: 20, includesSoda: true, isCustomizable: true }, { id: 'esfiha-combo-15', nome: 'Combo 15 Esfihas', desc: 'Escolha 15 esfihas do seu jeito!', preco: 40.00, quantidade: 15, isCustomizable: true }, { id: 'esfiha-combo-30', nome: 'Combo 30 Esfihas', desc: 'Monte seu combo com 30 esfihas!', preco: 70.00, quantidade: 30, isCustomizable: true } ]
+        },
+        combos: [ { nome: 'Combo 1', desc: '4 X-Tudo + 25 salgados + Batata c/ Cheddar e Bacon', preco: 85.00, includesSoda: true }, { nome: 'Combo 2', desc: '100 Salgadinhos fritos grandes e sortidos', preco: 70.00 }, { nome: 'Combo 3', desc: '25 Salgados + Porção de Calabresa + Batata c/ Cheddar', preco: 85.00, includesSoda: true }, { nome: 'Combo 4', desc: '4 X-Tudo + 25 Salgados + Calabresa + Anéis de Cebola', preco: 85.00, includesSoda: true }, { nome: 'Combo 5', desc: '4 X-Tudo + 25 Salgados + Batata c/ Cheddar e Bacon', preco: 85.00, includesSoda: true }, { nome: 'Combo 6', desc: '4 X-Tudo + Calabresa Acebolada + Batata Frita + Anéis de Cebola', preco: 85.00, includesSoda: true }, { nome: 'Petisco Frango a Passarinho + Fritas', desc: 'Frango crocante com fritas. Inclui um refri!', preco: 60.00, includesSoda: true } ],
+        bebidas: [ { nome: 'Refrigerante Lata 350ml', desc: 'Escolha seu sabor.', preco: 5.00 }, { nome: 'Refrigerante 2 Litros', desc: 'Para dividir com a galera!', preco: 12.00 } ]
     };
-    const validCoupons = {"APPSUPERPIZZA": { type: "percentage", value: 10 }};
+    
+  const validCoupons = {"APPSUPERPIZZA": { type: "percentage", value: 10 }};
     let cart = [];
     let appliedCoupon = null;
 
@@ -342,24 +333,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function formatCurrency(value) { return value.toFixed(2).replace('.', ','); }
 
     function updateCart() {
-        cartItemsContainer.innerHTML = ''; 
+        cartItemsContainer.innerHTML = ''; 
         const subtotal = cart.reduce((sum, cartItem) => sum + (cartItem.product.preco * cartItem.quantity), 0);
         let deliveryFee = 0;
         let discount = 0;
-
         if (appliedCoupon && subtotal > 0) {
             if (appliedCoupon.type === 'percentage') { discount = subtotal * (appliedCoupon.value / 100); }
             discountContainer.classList.remove('hidden');
             discountAmountEl.textContent = `- R$ ${formatCurrency(discount)}`;
         } else { discountContainer.classList.add('hidden'); }
-
         const totalAfterDiscount = subtotal - discount;
         if (totalAfterDiscount > 0 && totalAfterDiscount < 35.00) {
             deliveryFee = 8.00;
             deliveryFeeContainer.classList.remove('hidden');
             cartDeliveryFeeEl.textContent = `R$ ${formatCurrency(deliveryFee)}`;
         } else { deliveryFeeContainer.classList.add('hidden'); }
-
         const finalTotal = totalAfterDiscount + deliveryFee;
 
         if (cart.length === 0) {
@@ -370,8 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cart.forEach((cartItem, index) => {
                 const itemEl = document.createElement('div');
                 itemEl.className = 'flex justify-between items-center mb-3 p-2 bg-gray-50 rounded cart-item-enter';
-                itemEl.innerHTML = `
-                <div class="flex-grow pr-2">
+                itemEl.innerHTML = `<div class="flex-grow pr-2">
                     <p class="font-bold text-sm text-gray-800">${cartItem.quantity}x ${cartItem.product.nome}</p>
                     ${cartItem.product.desc ? `<p class="text-xs text-gray-600">${cartItem.product.desc.replace(/ \| /g, ', ')}</p>` : ''}
                 </div>
@@ -440,13 +427,142 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    function updateBordaOptions(){if(!pizzaSizesEl.value)return;const e=data.pizzas.tamanhos[pizzaSizesEl.value];bordaRecheadaEl.innerHTML="",data.pizzas.bordas.forEach((a,d)=>{let t=a.precoPadrao;e.nome.includes("Mega")?t=a.precoMega:e.nome.includes("Média")?t=a.precoMedia:e.nome.includes("Individual")&&(t=a.precoIndividual);const o=t>0?`+ R$ ${formatCurrency(t)}`:"";bordaRecheadaEl.innerHTML+=`<option value="${d}">${a.nome} ${o}</option>`})}function renderSodaSelection(){if(!pizzaSizesEl.value)return;const e=data.pizzas.tamanhos[pizzaSizesEl.value];if(sodaSelectionContainer.innerHTML="",!e.sodasInclusas||0===e.sodasInclusas)return void updatePizzaSummary();for(let a=1;a<=e.sodasInclusas;a++){let t=`<div class="mb-4"><label class="block font-semibold mb-2 text-gray-700">Escolha seu ${a}º Refrigerante:</label><select name="pizza-soda" class="pizza-soda-select w-full p-2 border border-gray-300 rounded-md">`;data.refrigerantesPromo.forEach(e=>{const a=e.precoAdicional>0?` (+ R$ ${formatCurrency(e.precoAdicional)})`:"";t+=`<option value="${e.nome}" data-price="${e.precoAdicional}">${e.nome}${a}</option>`}),t+="</select></div>",sodaSelectionContainer.innerHTML+=t}document.querySelectorAll(".pizza-soda-select").forEach(e=>{e.addEventListener("change",updatePizzaSummary)}),updatePizzaSummary()}function populatePizzaOptions(){if(!pizzaSizesEl)return;pizzaSizesEl.innerHTML="",flavorsAccordion.innerHTML="",data.pizzas.tamanhos.forEach((e,a)=>{pizzaSizesEl.innerHTML+=`<option value="${a}">${e.nome} (até ${e.maxSabores} ${e.maxSabores>1?"sabores":"sabor"})</option>`}),updateBordaOptions();const e={"Sabores Salgados 🍕":data.pizzas.saboresSalgados,"Sabores Doces 🍰":data.pizzas.saboresDoces};for(const a in e){let t=`
- <div>
- <button type="button" class="w-full flex justify-between items-center p-3 font-semibold text-left bg-gray-100 rounded-lg hover:bg-gray-200" onclick="this.nextElementSibling.classList.toggle('hidden')">
- <span>${a}</span>
- <i class="fas fa-chevron-down transform transition-transform"></i>
- </button>
- <div class="hidden pt-2 pb-4 px-2 space-y-2 grid grid-cols-2 gap-3 custom-scroll rounded bg-gray-50 shadow-inner">`;e[a].sort().forEach(e=>{t+=`<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="checkbox" class="flavor-checkbox h-4 w-4 rounded border-gray-300 text-red-600"><span class="ml-2 text-gray-700 text-sm">${e}</span></label>`}),t+="</div></div>",flavorsAccordion.innerHTML+=t}}function updatePizzaSummary(){if(!buildPizzaForm)return;const e=data.pizzas.tamanhos[pizzaSizesEl.value],a=data.pizzas.bordas[bordaRecheadaEl.value];summarySizeEl.textContent=e.nome,summaryBordaEl.textContent=a.nome;let t=Array.from(document.querySelectorAll("#flavorsAccordion .flavor-checkbox:checked")).map(e=>e.nextElementSibling.textContent);if(t.length>e.maxSabores){flavorWarningEl.textContent=`Máximo de ${e.maxSabores} ${e.maxSabores>1?"sabores":"sabor"}!`,flavorWarningEl.classList.remove("hidden");const d=Array.from(document.querySelectorAll("#flavorsAccordion .flavor-checkbox:checked")).pop();d&&(d.checked=!1),t=Array.from(document.querySelectorAll("#flavorsAccordion .flavor-checkbox:checked")).map(e=>e.nextElementSibling.textContent)}else flavorWarningEl.classList.add("hidden");summaryFlavorsEl.innerHTML=t.length>0?t.map(e=>`<li>${e}</li>`).join(""):`<li>Selecione...</li>`;let o=e.preco;let l=a.precoPadrao;e.nome.includes("Mega")?l=a.precoMega:e.nome.includes("Média")?l=a.precoMedia:e.nome.includes("Individual")&&(l=a.precoIndividual),o+=l;let r=0;const s=[];document.querySelectorAll(".pizza-soda-select").forEach(e=>{const a=e.options[e.selectedIndex];r+=parseFloat(a.dataset.price),s.push(a.value)}),s.length>0?(summarySodaContainer.classList.remove("hidden"),summarySoda.textContent=s.join(", ")):summarySodaContainer.classList.add("hidden"),o+=r,pizzaTotalEl.textContent=formatCurrency(o)}if(buildPizzaForm){buildPizzaForm.addEventListener("submit",e=>{e.preventDefault();const a=data.pizzas.tamanhos[pizzaSizesEl.value],t=data.pizzas.bordas[bordaRecheadaEl.value],o=Array.from(document.querySelectorAll("#flavorsAccordion .flavor-checkbox:checked")).map(e=>e.nextElementSibling.textContent);if(0===o.length)return alert("Por favor, escolha pelo menos um sabor!");let l=[],r=a.preco;let s=t.precoPadrao;a.nome.includes("Mega")?s=t.precoMega:a.nome.includes("Média")?s=t.precoMedia:a.nome.includes("Individual")&&(s=t.precoIndividual),r+=s,s>0&&l.push(`Borda: ${t.nome}`);const n=[];document.querySelectorAll(".pizza-soda-select").forEach(e=>{const a=e.options[e.selectedIndex];r+=parseFloat(a.dataset.price),n.push(a.value)}),n.length>0&&l.push(`Bebida(s): ${n.join(", ")}`),addToCart({nome:`Pizza ${a.nome.split(" ")[0]} (${o.join(", ")})`,desc:l.join(" | "),preco:r}),buildPizzaForm.reset(),document.querySelectorAll(".flavor-checkbox").forEach(e=>{e.checked=!1}),renderSodaSelection(),updatePizzaSummary()}),pizzaSizesEl.addEventListener("change",()=>{updateBordaOptions(),renderSodaSelection()}),bordaRecheadaEl.addEventListener("change",updatePizzaSummary),flavorsAccordion.addEventListener("change",updatePizzaSummary)}
+    function updateBordaOptions() {
+        if (!pizzaSizesEl.value) return;
+        const selectedSize = data.pizzas.tamanhos[pizzaSizesEl.value];
+        bordaRecheadaEl.innerHTML = '';
+        data.pizzas.bordas.forEach((borda, index) => {
+            let currentPrice = borda.precoPadrao;
+            if (selectedSize.nome.includes('Mega')) { currentPrice = borda.precoMega; } 
+            else if (selectedSize.nome.includes('Média')) { currentPrice = borda.precoMedia; } 
+            else if (selectedSize.nome.includes('Individual')) { currentPrice = borda.precoIndividual; }
+            const priceText = currentPrice > 0 ? `+ R$ ${formatCurrency(currentPrice)}` : '';
+            bordaRecheadaEl.innerHTML += `<option value="${index}">${borda.nome} ${priceText}</option>`;
+        });
+    }
+
+    function renderSodaSelection() {
+        if (!pizzaSizesEl.value) return;
+        const selectedSize = data.pizzas.tamanhos[pizzaSizesEl.value];
+        sodaSelectionContainer.innerHTML = '';
+        if (!selectedSize.sodasInclusas || selectedSize.sodasInclusas === 0) {
+            updatePizzaSummary();
+            return;
+        }
+        for (let i = 1; i <= selectedSize.sodasInclusas; i++) {
+            let sodaHtml = `<div class="mb-4"><label class="block font-semibold mb-2 text-gray-700">Escolha seu ${i}º Refrigerante:</label><select name="pizza-soda" class="pizza-soda-select w-full p-2 border border-gray-300 rounded-md">`;
+            data.refrigerantesPromo.forEach(soda => {
+                const priceText = soda.precoAdicional > 0 ? ` (+ R$ ${formatCurrency(soda.precoAdicional)})` : '';
+                sodaHtml += `<option value="${soda.nome}" data-price="${soda.precoAdicional}">${soda.nome}${priceText}</option>`;
+            });
+            sodaHtml += `</select></div>`;
+            sodaSelectionContainer.innerHTML += sodaHtml;
+        }
+        document.querySelectorAll('.pizza-soda-select').forEach(select => {
+            select.addEventListener('change', updatePizzaSummary);
+        });
+        updatePizzaSummary();
+    }
+
+    function populatePizzaOptions() {
+        if (!pizzaSizesEl) return;
+        pizzaSizesEl.innerHTML = '';
+        flavorsAccordion.innerHTML = '';
+        data.pizzas.tamanhos.forEach((t, i) => {
+            pizzaSizesEl.innerHTML += `<option value="${i}">${t.nome} (até ${t.maxSabores} ${t.maxSabores > 1 ? 'sabores' : 'sabor'})</option>`;
+        });
+        updateBordaOptions();
+        const allFlavors = {
+            "Sabores Salgados 🍕": data.pizzas.saboresSalgados,
+            "Sabores Doces 🍰": data.pizzas.saboresDoces
+        };
+        for (const category in allFlavors) {
+            let accordionHtml = `<div>
+                <button type="button" class="w-full flex justify-between items-center p-3 font-semibold text-left bg-gray-100 rounded-lg hover:bg-gray-200" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                    <span>${category}</span><i class="fas fa-chevron-down transform transition-transform"></i>
+                </button>
+                <div class="hidden pt-2 pb-4 px-2 space-y-2 grid grid-cols-2 gap-3 custom-scroll rounded bg-gray-50 shadow-inner">`;
+            allFlavors[category].sort().forEach(flavor => {
+                accordionHtml += `<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="checkbox" class="flavor-checkbox h-4 w-4 rounded border-gray-300 text-red-600"><span class="ml-2 text-gray-700 text-sm">${flavor}</span></label>`;
+            });
+            accordionHtml += `</div></div>`;
+            flavorsAccordion.innerHTML += accordionHtml;
+        }
+    }
+
+    function updatePizzaSummary() {
+        if (!buildPizzaForm) return;
+        const selectedSize = data.pizzas.tamanhos[pizzaSizesEl.value];
+        const selectedBorda = data.pizzas.bordas[bordaRecheadaEl.value];
+        summarySizeEl.textContent = selectedSize.nome;
+        summaryBordaEl.textContent = selectedBorda.nome;
+        let selectedFlavors = Array.from(document.querySelectorAll('#flavorsAccordion .flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent);
+        if (selectedFlavors.length > selectedSize.maxSabores) {
+            flavorWarningEl.textContent = `Máximo de ${selectedSize.maxSabores} ${selectedSize.maxSabores > 1 ? 'sabores' : 'sabor'}!`;
+            flavorWarningEl.classList.remove('hidden');
+            const lastChecked = Array.from(document.querySelectorAll('#flavorsAccordion .flavor-checkbox:checked')).pop();
+            if (lastChecked) lastChecked.checked = false;
+            selectedFlavors = Array.from(document.querySelectorAll('#flavorsAccordion .flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent);
+        } else {
+            flavorWarningEl.classList.add('hidden');
+        }
+        summaryFlavorsEl.innerHTML = selectedFlavors.length > 0 ? selectedFlavors.map(f => `<li>${f}</li>`).join('') : `<li>Selecione...</li>`;
+        let total = selectedSize.preco;
+        let currentBordaPrice = selectedBorda.precoPadrao;
+        if (selectedSize.nome.includes('Mega')) { currentBordaPrice = selectedBorda.precoMega; } 
+        else if (selectedSize.nome.includes('Média')) { currentBordaPrice = selectedBorda.precoMedia; } 
+        else if (selectedSize.nome.includes('Individual')) { currentBordaPrice = selectedBorda.precoIndividual; }
+        total += currentBordaPrice;
+        let sodaPrice = 0;
+        const selectedSodas = [];
+        document.querySelectorAll('.pizza-soda-select').forEach(select => {
+            const selectedOption = select.options[select.selectedIndex];
+            sodaPrice += parseFloat(selectedOption.dataset.price);
+            selectedSodas.push(selectedOption.value);
+        });
+        if (selectedSodas.length > 0) {
+            summarySodaContainer.classList.remove('hidden');
+            summarySoda.textContent = selectedSodas.join(', ');
+        } else {
+            summarySodaContainer.classList.add('hidden');
+        }
+        total += sodaPrice;
+        pizzaTotalEl.textContent = formatCurrency(total);
+    }
+
+    if (buildPizzaForm) {
+        buildPizzaForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const selectedSize = data.pizzas.tamanhos[pizzaSizesEl.value];
+            const selectedBorda = data.pizzas.bordas[bordaRecheadaEl.value];
+            const selectedFlavors = Array.from(document.querySelectorAll('#flavorsAccordion .flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent);
+            if (selectedFlavors.length === 0) return alert('Por favor, escolha pelo menos um sabor!');
+            let description = [];
+            let finalPrice = selectedSize.preco;
+            let currentBordaPrice = selectedBorda.precoPadrao;
+            if (selectedSize.nome.includes('Mega')) { currentBordaPrice = selectedBorda.precoMega; } 
+            else if (selectedSize.nome.includes('Média')) { currentBordaPrice = selectedBorda.precoMedia; } 
+            else if (selectedSize.nome.includes('Individual')) { currentBordaPrice = selectedBorda.precoIndividual; }
+            finalPrice += currentBordaPrice;
+            if (currentBordaPrice > 0) { description.push(`Borda: ${selectedBorda.nome}`); }
+            const selectedSodas = [];
+            document.querySelectorAll('.pizza-soda-select').forEach(select => {
+                const selectedOption = select.options[select.selectedIndex];
+                finalPrice += parseFloat(selectedOption.dataset.price);
+                selectedSodas.push(selectedOption.value);
+            });
+            if (selectedSodas.length > 0) { description.push(`Bebida(s): ${selectedSodas.join(', ')}`); }
+            addToCart({ nome: `Pizza ${selectedSize.nome.split(' ')[0]} (${selectedFlavors.join(', ')})`, desc: description.join(' | '), preco: finalPrice });
+            buildPizzaForm.reset();
+            document.querySelectorAll('.flavor-checkbox').forEach(cb => { cb.checked = false; });
+            renderSodaSelection();
+            updatePizzaSummary();
+        });
+        pizzaSizesEl.addEventListener('change', () => { updateBordaOptions(); renderSodaSelection(); });
+        bordaRecheadaEl.addEventListener('change', updatePizzaSummary);
+        flavorsAccordion.addEventListener('change', updatePizzaSummary);
+    }
+    
     function openPromoModal(promoItem){const selectionContainer=document.getElementById("promoSelectionContainer");selectionContainer.innerHTML="",document.getElementById("promoModalTitle").textContent=`Personalize: ${promoItem.nome}`,promoItem.needsFlavor&&promoItem.pizzas.forEach((pizza,index)=>{let pizzaHtml=`<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">🍕 Pizza ${pizza.size} (até ${pizza.maxSabores} sabores)</h4><div class="grid grid-cols-2 gap-2 promo-flavor-group" data-max-flavors="${pizza.maxSabores}" data-pizza-index="${index}">`;data.pizzas.saboresSalgados.sort().forEach(flavor=>{pizzaHtml+=`<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="checkbox" class="promo-flavor-checkbox h-4 w-4 rounded border-gray-300 text-red-600"><span class="ml-2 text-sm text-gray-700">${flavor}</span></label>`}),pizzaHtml+='</div><p class="text-red-600 text-sm mt-2 hidden" id="promo-warning-'+index+'"></p></div>',selectionContainer.innerHTML+=pizzaHtml}),promoItem.includesSweet&&(()=>{let sweetPizzaHtml='<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">🍰 Pizza Doce Individual (Grátis)</h4><div class="grid grid-cols-2 gap-2">';data.pizzas.saboresDoces.sort().forEach(flavor=>{sweetPizzaHtml+=`<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="radio" name="sweet-flavor" value="${flavor}" class="h-4 w-4 border-gray-300 text-red-600"><span class="ml-2 text-sm text-gray-700">${flavor}</span></label>`}),sweetPizzaHtml+="</div></div>",selectionContainer.innerHTML+=sweetPizzaHtml})(),promoItem.includesSoda&&(()=>{let sodaHtml='<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">🥤 Escolha seu Refrigerante</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-2">';data.refrigerantesPromo.forEach((soda,index)=>{const priceText=soda.precoAdicional>0?` (+ R$ ${formatCurrency(soda.precoAdicional)})`:"";sodaHtml+=`<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="radio" name="promo-soda" value="${soda.nome}" data-price="${soda.precoAdicional}" class="h-4 w-4 border-gray-300 text-red-600" ${0===index?"checked":""}><span class="ml-2 text-sm text-gray-700">${soda.nome}${priceText}</span></label>`}),sodaHtml+="</div></div>",selectionContainer.innerHTML+=sodaHtml})(),promoModal.classList.remove("hidden"),promoForm.dataset.promoItem=JSON.stringify(promoItem)}function openMassaModal(massaItem){const selectionContainer=document.getElementById("massaSelectionContainer"),massaTotalEl=document.getElementById("massaTotal");document.getElementById("massaModalTitle").textContent=`Personalize: ${massaItem.nome}`;let content='<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">1. Escolha o Tamanho</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="massa-size-group">';data.massaSizes.forEach((size,index)=>{content+=`<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="radio" name="massa-size" value="${index}" class="h-4 w-4 border-gray-300 text-red-600" ${0===index?"checked":""}><span class="ml-2 text-sm text-gray-700">${size.nome}</span></label>`}),content+='</div></div>',content+='<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">2. Escolha o Molho</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-2">',content+='<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="radio" name="massa-molho" value="Molho de Tomate" class="h-4 w-4 border-gray-300 text-red-600" checked><span class="ml-2 text-sm text-gray-700">Molho de Tomate</span></label>',content+='<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="radio" name="massa-molho" value="Molho Branco" class="h-4 w-4 border-gray-300 text-red-600"><span class="ml-2 text-sm text-gray-700">Molho Branco</span></label>',content+='</div></div>',content+='<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">3. Escolha a Proteína</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="massa-proteina-group">';data.proteinasMassas.forEach((proteina,index)=>{const priceText=proteina.precoAdicional>0?` (+ R$ ${formatCurrency(proteina.precoAdicional)})`:"";content+=`<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="radio" name="massa-proteina" value="${index}" class="h-4 w-4 border-gray-300 text-red-600" ${0===index?"checked":""}><span class="ml-2 text-sm text-gray-700">${proteina.nome}${priceText}</span></label>`}),content+="</div></div>",selectionContainer.innerHTML=content;const updateMassaTotal=()=>{const selectedSizeIndex=document.querySelector('#massaSelectionContainer input[name="massa-size"]:checked').value,selectedProteinaIndex=document.querySelector('#massaSelectionContainer input[name="massa-proteina"]:checked').value,basePrice=data.massaSizes[selectedSizeIndex].preco,proteinaPrice=data.proteinasMassas[selectedProteinaIndex].precoAdicional;massaTotalEl.textContent=formatCurrency(basePrice+proteinaPrice)};selectionContainer.addEventListener("change",updateMassaTotal),updateMassaTotal(),massaModal.classList.remove("hidden"),massaForm.dataset.massaItem=JSON.stringify(massaItem)}function openEsfihaComboModal(comboItem){const selectionContainer=document.getElementById("esfihaComboSelectionContainer"),sodaContainer=document.getElementById("esfihaComboSodaContainer"),modalTitle=document.getElementById("esfihaComboModalTitle"),totalQtyEl=document.getElementById("esfihaTotalQty"),counterEl=document.getElementById("esfihaCounter");modalTitle.textContent=`Personalize: ${comboItem.nome}`,totalQtyEl.textContent=comboItem.quantidade,counterEl.textContent="0",selectionContainer.innerHTML="",sodaContainer.innerHTML="";let content=`<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">Escolha os sabores (Total: ${comboItem.quantidade})</h4><div class="space-y-3">`;data.esfihas.saboresComPreco.forEach((esfiha,index)=>{const priceText=esfiha.precoAdicional>0?` (+ R$ ${formatCurrency(esfiha.precoAdicional)})`:"";content+=`
  <div class="flex justify-between items-center p-2 rounded-md bg-gray-50">
  <span class="text-sm text-gray-700">${esfiha.nome}${priceText}</span>
@@ -456,87 +572,11 @@ document.addEventListener('DOMContentLoaded', () => {
  <button type="button" class="esfiha-qty-change text-green-500" data-index="${index}" data-action="increase"><i class="fas fa-plus-circle"></i></button>
  </div>
  </div>`}),content+="</div></div>",selectionContainer.innerHTML=content,comboItem.includesSoda&&(()=>{let sodaHtml='<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">🥤 Escolha seu Refrigerante</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-2">';data.refrigerantesPromo.forEach((soda,index)=>{const priceText=soda.precoAdicional>0?` (+ R$ ${formatCurrency(soda.precoAdicional)})`:"";sodaHtml+=`<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="radio" name="esfiha-combo-soda" value="${soda.nome}" data-price="${soda.precoAdicional}" class="h-4 w-4 border-gray-300 text-red-600" ${0===index?"checked":""}><span class="ml-2 text-sm text-gray-700">${soda.nome}${priceText}</span></label>`}),sodaHtml+="</div></div>",sodaContainer.innerHTML+=sodaHtml})();const updateEsfihaComboTotal=()=>{let total=comboItem.preco,currentCount=0;document.querySelectorAll(".esfiha-qty-input").forEach(input=>{const qty=parseInt(input.value);if(currentCount+=qty,qty>0){const esfihaIndex=parseInt(input.dataset.index);total+=data.esfihas.saboresComPreco[esfihaIndex].precoAdicional*qty}}),comboItem.includesSoda&&(()=>{const selectedSoda=document.querySelector('input[name="esfiha-combo-soda"]:checked');selectedSoda&&(total+=parseFloat(selectedSoda.dataset.price))})(),counterEl.textContent=currentCount,document.getElementById("esfihaComboTotal").textContent=formatCurrency(total);const warningEl=document.getElementById("esfihaWarning");currentCount>comboItem.quantidade?(warningEl.textContent=`Você selecionou ${currentCount} esfihas, o limite para este combo é ${comboItem.quantidade}.`,warningEl.classList.remove("hidden")):warningEl.classList.add("hidden")};selectionContainer.addEventListener("click",e=>{const btn=e.target.closest(".esfiha-qty-change");if(!btn)return;const action=btn.dataset.action,index=btn.dataset.index,input=document.querySelector(`.esfiha-qty-input[data-index="${index}"]`);let currentValue=parseInt(input.value);"increase"===action?input.value=currentValue+1:"decrease"===action&&currentValue>0&&(input.value=currentValue-1),updateEsfihaComboTotal()}),sodaContainer&&sodaContainer.addEventListener("change",updateEsfihaComboTotal),updateEsfihaComboTotal(),esfihaComboModal.classList.remove("hidden"),esfihaComboForm.dataset.comboItem=JSON.stringify(comboItem)}
-    document.body.addEventListener('change', e => { if (e.target.classList.contains('promo-flavor-checkbox')) { const group = e.target.closest('.promo-flavor-group'); if (!group) return; const maxFlavors = parseInt(group.dataset.maxFlavors); const pizzaIndex = group.dataset.pizzaIndex; const warningEl = document.getElementById(`promo-warning-${pizzaIndex}`); const checkedBoxes = group.querySelectorAll('.promo-flavor-checkbox:checked'); if (checkedBoxes.length > maxFlavors) { e.target.checked = false; warningEl.textContent = `Máximo de ${maxFlavors} sabores para esta pizza.`; warningEl.classList.remove('hidden'); } else { warningEl.classList.add('hidden'); } } });
-    promoForm.addEventListener('submit', e => { e.preventDefault(); const promoItem = JSON.parse(e.currentTarget.dataset.promoItem); let description = []; let allSelectionsMade = true; let finalPrice = promoItem.preco; if (promoItem.needsFlavor) { promoItem.pizzas.forEach((pizza, index) => { const group = document.querySelector(`#promoSelectionContainer .promo-flavor-group[data-pizza-index="${index}"]`); const selectedFlavors = Array.from(group.querySelectorAll('.promo-flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent); if (selectedFlavors.length === 0) allSelectionsMade = false; description.push(`Pizza ${pizza.size}: ${selectedFlavors.join(', ')}`); }); } if (promoItem.includesSweet) { const selectedSweet = document.querySelector('input[name="sweet-flavor"]:checked'); if (selectedSweet) { description.push(`Pizza Doce: ${selectedSweet.value}`); } else { allSelectionsMade = false; } } if (promoItem.includesSoda) { const selectedSoda = document.querySelector('input[name="promo-soda"]:checked'); if (selectedSoda) { description.push(`Bebida: ${selectedSoda.value}`); finalPrice += parseFloat(selectedSoda.dataset.price); } else { allSelectionsMade = false; } } if (!allSelectionsMade) { return alert('Por favor, faça todas as seleções necessárias.'); } addToCart({ nome: promoItem.nome, desc: description.join(' | '), preco: finalPrice }); promoModal.classList.add('hidden'); });
-    massaForm.addEventListener('submit', e => { e.preventDefault(); const massaItem = JSON.parse(e.currentTarget.dataset.massaItem); const selectedSizeIndex = document.querySelector('input[name="massa-size"]:checked').value; const selectedSize = data.massaSizes[selectedSizeIndex]; const selectedMolho = document.querySelector('input[name="massa-molho"]:checked'); const selectedProteinaIndex = document.querySelector('input[name="massa-proteina"]:checked').value; const selectedProteina = data.proteinasMassas[selectedProteinaIndex]; if (!selectedMolho || !selectedProteina) { return alert('Por favor, escolha o molho e a proteína.'); } const finalPrice = selectedSize.preco + selectedProteina.precoAdicional; const description = `Tamanho: ${selectedSize.nome} | Molho: ${selectedMolho.value} | Proteína: ${selectedProteina.nome}`; addToCart({ nome: massaItem.nome, desc: description, preco: finalPrice }); massaModal.classList.add('hidden'); });
-    esfihaComboForm.addEventListener('submit', e => { e.preventDefault(); const comboItem = JSON.parse(e.currentTarget.dataset.comboItem); let description = []; let finalPrice = comboItem.preco; let totalQty = 0; document.querySelectorAll('.esfiha-qty-input').forEach(input => { const qty = parseInt(input.value); if (qty > 0) { const esfihaIndex = parseInt(input.dataset.index); const esfiha = data.esfihas.saboresComPreco[esfihaIndex]; description.push(`${qty}x ${esfiha.nome}`); finalPrice += esfiha.precoAdicional * qty; totalQty += qty; } }); if (totalQty !== comboItem.quantidade) { return alert(`Você deve selecionar exatamente ${comboItem.quantidade} esfihas. Você selecionou ${totalQty}.`); } if (comboItem.includesSoda) { const selectedSoda = document.querySelector('input[name="esfiha-combo-soda"]:checked'); if (selectedSoda) { description.push(`Bebida: ${selectedSoda.value}`); finalPrice += parseFloat(selectedSoda.dataset.price); } else { return alert('Por favor, escolha uma bebida para o combo.'); } } addToCart({ nome: comboItem.nome, desc: description.join(', '), preco: finalPrice }); esfihaComboModal.classList.add('hidden'); });
-    document.body.addEventListener('click', (e) => {
-        const target = e.target.closest('button');
-        if (!target) return;
-        if (target.classList.contains('open-promo-modal-btn')) openPromoModal(JSON.parse(target.dataset.item));
-        else if (target.classList.contains('add-to-cart-btn')) addToCart(JSON.parse(target.dataset.item));
-        else if (target.classList.contains('open-massa-modal-btn')) openMassaModal(JSON.parse(target.dataset.item));
-        else if (target.classList.contains('open-esfiha-combo-modal-btn')) openEsfihaComboModal(JSON.parse(target.dataset.item));
-    });
-    applyCouponBtn.addEventListener('click', applyCoupon);
-    checkoutButton.addEventListener('click', () => {
-        cartModal.classList.add('hidden');
-        checkoutModal.classList.remove('hidden');
-    });
-    cancelButton.addEventListener('click', () => checkoutModal.classList.add('hidden'));
-    floatingCartButton.addEventListener('click', () => cartModal.classList.remove('hidden'));
-    closeCartModal.addEventListener('click', () => cartModal.classList.add('hidden'));
-    cancelPromo.addEventListener('click', () => promoModal.classList.add('hidden'));
-    cancelMassa.addEventListener('click', () => massaModal.classList.add('hidden'));
-    cancelEsfihaCombo.addEventListener('click', () => esfihaComboModal.classList.add('hidden'));
-    customerInfoForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const orderNumber = Math.floor(1000 + Math.random() * 9000);
-        const customerName = document.getElementById('customerName').value;
-        const customerAddress = document.getElementById('customerAddress').value;
-        const customerNeighborhood = document.getElementById('customerNeighborhood').value;
-        const paymentMethod = document.getElementById('paymentMethod').value;
-        const customerObs = document.getElementById('customerObs').value;
-        const ketchupQty = document.getElementById('ketchupQty').value;
-        const mustardQty = document.getElementById('mustardQty').value;
-        const subtotal = cart.reduce((sum, cartItem) => sum + (cartItem.product.preco * cartItem.quantity), 0);
-        let discount = 0;
-        if (appliedCoupon) { if (appliedCoupon.type === 'percentage') { discount = subtotal * (appliedCoupon.value / 100); } }
-        const totalAfterDiscount = subtotal - discount;
-        let deliveryFee = 0;
-        if (totalAfterDiscount > 0 && totalAfterDiscount < 35.00) { deliveryFee = 8.00; }
-        const finalTotal = totalAfterDiscount + deliveryFee;
-        const MAX_WIDTH = 42;
-        const SEPARATOR = '-'.repeat(MAX_WIDTH);
-        const formatLine = (label, value) => { const remainingSpace = MAX_WIDTH - label.length - value.length; if (remainingSpace < 1) { return `${label}\n${value.padStart(MAX_WIDTH, ' ')}`; } const dots = '.'.repeat(remainingSpace); return `${label}${dots}${value}`; };
-        let message = `*PEDIDO SUPER PIZZA*\n`;
-        message += `*PEDIDO Nº:* ${orderNumber}\n`;
-        message += `${SEPARATOR}\n`;
-        message += `*CLIENTE:* ${customerName}\n`;
-        message += `*ENDEREÇO:* ${customerAddress}, ${customerNeighborhood}\n`;
-        message += `${SEPARATOR}\n\n*RESUMO DO PEDIDO*\n`;
-        cart.forEach(cartItem => {
-            message += `${SEPARATOR}\n`;
-            message += `*${cartItem.quantity}x ${cartItem.product.nome}*\n`;
-            if (cartItem.product.desc) { const details = cartItem.product.desc.split('|').map(d => d.trim()); details.forEach(detail => { message += `  _${detail}_\n`; }); }
-            const itemTotalText = `R$ ${formatCurrency(cartItem.product.preco * cartItem.quantity)}`;
-            message += `${itemTotalText.padStart(MAX_WIDTH, ' ')}\n`;
-        });
-        message += `${SEPARATOR}\n\n`;
-        message += formatLine('Subtotal', `R$ ${formatCurrency(subtotal)}`) + '\n';
-        if (discount > 0) { message += formatLine(`Desconto (${appliedCoupon.code})`, `- R$ ${formatCurrency(discount)}`) + '\n'; }
-        if (deliveryFee > 0) { message += formatLine('Taxa de Entrega', `R$ ${formatCurrency(deliveryFee)}`) + '\n'; }
-        message += `${SEPARATOR}\n`;
-        message += `*${formatLine('TOTAL A PAGAR', `R$ ${formatCurrency(finalTotal)}`)}*\n`;
-        message += `${SEPARATOR}\n\n`;
-        if (customerObs) { message += `*OBS:* ${customerObs}\n`; }
-        if (ketchupQty > 0 || mustardQty > 0) {
-            let sachets = [];
-            if (ketchupQty > 0) sachets.push(`${ketchupQty}x Ketchup`);
-            if (mustardQty > 0) sachets.push(`${mustardQty}x Mostarda`);
-            message += `*SACHÊS:* ${sachets.join(', ')}\n`;
-        }
-        message += `\n*FORMA DE PAGAMENTO:* ${paymentMethod}\n`;
-        const whatsappNumber = "5521981417594";
-        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
-        checkoutModal.classList.add('hidden');
-        customerInfoForm.reset();
-        cart = [];
-        updateCart();
-    });
-
-    // Funções de Geração de Conteúdo
+    document.body.addEventListener('change', e => { if (e.target.classList.contains('promo-flavor-checkbox')) { const group = e.target.closest('.promo-flavor-group'); if (!group) return; const maxFlavors = parseInt(group.dataset.maxFlavors); const pizzaIndex = group.dataset.pizzaIndex; const warningEl = document.getElementById(`promo-warning-${pizzaIndex}`); const checkedBoxes = group.querySelectorAll('.promo-flavor-checkbox:checked'); if (checkedBoxes.length > maxFlavors) { e.target.checked = false; warningEl.textContent = `Máximo de ${maxFlavors} sabores para esta pizza.`; warningEl.classList.remove('hidden'); } else { warningEl.classList.add('hidden'); } } });
+    promoForm.addEventListener('submit', e => { e.preventDefault(); const promoItem = JSON.parse(e.currentTarget.dataset.promoItem); let description = []; let allSelectionsMade = true; let finalPrice = promoItem.preco; if (promoItem.needsFlavor) { promoItem.pizzas.forEach((pizza, index) => { const group = document.querySelector(`#promoSelectionContainer .promo-flavor-group[data-pizza-index="${index}"]`); const selectedFlavors = Array.from(group.querySelectorAll('.promo-flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent); if (selectedFlavors.length === 0) allSelectionsMade = false; description.push(`Pizza ${pizza.size}: ${selectedFlavors.join(', ')}`); }); } if (promoItem.includesSweet) { const selectedSweet = document.querySelector('input[name="sweet-flavor"]:checked'); if (selectedSweet) { description.push(`Pizza Doce: ${selectedSweet.value}`); } else { allSelectionsMade = false; } } if (promoItem.includesSoda) { const selectedSoda = document.querySelector('input[name="promo-soda"]:checked'); if (selectedSoda) { description.push(`Bebida: ${selectedSoda.value}`); finalPrice += parseFloat(selectedSoda.dataset.price); } else { allSelectionsMade = false; } } if (!allSelectionsMade) { return alert('Por favor, faça todas as seleções necessárias.'); } addToCart({ nome: promoItem.nome, desc: description.join(' | '), preco: finalPrice }); promoModal.classList.add('hidden'); });
+    massaForm.addEventListener('submit', e => { e.preventDefault(); const massaItem = JSON.parse(e.currentTarget.dataset.massaItem); const selectedSizeIndex = document.querySelector('input[name="massa-size"]:checked').value; const selectedSize = data.massaSizes[selectedSizeIndex]; const selectedMolho = document.querySelector('input[name="massa-molho"]:checked'); const selectedProteinaIndex = document.querySelector('input[name="massa-proteina"]:checked').value; const selectedProteina = data.proteinasMassas[selectedProteinaIndex]; if (!selectedMolho || !selectedProteina) { return alert('Por favor, escolha o molho e a proteína.'); } const finalPrice = selectedSize.preco + selectedProteina.precoAdicional; const description = `Tamanho: ${selectedSize.nome} | Molho: ${selectedMolho.value} | Proteína: ${selectedProteina.nome}`; addToCart({ nome: massaItem.nome, desc: description, preco: finalPrice }); massaModal.classList.add('hidden'); });
+    esfihaComboForm.addEventListener('submit', e => { e.preventDefault(); const comboItem = JSON.parse(e.currentTarget.dataset.comboItem); let description = []; let finalPrice = comboItem.preco; let totalQty = 0; document.querySelectorAll('.esfiha-qty-input').forEach(input => { const qty = parseInt(input.value); if (qty > 0) { const esfihaIndex = parseInt(input.dataset.index); const esfiha = data.esfihas.saboresComPreco[esfihaIndex]; description.push(`${qty}x ${esfiha.nome}`); finalPrice += esfiha.precoAdicional * qty; totalQty += qty; } }); if (totalQty !== comboItem.quantidade) { return alert(`Você deve selecionar exatamente ${comboItem.quantidade} esfihas. Você selecionou ${totalQty}.`); } if (comboItem.includesSoda) { const selectedSoda = document.querySelector('input[name="esfiha-combo-soda"]:checked'); if (selectedSoda) { description.push(`Bebida: ${selectedSoda.value}`); finalPrice += parseFloat(selectedSoda.dataset.price); } else { return alert('Por favor, escolha uma bebida para o combo.'); } } addToCart({ nome: comboItem.nome, desc: description.join(', '), preco: finalPrice }); esfihaComboModal.classList.add('hidden'); });
+    
     function createMenuSection(title, items, targetId) {
         const section = document.getElementById(targetId);
         if (!section) return;
@@ -563,6 +603,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         section.innerHTML = content + '</div>';
     }
+
     function createEsfihasSection() {
         const section = document.getElementById('esfihas');
         if (!section) return;
@@ -597,11 +638,96 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         section.innerHTML = content + '</div>';
     }
+    
     function createContatoSection(){
         const section = document.getElementById('contato');
         if (!section) return;
-        section.innerHTML = `<h2 class="text-2xl font-bold text-red-700 mb-4 border-l-4 border-red-500 pl-3">Fale Conosco 📞</h2><div class="bg-white rounded-lg shadow-lg p-6 text-center"><i class="fab fa-whatsapp text-5xl text-green-500 mb-4"></i><h3 class="text-3xl font-bold text-gray-800 mb-2">98141-7594</h3><p class="text-md text-gray-600 mb-6">Peça pelo WhatsApp ou ligue para nós!</p><div class="border-t border-b border-gray-200 py-4 my-4"><i class="fas fa-clock text-3xl text-red-500 mb-3"></i><h4 class="text-xl font-semibold text-gray-800">Horário de Funcionamento</h4><p class="text-md text-gray-700 mt-2">Todos os dias, das 18:00h à 00:00h</p></div></div>`;
+        section.innerHTML = `<div class="bg-white rounded-lg shadow-lg p-6 text-center"><h2 class="text-2xl font-bold text-red-700 mb-4">Fale Conosco 📞</h2><i class="fab fa-whatsapp text-6xl text-green-500 mb-4"></i><h3 class="text-3xl font-bold text-gray-800 mb-2">Seu Número Aqui</h3><p class="text-md text-gray-600 mb-6">Peça pelo WhatsApp ou ligue para nós!</p><div class="border-t border-b py-4 my-4"><i class="fas fa-clock text-3xl text-red-500 mb-3"></i><h4 class="text-xl font-semibold text-gray-800">Horário de Funcionamento</h4><p class="text-md text-gray-700 mt-2">Todos os dias, das 18:00h à 00:00h</p></div></div>`;
     }
+
+    document.body.addEventListener('click', (e) => {
+        const target = e.target.closest('button');
+        if (!target) return;
+        if (target.classList.contains('open-promo-modal-btn')) openPromoModal(JSON.parse(target.dataset.item));
+        else if (target.classList.contains('add-to-cart-btn')) addToCart(JSON.parse(target.dataset.item));
+        else if (target.classList.contains('open-massa-modal-btn')) openMassaModal(JSON.parse(target.dataset.item));
+        else if (target.classList.contains('open-esfiha-combo-modal-btn')) openEsfihaComboModal(JSON.parse(target.dataset.item));
+    });
+    applyCouponBtn.addEventListener('click', applyCoupon);
+    checkoutButton.addEventListener('click', () => {
+        cartModal.classList.add('hidden');
+        checkoutModal.classList.remove('hidden');
+    });
+    cancelButton.addEventListener('click', () => checkoutModal.classList.add('hidden'));
+    floatingCartButton.addEventListener('click', () => cartModal.classList.remove('hidden'));
+    closeCartModal.addEventListener('click', () => cartModal.classList.add('hidden'));
+    cancelPromo.addEventListener('click', () => promoModal.classList.add('hidden'));
+    cancelMassa.addEventListener('click', () => massaModal.classList.add('hidden'));
+    cancelEsfihaCombo.addEventListener('click', () => esfihaComboModal.classList.add('hidden'));
+
+    customerInfoForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const orderNumber = Math.floor(1000 + Math.random() * 9000);
+        const customerName = document.getElementById('customerName').value;
+        const customerAddress = document.getElementById('customerAddress').value;
+        const customerNeighborhood = document.getElementById('customerNeighborhood').value;
+        const paymentMethod = document.getElementById('paymentMethod').value;
+        const customerObs = document.getElementById('customerObs').value;
+        const ketchupQty = document.getElementById('ketchupQty').value;
+        const mustardQty = document.getElementById('mustardQty').value;
+        const subtotal = cart.reduce((sum, cartItem) => sum + (cartItem.product.preco * cartItem.quantity), 0);
+        let discount = 0;
+        if (appliedCoupon) { if (appliedCoupon.type === 'percentage') { discount = subtotal * (appliedCoupon.value / 100); } }
+        const totalAfterDiscount = subtotal - discount;
+        let deliveryFee = 0;
+        if (totalAfterDiscount > 0 && totalAfterDiscount < 35.00) { deliveryFee = 8.00; }
+        const finalTotal = totalAfterDiscount + deliveryFee;
+        const MAX_WIDTH = 42;
+        const SEPARATOR = '-'.repeat(MAX_WIDTH);
+        const formatLine = (label, value) => {
+            const remainingSpace = MAX_WIDTH - label.length - value.length;
+            if (remainingSpace < 1) { return `${label}\n${value.padStart(MAX_WIDTH, ' ')}`; }
+            return `${label}${'.'.repeat(remainingSpace)}${value}`;
+        };
+        let message = `*PEDIDO SUPER PIZZA*\n`;
+        message += `*PEDIDO Nº:* ${orderNumber}\n`;
+        message += `${SEPARATOR}\n`;
+        message += `*CLIENTE:* ${customerName}\n`;
+        message += `*ENDEREÇO:* ${customerAddress}, ${customerNeighborhood}\n`;
+        message += `${SEPARATOR}\n\n*RESUMO DO PEDIDO*\n`;
+        cart.forEach(cartItem => {
+            message += `${SEPARATOR}\n`;
+            message += `*${cartItem.quantity}x ${cartItem.product.nome}*\n`;
+            if (cartItem.product.desc) {
+                const details = cartItem.product.desc.split('|').map(d => d.trim());
+                details.forEach(detail => { message += `  _${detail}_\n`; });
+            }
+            const itemTotalText = `R$ ${formatCurrency(cartItem.product.preco * cartItem.quantity)}`;
+            message += `${itemTotalText.padStart(MAX_WIDTH, ' ')}\n`;
+        });
+        message += `${SEPARATOR}\n\n`;
+        message += formatLine('Subtotal', `R$ ${formatCurrency(subtotal)}`) + '\n';
+        if (discount > 0) { message += formatLine(`Desconto (${appliedCoupon.code})`, `- R$ ${formatCurrency(discount)}`) + '\n'; }
+        if (deliveryFee > 0) { message += formatLine('Taxa de Entrega', `R$ ${formatCurrency(deliveryFee)}`) + '\n'; }
+        message += `${SEPARATOR}\n`;
+        message += `*${formatLine('TOTAL A PAGAR', `R$ ${formatCurrency(finalTotal)}`)}*\n`;
+        message += `${SEPARATOR}\n\n`;
+        if (customerObs) { message += `*OBS:* ${customerObs}\n`; }
+        if (ketchupQty > 0 || mustardQty > 0) {
+            let sachets = [];
+            if (ketchupQty > 0) sachets.push(`${ketchupQty}x Ketchup`);
+            if (mustardQty > 0) sachets.push(`${mustardQty}x Mostarda`);
+            message += `*SACHÊS:* ${sachets.join(', ')}\n`;
+        }
+        message += `\n*FORMA DE PAGAMENTO:* ${paymentMethod}\n`;
+        const whatsappNumber = "5521981417594";
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+        checkoutModal.classList.add('hidden');
+        customerInfoForm.reset();
+        cart = [];
+        updateCart();
+    });
 
     // INICIALIZAÇÃO
     if (buildPizzaForm) { populatePizzaOptions(); renderSodaSelection(); updatePizzaSummary(); }
