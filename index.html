@@ -52,14 +52,14 @@
 
 <main class="flex-grow max-w-7xl mx-auto p-2 sm:p-4 flex flex-col w-full">
   <nav class="mb-6 flex flex-wrap justify-center border-b-2 border-red-200">
-    <button class="tab-button tab-active px-3 py-2 font-semibold text-sm" data-tab="promocoes">Promoções 🔥</button>
-    <button class="tab-button px-3 py-2 font-semibold text-sm" data-tab="pizzas">Pizzas 🍕</button>
-    <button class="tab-button px-3 py-2 font-semibold text-sm" data-tab="massas">Massas 🍝</button>
-    <button class="tab-button px-3 py-2 font-semibold text-sm" data-tab="hamburgueres">Hambúrgueres 🍔</button>
-    <button class="tab-button px-3 py-2 font-semibold text-sm" data-tab="esfihas">Esfihas 🥟</button>
-    <button class="tab-button px-3 py-2 font-semibold text-sm" data-tab="combos">Combos 🍟</button>
-    <button class="tab-button px-3 py-2 font-semibold text-sm" data-tab="bebidas">Bebidas 🥤</button>
-    <button class="tab-button px-3 py-2 font-semibold text-sm" data-tab="contato">Contato 📞</button>
+    <button class="tab-button tab-active px-3 py-2 font-semibold text-sm" data-tab="promocoes">Promoções 🔥</button>
+    <button class="tab-button px-3 py-2 font-semibold text-sm" data-tab="pizzas">Pizzas 🍕</button>
+    <button class="tab-button px-3 py-2 font-semibold text-sm" data-tab="massas">Massas 🍝</button>
+    <button class="tab-button px-3 py-2 font-semibold text-sm" data-tab="hamburgueres">Hambúrgueres 🍔</button>
+    <button class="tab-button px-3 py-2 font-semibold text-sm" data-tab="esfihas">Esfihas 🥟</button>
+    <button class="tab-button px-3 py-2 font-semibold text-sm" data-tab="combos">Combos 🍟</button>
+    <button class="tab-button px-3 py-2 font-semibold text-sm" data-tab="bebidas">Bebidas 🥤</button>
+    <button class="tab-button px-3 py-2 font-semibold text-sm" data-tab="contato">Contato 📞</button>
   </nav>
   
   <div>
@@ -129,12 +129,11 @@
       <button id="closeCartModal" class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
     </div>
     <div id="cartItems" class="flex-grow overflow-y-auto custom-scroll mb-4">
-      <p id="emptyCart" class="text-gray-500 text-center py-8">Seu carrinho está vazio.</p>
-    </div>
+          </div>
     <div class="border-t-2 border-red-200 pt-4">
       <div class="mb-4">
         <div class="flex gap-2">
-          <input type="text" id="couponInput" placeholder="Tem um cupom?" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 text-sm">
+          <input type="text" id="couponInput" placeholder="Tem um cupom?" class="w-full p-2 border border-gray-300 rounded-md text-sm">
           <button id="applyCouponBtn" class="bg-gray-800 text-white px-4 rounded-md hover:bg-gray-700 text-sm font-bold">Aplicar</button>
         </div>
         <p id="couponMessage" class="text-xs mt-1"></p>
@@ -163,105 +162,105 @@
     </div>
   </div>
 </div>
-
+  
 <div id="checkoutModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4 modal-enter">
-    <div class="bg-white rounded-lg shadow-2xl p-4 w-full max-w-md max-h-[90vh] overflow-y-auto custom-scroll">
-        <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">Quase lá! Faltam seus dados...</h2>
-        <form id="customerInfoForm">
-          <div class="mb-3">
-            <label for="customerName" class="block text-gray-700 text-sm font-bold mb-1">Nome Completo:</label>
-            <input type="text" id="customerName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700" required>
+  <div class="bg-white rounded-lg shadow-2xl p-4 w-full max-w-md max-h-[90vh] overflow-y-auto custom-scroll">
+    <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">Quase lá! Faltam seus dados...</h2>
+    <form id="customerInfoForm">
+      <div class="mb-3">
+        <label for="customerName" class="block text-gray-700 text-sm font-bold mb-1">Nome Completo:</label>
+        <input type="text" id="customerName" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700" required>
+      </div>
+      <div class="grid grid-cols-1 gap-3 mb-3">
+        <div>
+          <label for="customerAddress" class="block text-gray-700 text-sm font-bold mb-1">Endereço (Rua e Nº):</label>
+          <input type="text" id="customerAddress" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700" required>
+        </div>
+        <div>
+          <label for="customerNeighborhood" class="block text-gray-700 text-sm font-bold mb-1">Bairro:</label>
+          <input type="text" id="customerNeighborhood" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700" required>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="customerObs" class="block text-gray-700 text-sm font-bold mb-1">Observações (opcional):</label>
+        <textarea id="customerObs" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700" rows="2" placeholder="Ex: sem cebola, etc."></textarea>
+      </div>
+      <div class="border p-3 rounded-lg mb-4">
+        <p class="block text-gray-700 text-sm font-bold mb-2">Sachês (Cortesia)</p>
+        <div class="flex items-center justify-around">
+          <div>
+            <label for="ketchupQty" class="text-sm">Ketchup:</label>
+            <input type="number" id="ketchupQty" min="0" max="10" value="0" class="w-16 text-center border rounded">
           </div>
-          <div class="grid grid-cols-1 gap-3 mb-3">
-            <div>
-              <label for="customerAddress" class="block text-gray-700 text-sm font-bold mb-1">Endereço (Rua e Nº):</label>
-              <input type="text" id="customerAddress" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700" required>
-            </div>
-            <div>
-              <label for="customerNeighborhood" class="block text-gray-700 text-sm font-bold mb-1">Bairro:</label>
-              <input type="text" id="customerNeighborhood" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700" required>
-            </div>
+          <div>
+            <label for="mustardQty" class="text-sm">Mostarda:</label>
+            <input type="number" id="mustardQty" min="0" max="10" value="0" class="w-16 text-center border rounded">
           </div>
-          <div class="mb-3">
-            <label for="customerObs" class="block text-gray-700 text-sm font-bold mb-1">Observações (opcional):</label>
-            <textarea id="customerObs" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700" rows="2" placeholder="Ex: sem cebola, etc."></textarea>
-          </div>
-          <div class="border p-3 rounded-lg mb-4">
-            <p class="block text-gray-700 text-sm font-bold mb-2">Sachês (Cortesia)</p>
-            <div class="flex items-center justify-around">
-              <div>
-                <label for="ketchupQty" class="text-sm">Ketchup:</label>
-                <input type="number" id="ketchupQty" min="0" max="10" value="0" class="w-16 text-center border rounded">
-              </div>
-              <div>
-                <label for="mustardQty" class="text-sm">Mostarda:</label>
-                <input type="number" id="mustardQty" min="0" max="10" value="0" class="w-16 text-center border rounded">
-              </div>
-            </div>
-          </div>
-          <div class="mb-4">
-            <label for="paymentMethod" class="block text-gray-700 text-sm font-bold mb-1">Forma de Pagamento:</label>
-            <select id="paymentMethod" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700" required>
-              <option value="" disabled selected>Selecione</option>
-              <option value="Vale Refeição/Alimentação">Vale Refeição/Alimentação</option>
-              <option value="PIX">PIX</option>
-              <option value="Cartão de Crédito">Cartão de Crédito</option>
-              <option value="Cartão de Débito">Cartão de Débito</option>
-              <option value="Dinheiro">Dinheiro</option>
-            </select>
-          </div>
-          <div class="flex items-center justify-between gap-4 mt-6">
-            <button type="button" id="cancelButton" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg w-1/2">Cancelar</button>
-            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg w-1/2">Confirmar</button>
-          </div>
-        </form>
-    </div>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="paymentMethod" class="block text-gray-700 text-sm font-bold mb-1">Forma de Pagamento:</label>
+        <select id="paymentMethod" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700" required>
+          <option value="" disabled selected>Selecione</option>
+          <option value="Vale Refeição/Alimentação">Vale Refeição/Alimentação</option>
+          <option value="PIX">PIX</option>
+          <option value="Cartão de Crédito">Cartão de Crédito</option>
+          <option value="Cartão de Débito">Cartão de Débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+        </select>
+      </div>
+      <div class="flex items-center justify-between gap-4 mt-6">
+        <button type="button" id="cancelButton" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg w-1/2">Cancelar</button>
+        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg w-1/2">Confirmar</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <div id="promoModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4 modal-enter">
-    <div class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto custom-scroll">
-        <h2 id="promoModalTitle" class="text-xl font-bold text-gray-800 mb-4 text-center">Personalize sua Promoção</h2>
-        <form id="promoForm">
-            <div id="promoSelectionContainer" class="space-y-6"></div>
-            <div class="flex items-center justify-between gap-4 mt-8">
-                <button type="button" id="cancelPromo" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg w-1/2">Cancelar</button>
-                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-1/2">Adicionar</button>
-            </div>
-        </form>
-    </div>
+  <div class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto custom-scroll">
+    <h2 id="promoModalTitle" class="text-xl font-bold text-gray-800 mb-4 text-center">Personalize sua Promoção</h2>
+    <form id="promoForm">
+      <div id="promoSelectionContainer" class="space-y-6"></div>
+      <div class="flex items-center justify-between gap-4 mt-8">
+        <button type="button" id="cancelPromo" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg w-1/2">Cancelar</button>
+        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-1/2">Adicionar</button>
+      </div>
+    </form>
+  </div>
 </div>
   
 <div id="massaModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4 modal-enter">
-    <div class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-xl max-h-[90vh] overflow-y-auto custom-scroll">
-        <h2 id="massaModalTitle" class="text-xl font-bold text-gray-800 mb-4 text-center">Monte sua Massa</h2>
-        <form id="massaForm">
-            <div id="massaSelectionContainer" class="space-y-6"></div>
-            <p class="text-xl font-bold text-red-700 text-center mt-6">Total: R$ <span id="massaTotal">0,00</span></p>
-            <div class="flex items-center justify-between gap-4 mt-8">
-                <button type="button" id="cancelMassa" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg w-1/2">Cancelar</button>
-                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-1/2">Adicionar</button>
-            </div>
-        </form>
-    </div>
+  <div class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-xl max-h-[90vh] overflow-y-auto custom-scroll">
+    <h2 id="massaModalTitle" class="text-xl font-bold text-gray-800 mb-4 text-center">Monte sua Massa</h2>
+    <form id="massaForm">
+      <div id="massaSelectionContainer" class="space-y-6"></div>
+      <p class="text-xl font-bold text-red-700 text-center mt-6">Total: R$ <span id="massaTotal">0,00</span></p>
+      <div class="flex items-center justify-between gap-4 mt-8">
+        <button type="button" id="cancelMassa" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg w-1/2">Cancelar</button>
+        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-1/2">Adicionar</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <div id="esfihaComboModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4 modal-enter">
-    <div class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto custom-scroll">
-        <h2 id="esfihaComboModalTitle" class="text-xl font-bold text-gray-800 mb-4 text-center">Monte seu Combo</h2>
-        <form id="esfihaComboForm">
-            <div id="esfihaComboSelectionContainer" class="space-y-4"></div>
-            <div id="esfihaComboSodaContainer" class="mt-6 space-y-4"></div>
-            <div class="mt-4 p-3 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-lg">
-                <p>Selecionadas: <span id="esfihaCounter">0</span> de <span id="esfihaTotalQty">0</span></p>
-            </div>
-            <p id="esfihaWarning" class="text-red-600 text-sm mt-2 hidden"></p>
-            <p class="text-xl font-bold text-red-700 text-center mt-6">Total: R$ <span id="esfihaComboTotal">0,00</span></p>
-            <div class="flex items-center justify-between gap-4 mt-8">
-                <button type="button" id="cancelEsfihaCombo" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg w-1/2">Cancelar</button>
-                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-1/2">Adicionar</button>
-            </div>
-        </form>
-    </div>
+  <div class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto custom-scroll">
+    <h2 id="esfihaComboModalTitle" class="text-xl font-bold text-gray-800 mb-4 text-center">Monte seu Combo</h2>
+    <form id="esfihaComboForm">
+      <div id="esfihaComboSelectionContainer" class="space-y-4"></div>
+      <div id="esfihaComboSodaContainer" class="mt-6 space-y-4"></div>
+      <div class="mt-4 p-3 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-lg">
+        <p>Selecionadas: <span id="esfihaCounter">0</span> de <span id="esfihaTotalQty">0</span></p>
+      </div>
+      <p id="esfihaWarning" class="text-red-600 text-sm mt-2 hidden"></p>
+      <p class="text-xl font-bold text-red-700 text-center mt-6">Total: R$ <span id="esfihaComboTotal">0,00</span></p>
+      <div class="flex items-center justify-between gap-4 mt-8">
+        <button type="button" id="cancelEsfihaCombo" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg w-1/2">Cancelar</button>
+        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-1/2">Adicionar</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <footer class="bg-red-800 text-yellow-100 p-6 mt-12">
@@ -276,6 +275,7 @@
 </footer>
 
 <script>
+// SCRIPT 100% COMPLETO E CORRIGIDO
 document.addEventListener('DOMContentLoaded', () => {
 
     const data = {
@@ -303,7 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let appliedCoupon = null;
 
     const cartItemsContainer = document.getElementById('cartItems');
-    const emptyCartEl = document.getElementById('emptyCart');
     const cartSubtotalEl = document.getElementById('cartSubtotal');
     const deliveryFeeContainer = document.getElementById('deliveryFeeContainer');
     const cartDeliveryFeeEl = document.getElementById('cartDeliveryFee');
@@ -367,12 +366,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const finalTotal = totalAfterDiscount + deliveryFee;
 
         if (cart.length === 0) {
-            cartItemsContainer.appendChild(emptyCartEl);
-            emptyCartEl.classList.remove('hidden');
+            cartItemsContainer.innerHTML = '<p id="emptyCart" class="text-gray-500 text-center py-8">Seu carrinho está vazio.</p>';
             checkoutButton.disabled = true;
             floatingCartButton.classList.add('hidden');
         } else {
-            emptyCartEl.classList.add('hidden');
             cart.forEach((cartItem, index) => {
                 const itemEl = document.createElement('div');
                 itemEl.className = 'flex justify-between items-center mb-3 p-2 bg-gray-50 rounded cart-item-enter';
@@ -411,9 +408,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ... (restante das funções auxiliares, como applyCoupon, addToCart, etc., estão aqui)
-    // Elas foram omitidas desta caixa para brevidade, mas estão no código completo.
-
     function applyCoupon() {
         const code = couponInput.value.toUpperCase();
         if (validCoupons[code]) {
@@ -436,12 +430,10 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCart();
     }
     
-    // ... Lógica para abas
     const tabs = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
     tabs.forEach(tab => {
         tab.addEventListener('click', (e) => {
-            e.preventDefault();
             tabs.forEach(t => t.classList.remove('tab-active'));
             tab.classList.add('tab-active');
             const target = document.getElementById(tab.dataset.tab);
@@ -449,105 +441,94 @@ document.addEventListener('DOMContentLoaded', () => {
             target.classList.remove('hidden');
         });
     });
-
-    // ... Lógica do formulário de pizza
-    function updateBordaOptions() { /* ...código completo aqui... */ }
-    function renderSodaSelection() { /* ...código completo aqui... */ }
-    function populatePizzaOptions() { /* ...código completo aqui... */ }
-    function updatePizzaSummary() { /* ...código completo aqui... */ }
-    if (buildPizzaForm) { /* ...código completo do listener do form de pizza aqui... */ }
-
-    // ✅ FUNÇÕES DE LAYOUT MODIFICADAS
-    function createMenuSection(title, items, targetId) {
-        const section = document.getElementById(targetId);
-        if (!section) return;
-        let content = `<h2 class="text-2xl font-bold text-red-700 mb-4 border-l-4 border-red-500 pl-3">${title}</h2><div class="grid grid-cols-2 gap-3">`;
-        items.forEach(item => {
-            const priceHtml = item.preco_antigo ? `<div><span class="text-lg font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span><s class="text-gray-500 text-sm ml-2">R$ ${formatCurrency(item.preco_antigo)}</s></div>` : (item.preco !== undefined ? `<span class="text-lg font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span>` : '');
-            let buttonClass = 'add-to-cart-btn';
-            if (item.needsFlavor || (item.includesSoda && targetId !== 'combos')) { buttonClass = 'open-promo-modal-btn'; }
-            else if (targetId === 'massas') { buttonClass = 'open-massa-modal-btn'; }
-            else if (item.isCustomizable) { buttonClass = 'open-esfiha-combo-modal-btn'; }
-            else if (item.includesSoda && targetId === 'combos') { buttonClass = 'open-promo-modal-btn' }
-            content += `<div class="bg-white rounded-lg shadow-lg flex flex-col overflow-hidden">
-                <div class="p-3 flex flex-col flex-grow">
-                    <div class="flex-grow">
-                        <h4 class="text-base font-bold text-gray-800">${item.nome}</h4>
-                        ${item.desc ? `<p class="text-gray-600 my-1 text-xs">${item.desc}</p>` : ''}
-                    </div>
-                    <div class="mt-2 flex flex-col items-start gap-2">
-                        ${priceHtml}
-                        <button class="${buttonClass} w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-2 rounded-lg text-sm" data-item='${JSON.stringify(item)}'>Quero esse!</button>
-                    </div>
-                </div>
-            </div>`;
-        });
-        section.innerHTML = content + '</div>';
-    }
-
-    function createEsfihasSection() {
-        const section = document.getElementById('esfihas');
-        if (!section) return;
-        let content = `<h2 class="text-2xl font-bold text-red-700 mb-4 border-l-4 border-red-500 pl-3">Nossas Esfihas 🥟</h2><h3 class="text-xl font-semibold text-gray-800 mb-4">Combos Prontos</h3><div class="grid grid-cols-2 gap-3 mb-8">`;
-        data.esfihas.combos.forEach(item => {
-            const buttonClass = item.isCustomizable ? 'open-esfiha-combo-modal-btn' : 'add-to-cart-btn';
-            content += `<div class="bg-white rounded-lg shadow-lg flex flex-col overflow-hidden">
-                <div class="p-3 flex flex-col flex-grow">
-                    <div class="flex-grow">
-                        <h4 class="text-base font-bold text-gray-800">${item.nome}</h4>
-                        <p class="text-gray-600 my-1 text-xs">${item.desc}</p>
-                    </div>
-                    <div class="mt-2 flex flex-col items-start gap-2">
-                        <span class="text-lg font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span>
-                        <button class="${buttonClass} w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-2 rounded-lg text-sm" data-item='${JSON.stringify(item)}'>Quero esse!</button>
-                    </div>
-                </div>
-            </div>`;
-        });
-        content += '</div>'
-        content += `<h3 class="text-xl font-semibold text-gray-800 mb-4 mt-6 border-t pt-6">Ou peça por unidade</h3><div class="grid grid-cols-2 gap-3">`;
-        data.esfihas.saboresComPreco.forEach(item => {
-            content += `<div class="bg-white rounded-lg shadow-lg p-3 flex flex-col">
-                <div class="flex-grow">
-                    <h4 class="text-base font-bold text-gray-800">${item.nome}</h4>
-                </div>
-                <div class="mt-2 flex flex-col items-start gap-2">
-                    <span class="text-lg font-bold text-red-600">R$ ${formatCurrency(item.preco)}</span>
-                    <button class="add-to-cart-btn w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-2 rounded-lg text-sm" data-item='${JSON.stringify(item)}'>Quero essa!</button>
-                </div>
-            </div>`;
-        });
-        section.innerHTML = content + '</div>';
-    }
     
-    function createContatoSection(){ /* ...código completo aqui... */ }
-    function openPromoModal(promoItem) { /* ...código completo aqui... */ }
-    function openMassaModal(massaItem) { /* ...código completo aqui... */ }
-    function openEsfihaComboModal(comboItem) { /* ...código completo aqui... */ }
-
-    // EVENT LISTENERS GERAIS
-    document.body.addEventListener('click', (e) => {
-        const target = e.target.closest('button');
-        if (!target) return;
-        if (target.classList.contains('open-promo-modal-btn')) openPromoModal(JSON.parse(target.dataset.item));
-        else if (target.classList.contains('add-to-cart-btn')) addToCart(JSON.parse(target.dataset.item));
-        else if (target.classList.contains('open-massa-modal-btn')) openMassaModal(JSON.parse(target.dataset.item));
-        else if (target.classList.contains('open-esfiha-combo-modal-btn')) openEsfihaComboModal(JSON.parse(target.dataset.item));
-    });
-    applyCouponBtn.addEventListener('click', applyCoupon);
-    checkoutButton.addEventListener('click', () => {
-        cartModal.classList.add('hidden'); // Fecha o modal do carrinho
-        checkoutModal.classList.remove('hidden'); // Abre o modal de checkout
-    });
-    cancelButton.addEventListener('click', () => checkoutModal.classList.add('hidden'));
-    floatingCartButton.addEventListener('click', () => cartModal.classList.remove('hidden'));
-    closeCartModal.addEventListener('click', () => cartModal.classList.add('hidden'));
-    cancelPromo.addEventListener('click', () => promoModal.classList.add('hidden'));
-    cancelMassa.addEventListener('click', () => massaModal.classList.add('hidden'));
-    cancelEsfihaCombo.addEventListener('click', () => esfihaComboModal.classList.add('hidden'));
+    // Funções e Lógica para PIZZAS
+    function updateBordaOptions(){if(!pizzaSizesEl.value)return;const e=data.pizzas.tamanhos[pizzaSizesEl.value];bordaRecheadaEl.innerHTML="",data.pizzas.bordas.forEach((a,d)=>{let t=a.precoPadrao;e.nome.includes("Mega")?t=a.precoMega:e.nome.includes("Média")?t=a.precoMedia:e.nome.includes("Individual")&&(t=a.precoIndividual);const o=t>0?`+ R$ ${formatCurrency(t)}`:"";bordaRecheadaEl.innerHTML+=`<option value="${d}">${a.nome} ${o}</option>`})}function renderSodaSelection(){if(!pizzaSizesEl.value)return;const e=data.pizzas.tamanhos[pizzaSizesEl.value];if(sodaSelectionContainer.innerHTML="",!e.sodasInclusas||0===e.sodasInclusas)return void updatePizzaSummary();for(let a=1;a<=e.sodasInclusas;a++){let t=`<div class="mb-4"><label class="block font-semibold mb-2 text-gray-700">Escolha seu ${a}º Refrigerante:</label><select name="pizza-soda" class="pizza-soda-select w-full p-2 border border-gray-300 rounded-md">`;data.refrigerantesPromo.forEach(e=>{const a=e.precoAdicional>0?` (+ R$ ${formatCurrency(e.precoAdicional)})`:"";t+=`<option value="${e.nome}" data-price="${e.precoAdicional}">${e.nome}${a}</option>`}),t+="</select></div>",sodaSelectionContainer.innerHTML+=t}document.querySelectorAll(".pizza-soda-select").forEach(e=>{e.addEventListener("change",updatePizzaSummary)}),updatePizzaSummary()}function populatePizzaOptions(){if(!pizzaSizesEl)return;pizzaSizesEl.innerHTML="",flavorsAccordion.innerHTML="",data.pizzas.tamanhos.forEach((e,a)=>{pizzaSizesEl.innerHTML+=`<option value="${a}">${e.nome} (até ${e.maxSabores} ${e.maxSabores>1?"sabores":"sabor"})</option>`}),updateBordaOptions();const e={"Sabores Salgados 🍕":data.pizzas.saboresSalgados,"Sabores Doces 🍰":data.pizzas.saboresDoces};for(const a in e){let t=`
+ <div>
+ <button type="button" class="w-full flex justify-between items-center p-3 font-semibold text-left bg-gray-100 rounded-lg hover:bg-gray-200" onclick="this.nextElementSibling.classList.toggle('hidden')">
+ <span>${a}</span>
+ <i class="fas fa-chevron-down transform transition-transform"></i>
+ </button>
+ <div class="hidden pt-2 pb-4 px-2 space-y-2 grid grid-cols-2 gap-3 custom-scroll rounded bg-gray-50 shadow-inner">`;e[a].sort().forEach(e=>{t+=`<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="checkbox" class="flavor-checkbox h-4 w-4 rounded border-gray-300 text-red-600"><span class="ml-2 text-gray-700 text-sm">${e}</span></label>`}),t+="</div></div>",flavorsAccordion.innerHTML+=t}}function updatePizzaSummary(){if(!buildPizzaForm)return;const e=data.pizzas.tamanhos[pizzaSizesEl.value],a=data.pizzas.bordas[bordaRecheadaEl.value];summarySizeEl.textContent=e.nome,summaryBordaEl.textContent=a.nome;let t=Array.from(document.querySelectorAll("#flavorsAccordion .flavor-checkbox:checked")).map(e=>e.nextElementSibling.textContent);if(t.length>e.maxSabores){flavorWarningEl.textContent=`Máximo de ${e.maxSabores} ${e.maxSabores>1?"sabores":"sabor"}!`,flavorWarningEl.classList.remove("hidden");const d=Array.from(document.querySelectorAll("#flavorsAccordion .flavor-checkbox:checked")).pop();d&&(d.checked=!1),t=Array.from(document.querySelectorAll("#flavorsAccordion .flavor-checkbox:checked")).map(e=>e.nextElementSibling.textContent)}else flavorWarningEl.classList.add("hidden");summaryFlavorsEl.innerHTML=t.length>0?t.map(e=>`<li>${e}</li>`).join(""):`<li>Selecione...</li>`;let o=e.preco;let l=a.precoPadrao;e.nome.includes("Mega")?l=a.precoMega:e.nome.includes("Média")?l=a.precoMedia:e.nome.includes("Individual")&&(l=a.precoIndividual),o+=l;let r=0;const s=[];document.querySelectorAll(".pizza-soda-select").forEach(e=>{const a=e.options[e.selectedIndex];r+=parseFloat(a.dataset.price),s.push(a.value)}),s.length>0?(summarySodaContainer.classList.remove("hidden"),summarySoda.textContent=s.join(", ")):summarySodaContainer.classList.add("hidden"),o+=r,pizzaTotalEl.textContent=formatCurrency(o)}if(buildPizzaForm){buildPizzaForm.addEventListener("submit",e=>{e.preventDefault();const a=data.pizzas.tamanhos[pizzaSizesEl.value],t=data.pizzas.bordas[bordaRecheadaEl.value],o=Array.from(document.querySelectorAll("#flavorsAccordion .flavor-checkbox:checked")).map(e=>e.nextElementSibling.textContent);if(0===o.length)return alert("Por favor, escolha pelo menos um sabor!");let l=[],r=a.preco;let s=t.precoPadrao;a.nome.includes("Mega")?s=t.precoMega:a.nome.includes("Média")?s=t.precoMedia:a.nome.includes("Individual")&&(s=t.precoIndividual),r+=s,s>0&&l.push(`Borda: ${t.nome}`);const n=[];document.querySelectorAll(".pizza-soda-select").forEach(e=>{const a=e.options[e.selectedIndex];r+=parseFloat(a.dataset.price),n.push(a.value)}),n.length>0&&l.push(`Bebida(s): ${n.join(", ")}`),addToCart({nome:`Pizza ${a.nome.split(" ")[0]} (${o.join(", ")})`,desc:l.join(" | "),preco:r}),buildPizzaForm.reset(),document.querySelectorAll(".flavor-checkbox").forEach(e=>{e.checked=!1}),renderSodaSelection(),updatePizzaSummary()}),pizzaSizesEl.addEventListener("change",()=>{updateBordaOptions(),renderSodaSelection()}),bordaRecheadaEl.addEventListener("change",updatePizzaSummary),flavorsAccordion.addEventListener("change",updatePizzaSummary)}
+    
+    // Funções e Lógica para MODAIS
+    function openPromoModal(promoItem){const selectionContainer=document.getElementById("promoSelectionContainer");selectionContainer.innerHTML="",document.getElementById("promoModalTitle").textContent=`Personalize: ${promoItem.nome}`,promoItem.needsFlavor&&promoItem.pizzas.forEach((pizza,index)=>{let pizzaHtml=`<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">🍕 Pizza ${pizza.size} (até ${pizza.maxSabores} sabores)</h4><div class="grid grid-cols-2 gap-2 promo-flavor-group" data-max-flavors="${pizza.maxSabores}" data-pizza-index="${index}">`;data.pizzas.saboresSalgados.sort().forEach(flavor=>{pizzaHtml+=`<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="checkbox" class="promo-flavor-checkbox h-4 w-4 rounded border-gray-300 text-red-600"><span class="ml-2 text-sm text-gray-700">${flavor}</span></label>`}),pizzaHtml+='</div><p class="text-red-600 text-sm mt-2 hidden" id="promo-warning-'+index+'"></p></div>',selectionContainer.innerHTML+=pizzaHtml}),promoItem.includesSweet&&(()=>{let sweetPizzaHtml='<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">🍰 Pizza Doce Individual (Grátis)</h4><div class="grid grid-cols-2 gap-2">';data.pizzas.saboresDoces.sort().forEach(flavor=>{sweetPizzaHtml+=`<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="radio" name="sweet-flavor" value="${flavor}" class="h-4 w-4 border-gray-300 text-red-600"><span class="ml-2 text-sm text-gray-700">${flavor}</span></label>`}),sweetPizzaHtml+="</div></div>",selectionContainer.innerHTML+=sweetPizzaHtml})(),promoItem.includesSoda&&(()=>{let sodaHtml='<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">🥤 Escolha seu Refrigerante</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-2">';data.refrigerantesPromo.forEach((soda,index)=>{const priceText=soda.precoAdicional>0?` (+ R$ ${formatCurrency(soda.precoAdicional)})`:"";sodaHtml+=`<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="radio" name="promo-soda" value="${soda.nome}" data-price="${soda.precoAdicional}" class="h-4 w-4 border-gray-300 text-red-600" ${0===index?"checked":""}><span class="ml-2 text-sm text-gray-700">${soda.nome}${priceText}</span></label>`}),sodaHtml+="</div></div>",selectionContainer.innerHTML+=sodaHtml})(),promoModal.classList.remove("hidden"),promoForm.dataset.promoItem=JSON.stringify(promoItem)}function openMassaModal(massaItem){const selectionContainer=document.getElementById("massaSelectionContainer"),massaTotalEl=document.getElementById("massaTotal");document.getElementById("massaModalTitle").textContent=`Personalize: ${massaItem.nome}`;let content='<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">1. Escolha o Tamanho</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="massa-size-group">';data.massaSizes.forEach((size,index)=>{content+=`<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="radio" name="massa-size" value="${index}" class="h-4 w-4 border-gray-300 text-red-600" ${0===index?"checked":""}><span class="ml-2 text-sm text-gray-700">${size.nome}</span></label>`}),content+='</div></div>',content+='<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">2. Escolha o Molho</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-2">',content+='<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="radio" name="massa-molho" value="Molho de Tomate" class="h-4 w-4 border-gray-300 text-red-600" checked><span class="ml-2 text-sm text-gray-700">Molho de Tomate</span></label>',content+='<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="radio" name="massa-molho" value="Molho Branco" class="h-4 w-4 border-gray-300 text-red-600"><span class="ml-2 text-sm text-gray-700">Molho Branco</span></label>',content+='</div></div>',content+='<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">3. Escolha a Proteína</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="massa-proteina-group">';data.proteinasMassas.forEach((proteina,index)=>{const priceText=proteina.precoAdicional>0?` (+ R$ ${formatCurrency(proteina.precoAdicional)})`:"";content+=`<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="radio" name="massa-proteina" value="${index}" class="h-4 w-4 border-gray-300 text-red-600" ${0===index?"checked":""}><span class="ml-2 text-sm text-gray-700">${proteina.nome}${priceText}</span></label>`}),content+="</div></div>",selectionContainer.innerHTML=content;const updateMassaTotal=()=>{const selectedSizeIndex=document.querySelector('#massaSelectionContainer input[name="massa-size"]:checked').value,selectedProteinaIndex=document.querySelector('#massaSelectionContainer input[name="massa-proteina"]:checked').value,basePrice=data.massaSizes[selectedSizeIndex].preco,proteinaPrice=data.proteinasMassas[selectedProteinaIndex].precoAdicional;massaTotalEl.textContent=formatCurrency(basePrice+proteinaPrice)};selectionContainer.addEventListener("change",updateMassaTotal),updateMassaTotal(),massaModal.classList.remove("hidden"),massaForm.dataset.massaItem=JSON.stringify(massaItem)}function openEsfihaComboModal(comboItem){const selectionContainer=document.getElementById("esfihaComboSelectionContainer"),sodaContainer=document.getElementById("esfihaComboSodaContainer"),modalTitle=document.getElementById("esfihaComboModalTitle"),totalQtyEl=document.getElementById("esfihaTotalQty"),counterEl=document.getElementById("esfihaCounter");modalTitle.textContent=`Personalize: ${comboItem.nome}`,totalQtyEl.textContent=comboItem.quantidade,counterEl.textContent="0",selectionContainer.innerHTML="",sodaContainer.innerHTML="";let content=`<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">Escolha os sabores (Total: ${comboItem.quantidade})</h4><div class="space-y-3">`;data.esfihas.saboresComPreco.forEach((esfiha,index)=>{const priceText=esfiha.precoAdicional>0?` (+ R$ ${formatCurrency(esfiha.precoAdicional)})`:"";content+=`
+ <div class="flex justify-between items-center p-2 rounded-md bg-gray-50">
+ <span class="text-sm text-gray-700">${esfiha.nome}${priceText}</span>
+ <div class="flex items-center gap-2 border rounded-md p-1">
+ <button type="button" class="esfiha-qty-change text-red-500" data-index="${index}" data-action="decrease"><i class="fas fa-minus-circle"></i></button>
+ <input type="number" readonly value="0" min="0" class="esfiha-qty-input w-8 text-center bg-transparent font-bold" data-index="${index}">
+ <button type="button" class="esfiha-qty-change text-green-500" data-index="${index}" data-action="increase"><i class="fas fa-plus-circle"></i></button>
+ </div>
+ </div>`}),content+="</div></div>",selectionContainer.innerHTML=content,comboItem.includesSoda&&(()=>{let sodaHtml='<div class="border p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">🥤 Escolha seu Refrigerante</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-2">';data.refrigerantesPromo.forEach((soda,index)=>{const priceText=soda.precoAdicional>0?` (+ R$ ${formatCurrency(soda.precoAdicional)})`:"";sodaHtml+=`<label class="flex items-center p-2 rounded-md hover:bg-yellow-100"><input type="radio" name="esfiha-combo-soda" value="${soda.nome}" data-price="${soda.precoAdicional}" class="h-4 w-4 border-gray-300 text-red-600" ${0===index?"checked":""}><span class="ml-2 text-sm text-gray-700">${soda.nome}${priceText}</span></label>`}),sodaHtml+="</div></div>",sodaContainer.innerHTML+=sodaHtml})();const updateEsfihaComboTotal=()=>{let total=comboItem.preco,currentCount=0;document.querySelectorAll(".esfiha-qty-input").forEach(input=>{const qty=parseInt(input.value);if(currentCount+=qty,qty>0){const esfihaIndex=parseInt(input.dataset.index);total+=data.esfihas.saboresComPreco[esfihaIndex].precoAdicional*qty}}),comboItem.includesSoda&&(()=>{const selectedSoda=document.querySelector('input[name="esfiha-combo-soda"]:checked');selectedSoda&&(total+=parseFloat(selectedSoda.dataset.price))})(),counterEl.textContent=currentCount,document.getElementById("esfihaComboTotal").textContent=formatCurrency(total);const warningEl=document.getElementById("esfihaWarning");currentCount>comboItem.quantidade?(warningEl.textContent=`Você selecionou ${currentCount} esfihas, o limite para este combo é ${comboItem.quantidade}.`,warningEl.classList.remove("hidden")):warningEl.classList.add("hidden")};selectionContainer.addEventListener("click",e=>{const btn=e.target.closest(".esfiha-qty-change");if(!btn)return;const action=btn.dataset.action,index=btn.dataset.index,input=document.querySelector(`.esfiha-qty-input[data-index="${index}"]`);let currentValue=parseInt(input.value);"increase"===action?input.value=currentValue+1:"decrease"===action&&currentValue>0&&(input.value=currentValue-1),updateEsfihaComboTotal()}),sodaContainer&&sodaContainer.addEventListener("change",updateEsfihaComboTotal),updateEsfihaComboTotal(),esfihaComboModal.classList.remove("hidden"),esfihaComboForm.dataset.comboItem=JSON.stringify(comboItem)}
+    document.body.addEventListener('change', e => { if (e.target.classList.contains('promo-flavor-checkbox')) { const group = e.target.closest('.promo-flavor-group'); if (!group) return; const maxFlavors = parseInt(group.dataset.maxFlavors); const pizzaIndex = group.dataset.pizzaIndex; const warningEl = document.getElementById(`promo-warning-${pizzaIndex}`); const checkedBoxes = group.querySelectorAll('.promo-flavor-checkbox:checked'); if (checkedBoxes.length > maxFlavors) { e.target.checked = false; warningEl.textContent = `Máximo de ${maxFlavors} sabores para esta pizza.`; warningEl.classList.remove('hidden'); } else { warningEl.classList.add('hidden'); } } });
+    promoForm.addEventListener('submit', e => { e.preventDefault(); const promoItem = JSON.parse(e.currentTarget.dataset.promoItem); let description = []; let allSelectionsMade = true; let finalPrice = promoItem.preco; if (promoItem.needsFlavor) { promoItem.pizzas.forEach((pizza, index) => { const group = document.querySelector(`#promoSelectionContainer .promo-flavor-group[data-pizza-index="${index}"]`); const selectedFlavors = Array.from(group.querySelectorAll('.promo-flavor-checkbox:checked')).map(cb => cb.nextElementSibling.textContent); if (selectedFlavors.length === 0) allSelectionsMade = false; description.push(`Pizza ${pizza.size}: ${selectedFlavors.join(', ')}`); }); } if (promoItem.includesSweet) { const selectedSweet = document.querySelector('input[name="sweet-flavor"]:checked'); if (selectedSweet) { description.push(`Pizza Doce: ${selectedSweet.value}`); } else { allSelectionsMade = false; } } if (promoItem.includesSoda) { const selectedSoda = document.querySelector('input[name="promo-soda"]:checked'); if (selectedSoda) { description.push(`Bebida: ${selectedSoda.value}`); finalPrice += parseFloat(selectedSoda.dataset.price); } else { allSelectionsMade = false; } } if (!allSelectionsMade) { return alert('Por favor, faça todas as seleções necessárias para a promoção.'); } addToCart({ nome: promoItem.nome, desc: description.join(' | '), preco: finalPrice }); promoModal.classList.add('hidden'); });
+    massaForm.addEventListener('submit', e => { e.preventDefault(); const massaItem = JSON.parse(e.currentTarget.dataset.massaItem); const selectedSizeIndex = document.querySelector('input[name="massa-size"]:checked').value; const selectedSize = data.massaSizes[selectedSizeIndex]; const selectedMolho = document.querySelector('input[name="massa-molho"]:checked'); const selectedProteinaIndex = document.querySelector('input[name="massa-proteina"]:checked').value; const selectedProteina = data.proteinasMassas[selectedProteinaIndex]; if (!selectedMolho || !selectedProteina) { return alert('Por favor, escolha o molho e a proteína.'); } const finalPrice = selectedSize.preco + selectedProteina.precoAdicional; const description = `Tamanho: ${selectedSize.nome} | Molho: ${selectedMolho.value} | Proteína: ${selectedProteina.nome}`; addToCart({ nome: massaItem.nome, desc: description, preco: finalPrice }); massaModal.classList.add('hidden'); });
+    esfihaComboForm.addEventListener('submit', e => { e.preventDefault(); const comboItem = JSON.parse(e.currentTarget.dataset.comboItem); let description = []; let finalPrice = comboItem.preco; let totalQty = 0; document.querySelectorAll('.esfiha-qty-input').forEach(input => { const qty = parseInt(input.value); if (qty > 0) { const esfihaIndex = parseInt(input.dataset.index); const esfiha = data.esfihas.saboresComPreco[esfihaIndex]; description.push(`${qty}x ${esfiha.nome}`); finalPrice += esfiha.precoAdicional * qty; totalQty += qty; } }); if (totalQty !== comboItem.quantidade) { return alert(`Você deve selecionar exatamente ${comboItem.quantidade} esfihas. Você selecionou ${totalQty}.`); } if (comboItem.includesSoda) { const selectedSoda = document.querySelector('input[name="esfiha-combo-soda"]:checked'); if (selectedSoda) { description.push(`Bebida: ${selectedSoda.value}`); finalPrice += parseFloat(selectedSoda.dataset.price); } else { return alert('Por favor, escolha uma bebida para o combo.'); } } addToCart({ nome: comboItem.nome, desc: description.join(', '), preco: finalPrice }); esfihaComboModal.classList.add('hidden'); });
 
     customerInfoForm.addEventListener('submit', (e) => {
-        // ... (código de formatação da mensagem do WhatsApp que já funcionava)
+        e.preventDefault();
+        const orderNumber = Math.floor(1000 + Math.random() * 9000);
+        const customerName = document.getElementById('customerName').value;
+        const customerAddress = document.getElementById('customerAddress').value;
+        const customerNeighborhood = document.getElementById('customerNeighborhood').value;
+        const paymentMethod = document.getElementById('paymentMethod').value;
+        const customerObs = document.getElementById('customerObs').value;
+        const ketchupQty = document.getElementById('ketchupQty').value;
+        const mustardQty = document.getElementById('mustardQty').value;
+        const subtotal = cart.reduce((sum, cartItem) => sum + (cartItem.product.preco * cartItem.quantity), 0);
+        let discount = 0;
+        if (appliedCoupon) { if (appliedCoupon.type === 'percentage') { discount = subtotal * (appliedCoupon.value / 100); } }
+        const totalAfterDiscount = subtotal - discount;
+        let deliveryFee = 0;
+        if (totalAfterDiscount > 0 && totalAfterDiscount < 35.00) { deliveryFee = 8.00; }
+        const finalTotal = totalAfterDiscount + deliveryFee;
+        const MAX_WIDTH = 42;
+        const SEPARATOR = '-'.repeat(MAX_WIDTH);
+        const formatLine = (label, value) => {
+            const remainingSpace = MAX_WIDTH - label.length - value.length;
+            if (remainingSpace < 1) { return `${label}\n${value.padStart(MAX_WIDTH, ' ')}`; }
+            const dots = '.'.repeat(remainingSpace);
+            return `${label}${dots}${value}`;
+        };
+        let message = `*PEDIDO SUPER PIZZA*\n`;
+        message += `*PEDIDO Nº:* ${orderNumber}\n`;
+        message += `${SEPARATOR}\n`;
+        message += `*CLIENTE:* ${customerName}\n`;
+        message += `*ENDEREÇO:* ${customerAddress}, ${customerNeighborhood}\n`;
+        message += `${SEPARATOR}\n\n*RESUMO DO PEDIDO*\n`;
+        cart.forEach(cartItem => {
+            message += `${SEPARATOR}\n`;
+            message += `*${cartItem.quantity}x ${cartItem.product.nome}*\n`;
+            if (cartItem.product.desc) {
+                const details = cartItem.product.desc.split('|').map(d => d.trim());
+                details.forEach(detail => { message += `  _${detail}_\n`; });
+            }
+            const itemTotalText = `R$ ${formatCurrency(cartItem.product.preco * cartItem.quantity)}`;
+            message += `${itemTotalText.padStart(MAX_WIDTH, ' ')}\n`;
+        });
+        message += `${SEPARATOR}\n\n`;
+        message += formatLine('Subtotal', `R$ ${formatCurrency(subtotal)}`) + '\n';
+        if (discount > 0) { message += formatLine(`Desconto (${appliedCoupon.code})`, `- R$ ${formatCurrency(discount)}`) + '\n'; }
+        if (deliveryFee > 0) { message += formatLine('Taxa de Entrega', `R$ ${formatCurrency(deliveryFee)}`) + '\n'; }
+        message += `${SEPARATOR}\n`;
+        message += `*${formatLine('TOTAL A PAGAR', `R$ ${formatCurrency(finalTotal)}`)}*\n`;
+        message += `${SEPARATOR}\n\n`;
+        if (customerObs) { message += `*OBS:* ${customerObs}\n`; }
+        if (ketchupQty > 0 || mustardQty > 0) {
+            let sachets = [];
+            if (ketchupQty > 0) sachets.push(`${ketchupQty}x Ketchup`);
+            if (mustardQty > 0) sachets.push(`${mustardQty}x Mostarda`);
+            message += `*SACHÊS:* ${sachets.join(', ')}\n`;
+        }
+        message += `\n*FORMA DE PAGAMENTO:* ${paymentMethod}\n`;
+        const whatsappNumber = "5521981417594"; // SEU NÚMERO AQUI
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+        checkoutModal.classList.add('hidden');
+        customerInfoForm.reset();
+        cart = [];
+        updateCart();
     });
 
     // INICIALIZAÇÃO
