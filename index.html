@@ -71,8 +71,7 @@
       </h3>
       <button id="closeCartModal" class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
     </div>
-    <div id="cartItems" class="flex-grow overflow-y-auto custom-scroll mb-4">
-          </div>
+    <div id="cartItems" class="flex-grow overflow-y-auto custom-scroll mb-4"></div>
     <div class="border-t-2 border-red-200 pt-4">
       <div class="mb-4">
         <div class="flex gap-2">
@@ -244,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
         combos: [ { nome: 'Combo 1', desc: '4 X-Tudo + 25 salgados + Batata c/ Cheddar e Bacon', preco: 85.00, includesSoda: true }, { nome: 'Combo 2', desc: '100 Salgadinhos fritos grandes e sortidos', preco: 70.00 }, { nome: 'Combo 3', desc: '25 Salgados + Porção de Calabresa + Batata c/ Cheddar', preco: 85.00, includesSoda: true }, { nome: 'Combo 4', desc: '4 X-Tudo + 25 Salgados + Calabresa + Anéis de Cebola', preco: 85.00, includesSoda: true }, { nome: 'Combo 5', desc: '4 X-Tudo + 25 Salgados + Batata c/ Cheddar e Bacon', preco: 85.00, includesSoda: true }, { nome: 'Combo 6', desc: '4 X-Tudo + Calabresa Acebolada + Batata Frita + Anéis de Cebola', preco: 85.00, includesSoda: true }, { nome: 'Petisco Frango a Passarinho + Fritas', desc: 'Frango crocante com fritas. Inclui um refri!', preco: 60.00, includesSoda: true } ],
         bebidas: [ { nome: 'Refrigerante Lata 350ml', desc: 'Escolha seu sabor.', preco: 5.00 }, { nome: 'Refrigerante 2 Litros', desc: 'Para dividir com a galera!', preco: 12.00 } ]
     };
-    const validCoupons = {"APPSUPERPIZZA": { type: "percentage", value: 10 }};
+   const validCoupons = {"APPSUPERPIZZA": { type: "percentage", value: 10 }};
     let cart = [];
     let appliedCoupon = null;
 
