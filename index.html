@@ -17,7 +17,9 @@
     @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
     button { transition: transform 0.1s ease-in-out, background-color 0.2s; }
     button:active { transform: scale(0.95); }
-    button:disabled { background-color: #9ca3af; cursor: not-allowed; opacity: 0.7; }
+    button:disabled { background-color: #9ca3af !important; cursor: not-allowed !important; opacity: 0.7; }
+    .accordion-toggle .fa-chevron-down { transition: transform 0.2s ease-in-out; }
+    .accordion-toggle.open .fa-chevron-down { transform: rotate(180deg); }
   </style>
 </head>
 <body class="bg-gradient-to-br from-yellow-50 via-red-50 to-yellow-100 min-h-screen flex flex-col font-sans">
@@ -88,7 +90,7 @@
             <div class="mt-6 text-center">
               <p class="text-gray-600 text-lg">Total do Item:</p>
               <p class="font-extrabold text-4xl text-red-700 my-2">R$ <span id="pizzaTotal">0,00</span></p>
-              <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg text-lg mt-4">
+              <button type="submit" id="addPizzaToCartBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg text-lg mt-4">
                 Adicionar ao Carrinho
               </button>
             </div>
@@ -212,13 +214,12 @@
     <h2 id="promoModalTitle" class="text-xl font-bold text-gray-800 mb-4 text-center">Personalize sua Promoção</h2>
     <form id="promoForm" class="flex-grow overflow-y-auto custom-scroll pr-2">
       <div id="promoSelectionContainer" class="space-y-6"></div>
-      <p id="promoFlavorWarning" class="text-red-600 text-sm mt-2 hidden text-center font-semibold"></p>
     </form>
     <div class="mt-4 pt-4 border-t">
         <p class="text-xl font-bold text-red-700 text-center">Total: R$ <span id="promoTotal">0,00</span></p>
         <div class="flex items-center justify-between gap-4 mt-4">
             <button type="button" id="cancelPromo" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg w-1/2">Cancelar</button>
-            <button type="submit" form="promoForm" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-1/2">Adicionar</button>
+            <button type="submit" form="promoForm" id="addPromoBtn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-1/2">Adicionar</button>
         </div>
     </div>
   </div>
@@ -255,12 +256,11 @@
         <p class="text-xl font-bold text-red-700 text-center mt-4">Total: R$ <span id="esfihaComboTotal">0,00</span></p>
         <div class="flex items-center justify-between gap-4 mt-4">
             <button type="button" id="cancelEsfihaCombo" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg w-1/2">Cancelar</button>
-            <button type="submit" form="esfihaComboForm" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-1/2">Adicionar</button>
+            <button type="submit" form="esfihaComboForm" id="addEsfihaComboBtn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-1/2">Adicionar</button>
         </div>
     </div>
   </div>
 </div>
-
 
 <footer class="bg-red-800 text-yellow-100 p-6 mt-12">
   <div class="max-w-7xl mx-auto text-center">
@@ -276,22 +276,23 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        console.log("Cardápio inicializando...");
-
         const WHATSAPP_NUMBER = '5521000000000'; // SUBSTITUA PELO SEU NÚMERO
 
-        // --- BANCO DE DADOS DE PRODUTOS (COM SEÇÃO DE PIZZAS COMPLETA) ---
+        // --- BANCO DE DADOS DE PRODUTOS ---
         const data = {
             refrigerantesPromo: [ { nome: 'Guaraná Antarctica 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Kuat 2L (Grátis)', precoAdicional: 0 }, { nome: 'Pepsi 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Coca-Cola 2L', precoAdicional: 12.00 }, { nome: 'Pepsi 2L', precoAdicional: 5.00 }, { nome: 'Guaraná Antarctica 2L', precoAdicional: 5.00 } ],
+            massaSizes: [ { nome: '400gr (serve 1 pessoa)', preco: 34.90 }, { nome: '1kg (serve até 3 pessoas)', preco: 59.90 } ],
+            proteinasMassas: [ { nome: 'Presunto', precoAdicional: 0 }, { nome: 'Carne Moída', precoAdicional: 0 }, { nome: 'Frango', precoAdicional: 0 }, { nome: 'Carne Seca', precoAdicional: 10.00 }, { nome: 'Camarão', precoAdicional: 10.00 }, { nome: 'Bacalhau', precoAdicional: 10.00 } ],
+            ingredientesMassas: [ { nome: 'Alho', precoAdicional: 1.50 }, { nome: 'Atum', precoAdicional: 3.50 }, { nome: 'Bacon', precoAdicional: 3.50 }, { nome: 'Calabresa', precoAdicional: 2.50 }, { nome: 'Cebola', precoAdicional: 1.50 }, { nome: 'Lombo Canadense', precoAdicional: 3.50 }, { nome: 'Ovo', precoAdicional: 1.50 }, { nome: 'Palmito', precoAdicional: 3.50 }, { nome: 'Presunto', precoAdicional: 2.50 }, { nome: 'Salaminho', precoAdicional: 3.50 }, { nome: 'Tomate Seco', precoAdicional: 3.50 } ],
+            molhosMassas: [ { nome: 'Molho ao Sugo' }, { nome: 'Molho Branco' }, { nome: 'Molho Quatro Queijos' } ],
             promocoes: [ { id: 'promo-combo-caixa', nome: 'Caixa Combo da Galera', desc: '4 X-Tudo, 5 pastéis e batata com cheddar e bacon.', preco: 90.00, preco_antigo: 120.00, isCustomizable: false }, { id: 'promo-media', nome: 'Pizza Média (32cm) Premiada', desc: 'Sua pizza média preferida com um preço especial.', preco: 52.00, preco_antigo: 60.00, isCustomizable: true, pizzas: [{ type: 'salgada', size: 'Média', maxSabores: 2 }] }, { id: 'promo-familia', nome: 'Combo Família Feliz', desc: '1 Pizza Família (2 sabores), 1 pizza doce individual e 1 refri.', preco: 90.00, isCustomizable: true, pizzas: [{ type: 'salgada', size: 'Família', maxSabores: 2 }], includesSweet: true, includesSoda: true }, { id: 'promo-gigante', nome: 'Combo Gigante Imbatível', desc: '1 Pizza Gigante (3 sabores), 1 pizza doce individual e 1 refri.', preco: 110.00, preco_antigo: 120.00, isCustomizable: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }], includesSweet: true, includesSoda: true }, { id: 'promo-slim', nome: 'Promo Slim Gigante (47 cm)', desc: 'Sabor em tamanho gigante com um desconto incrível.', preco: 85.00, preco_antigo: 100.00, isCustomizable: true, pizzas: [{ type: 'salgada', size: 'Gigante', maxSabores: 3 }] }, { id: 'promo-2medias', nome: 'Dose Dupla: 2 Médias + 1 Doce', desc: '2 Pizzas Médias (2 sabores cada) e ganhe 1 brotão doce.', preco: 100.00, isCustomizable: true, pizzas: [{ type: 'salgada', size: 'Média 1', maxSabores: 2 }, { type: 'salgada', size: 'Média 2', maxSabores: 2 }], includesSweet: true } ],
-            // SEÇÃO DE PIZZAS COMPLETA RESTAURADA
             pizzas: {
                 tamanhos: [ { nome: 'Individual (26cm)', preco: 30.00, maxSabores: 2, sodasInclusas: 0 }, { nome: 'Média (32cm)', preco: 50.00, maxSabores: 2, sodasInclusas: 0 }, { nome: 'Família (36cm)', preco: 75.00, maxSabores: 2, sodasInclusas: 1 }, { nome: 'Gigante (47cm)', preco: 90.00, maxSabores: 3, sodasInclusas: 1 }, { nome: 'Mega (70cm)', preco: 199.00, maxSabores: 5, sodasInclusas: 2 } ],
                 bordas: [ { nome: 'Sem Borda', precoPadrao: 0.00 }, { nome: 'Catupiry', precoPadrao: 10.00, precoMega: 15.00, precoMedia: 7.00, precoIndividual: 5.00 }, { nome: 'Cheddar', precoPadrao: 10.00, precoMega: 15.00, precoMedia: 7.00, precoIndividual: 5.00 }, { nome: 'Cream Cheese', precoPadrao: 12.00, precoMega: 17.00, precoMedia: 9.00, precoIndividual: 7.00 }, { nome: 'Goiabada', precoPadrao: 12.00, precoMega: 17.00, precoMedia: 9.00, precoIndividual: 7.00 }, { nome: 'Doce de Leite', precoPadrao: 12.00, precoMega: 17.00, precoMedia: 9.00, precoIndividual: 7.00 } ],
                 saboresSalgados: [ "Americana", "Atum", "Alho", "Bacon", "Bacalhau", "Benevento", "Calabresa", "Cebola", "Carioca", "Capricciosa", "Frango com Catupiry", "Frango com Cheddar", "La Pizza", "Marguerita", "Moda da Casa", "Mussarela", "Moda da Casa 2", "Napolitana", "Ovo", "Palmito", "Pizza de Batata", "Portuguesa", "4 Queijos", "Super Pizza", "Siciliana", "Tomate Seco", "Tropicaliente", "Lombo Canadense", "Presunto", "Salaminho" ],
                 saboresDoces: [ "Banana com Canela", "Cocada Cremosa", "Prestígio", "Romeu & Julieta" ]
             },
-            massas: [ { id: 'massa-1', nome: 'Lasanha' }, { id: 'massa-2', nome: 'Capeletti' }, { id: 'massa-3', nome: 'Raviolli' }, { id: 'massa-4', nome: 'Espaguete' }, { id: 'massa-5', nome: 'Talharim' }, { id: 'massa-6', nome: 'Nhoque' }, { id: 'massa-7', nome: 'Penne' } ].map(m => ({...m, preco: 0, desc: 'Personalize com tamanho, proteína, molho e ingredientes.', isCustomizable: true})),
+            massas: [ { id: 'massa-1', nome: 'Lasanha', desc: 'Personalize com tamanho, proteína, molho e ingredientes.', isCustomizable: true }, { id: 'massa-2', nome: 'Capeletti', desc: 'Personalize com tamanho, proteína, molho e ingredientes.', isCustomizable: true }, { id: 'massa-3', nome: 'Raviolli', desc: 'Personalize com tamanho, proteína, molho e ingredientes.', isCustomizable: true }, { id: 'massa-4', nome: 'Espaguete', desc: 'Personalize com tamanho, proteína, molho e ingredientes.', isCustomizable: true }, { id: 'massa-5', nome: 'Talharim', desc: 'Personalize com tamanho, proteína, molho e ingredientes.', isCustomizable: true }, { id: 'massa-6', nome: 'Nhoque', desc: 'Personalize com tamanho, proteína, molho e ingredientes.', isCustomizable: true }, { id: 'massa-7', nome: 'Penne', desc: 'Personalize com tamanho, proteína, molho e ingredientes.', isCustomizable: true } ],
             hamburgueres: [ { id: 'hamb-1', nome: 'X-Duplo', desc: '2 Carnes, 2 ovos, queijo, presunto, bacon, calabresa, salada e molho.', preco: 17.00, isCustomizable: false }, { id: 'hamb-2', nome: 'X-Tudo', desc: 'Carne, ovo, queijo, presunto, bacon, calabresa, molho e salada.', preco: 14.00, isCustomizable: false }, { id: 'hamb-3', nome: 'X-Burguer Tropicaliente', desc: 'Carne, queijo, presunto, bacon, calabresa, molho e batata palha.', preco: 12.00, isCustomizable: false }, { id: 'hamb-4', nome: 'X-Egg', desc: 'Carne, queijo, ovo, salada e molho.', preco: 10.00, isCustomizable: false }, { id: 'hamb-5', nome: 'X-Burguer Kids', desc: 'Pão, carne, queijo, molho e batata palha.', preco: 5.00, isCustomizable: false }, { id: 'hamb-6', nome: 'X-Burguer Double Cheese', desc: 'Carne, presunto, dobro de catupiry e cheddar.', preco: 11.00, isCustomizable: false }, { id: 'hamb-7', nome: 'X-Bacon Lover', desc: 'Pão, carne, queijo e o dobro de bacon crocante.', preco: 11.00, isCustomizable: false } ],
             esfihas: {
                 saboresComPreco: [ { id: 'esfiha-1', nome: 'Carne 🥩', preco: 3.50, precoAdicional: 0, isCustomizable: false }, { id: 'esfiha-2', nome: 'Queijo 🧀', preco: 3.50, precoAdicional: 0, isCustomizable: false }, { id: 'esfiha-3', nome: 'Calabresa', preco: 3.50, precoAdicional: 0, isCustomizable: false }, { id: 'esfiha-4', nome: 'Presunto', preco: 3.50, precoAdicional: 0.50, isCustomizable: false }, { id: 'esfiha-5', nome: 'Milho 🌽', preco: 3.50, precoAdicional: 0.50, isCustomizable: false }, { id: 'esfiha-6', nome: 'Atum', preco: 4.00, precoAdicional: 1.00, isCustomizable: false }, { id: 'esfiha-7', nome: 'Mista', preco: 4.00, precoAdicional: 1.00, isCustomizable: false }, { id: 'esfiha-8', nome: 'Frango c/ Catupiry', preco: 4.50, precoAdicional: 1.50, isCustomizable: false }, { id: 'esfiha-9', nome: 'Calabresa c/ Catupiry', preco: 4.50, precoAdicional: 1.50, isCustomizable: false }, { id: 'esfiha-10', nome: '4 Queijos 🧀', preco: 4.50, precoAdicional: 1.50, isCustomizable: false }, { id: 'esfiha-11', nome: 'Tomate Seco 🍅', preco: 4.50, precoAdicional: 1.50, isCustomizable: false }, { id: 'esfiha-12', nome: 'Portuguesa', preco: 4.50, precoAdicional: 1.50, isCustomizable: false }, { id: 'esfiha-13', nome: 'Carne Seca', preco: 5.00, precoAdicional: 2.00, isCustomizable: false }, { id: 'esfiha-14', nome: 'Bacalhau c/ Catupiry', preco: 5.00, precoAdicional: 2.00, isCustomizable: false }, { id: 'esfiha-15', nome: 'Romeu & Julieta ❤️', preco: 3.50, precoAdicional: 0.50, isCustomizable: false }, { id: 'esfiha-16', nome: 'Banana c/ Canela 🍌', preco: 3.50, precoAdicional: 0.50, isCustomizable: false }, { id: 'esfiha-17', nome: 'Choco Duo 🍫', preco: 4.00, precoAdicional: 1.00, isCustomizable: false }, { id: 'esfiha-18', nome: 'Prestígio 🥥🍫', preco: 4.00, precoAdicional: 1.00, isCustomizable: false }, { id: 'esfiha-19', nome: 'Morango c/ Choco 🍓', preco: 4.50, precoAdicional: 1.50, isCustomizable: false }, { id: 'esfiha-20', nome: 'Nutella 😍', preco: 5.00, precoAdicional: 2.00, isCustomizable: false } ],
@@ -305,11 +306,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let appliedCoupon = null;
 
         // --- SELETORES DE ELEMENTOS ---
-        // (Seletores principais do carrinho e modais)
         const cartItemsContainer = document.getElementById('cartItems');
         const cartSubtotalEl = document.getElementById('cartSubtotal');
-        const deliveryFeeContainer = document.getElementById('deliveryFeeContainer');
-        const cartDeliveryFeeEl = document.getElementById('cartDeliveryFee');
         const cartTotalEl = document.getElementById('cartTotal');
         const floatingCartButton = document.getElementById('floatingCartButton');
         const floatingCartTotal = document.getElementById('floatingCartTotal');
@@ -317,7 +315,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const checkoutModal = document.getElementById('checkoutModal');
         const cartModal = document.getElementById('cartModal');
         const closeCartModal = document.getElementById('closeCartModal');
-        // (Seletores do construtor de Pizza)
+        const customerInfoForm = document.getElementById('customerInfoForm');
+        // Seletores do construtor de Pizza
         const buildPizzaForm = document.getElementById('buildPizzaForm');
         const pizzaSizeSelect = document.getElementById('pizzaSizeSelect');
         const pizzaBordaSelect = document.getElementById('pizzaBordaSelect');
@@ -328,7 +327,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const summarySoda = document.getElementById('summarySoda');
         const summaryFlavors = document.getElementById('summaryFlavors');
         const pizzaTotal = document.getElementById('pizzaTotal');
-        // (Outros seletores)
+        const addPizzaToCartBtn = document.getElementById('addPizzaToCartBtn');
+        // Seletores de Modais
         const promoModal = document.getElementById('promoModal');
         const promoForm = document.getElementById('promoForm');
         
@@ -343,25 +343,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // --- LÓGICA DO CARRINHO ---
-        function updateCart() { /* ... Lógica do carrinho permanece a mesma, já estava correta ... */ 
+        function updateCart() { 
             cartItemsContainer.innerHTML = '';
             const subtotal = cart.reduce((sum, item) => sum + item.preco, 0);
             let discount = 0;
             if (appliedCoupon && subtotal > 0) {
                 if (appliedCoupon.type === 'percentage') { discount = subtotal * (appliedCoupon.value / 100); }
-                discountContainer.classList.remove('hidden');
-                discountAmountEl.textContent = `- R$ ${formatCurrency(discount)}`;
+                document.getElementById('discountContainer').classList.remove('hidden');
+                document.getElementById('discountAmount').textContent = `- R$ ${formatCurrency(discount)}`;
             } else {
-                discountContainer.classList.add('hidden');
+                document.getElementById('discountContainer').classList.add('hidden');
             }
             const totalAfterDiscount = subtotal - discount;
             let deliveryFee = 0;
             if (totalAfterDiscount > 0 && totalAfterDiscount < 35.00) {
                 deliveryFee = 8.00;
-                deliveryFeeContainer.classList.remove('hidden');
-                cartDeliveryFeeEl.textContent = `R$ ${formatCurrency(deliveryFee)}`;
+                document.getElementById('deliveryFeeContainer').classList.remove('hidden');
+                document.getElementById('cartDeliveryFee').textContent = `R$ ${formatCurrency(deliveryFee)}`;
             } else {
-                deliveryFeeContainer.classList.add('hidden');
+                document.getElementById('deliveryFeeContainer').classList.add('hidden');
             }
             const finalTotal = totalAfterDiscount + deliveryFee;
             if (cart.length === 0) {
@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const allFlavors = { "Sabores Salgados 🍕": data.pizzas.saboresSalgados, "Sabores Doces 🍰": data.pizzas.saboresDoces };
             flavorsAccordion.innerHTML = Object.entries(allFlavors).map(([category, flavors]) => `
                 <div>
-                    <button type="button" class="w-full flex justify-between items-center p-3 font-semibold text-left bg-gray-100 rounded-lg hover:bg-gray-200" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                    <button type="button" class="w-full flex justify-between items-center p-3 font-semibold text-left bg-gray-100 rounded-lg hover:bg-gray-200 accordion-toggle">
                         <span>${category}</span><i class="fas fa-chevron-down transform transition-transform"></i>
                     </button>
                     <div class="hidden pt-2 pb-4 px-2 space-y-2 grid grid-cols-2 gap-3 custom-scroll rounded bg-gray-50 shadow-inner">
@@ -433,21 +433,19 @@ document.addEventListener('DOMContentLoaded', () => {
             summaryBorda.textContent = selectedBorda.nome;
             summarySoda.textContent = selectedSize.sodasInclusas > 0 ? `${selectedSize.sodasInclusas}x Refri (a escolher no caixa)` : 'Nenhum';
             
-            const selectedFlavors = Array.from(document.querySelectorAll('.flavor-checkbox:checked'));
+            const selectedFlavors = Array.from(flavorsAccordion.querySelectorAll('.flavor-checkbox:checked'));
             if (selectedFlavors.length > selectedSize.maxSabores) {
                 pizzaFlavorWarning.textContent = `Máximo de ${selectedSize.maxSabores} sabores!`;
                 pizzaFlavorWarning.classList.remove('hidden');
-                // Desmarca o último clicado para não exceder
-                const lastChecked = selectedFlavors[selectedFlavors.length - 1];
-                lastChecked.checked = false;
+                selectedFlavors[selectedFlavors.length - 1].checked = false;
             } else {
                 pizzaFlavorWarning.classList.add('hidden');
             }
             
-            // Atualiza o resumo dos sabores
-            const currentFlavors = Array.from(document.querySelectorAll('.flavor-checkbox:checked')).map(cb => cb.value);
+            const currentFlavors = Array.from(flavorsAccordion.querySelectorAll('.flavor-checkbox:checked')).map(cb => cb.value);
             summaryFlavors.innerHTML = currentFlavors.length > 0 ? currentFlavors.map(f => `<li>${f}</li>`).join('') : `<li>Nenhum selecionado</li>`;
-            
+            addPizzaToCartBtn.disabled = currentFlavors.length === 0;
+
             let total = selectedSize.preco;
             let currentBordaPrice = selectedBorda.precoPadrao;
             if (selectedSize.nome.includes('Mega')) currentBordaPrice = selectedBorda.precoMega ?? selectedBorda.precoPadrao;
@@ -461,4 +459,234 @@ document.addEventListener('DOMContentLoaded', () => {
         buildPizzaForm.addEventListener('submit', e => {
             e.preventDefault();
             const selectedSize = data.pizzas.tamanhos[pizzaSizeSelect.value];
-            const selectedBorda = data.piz...
+            const selectedBorda = data.pizzas.bordas[pizzaBordaSelect.value];
+            const selectedFlavors = Array.from(flavorsAccordion.querySelectorAll('.flavor-checkbox:checked')).map(cb => cb.value);
+
+            if (selectedFlavors.length === 0) {
+                alert('Por favor, escolha pelo menos um sabor para a pizza!');
+                return;
+            }
+
+            let total = parseFloat(pizzaTotal.textContent.replace(',', '.'));
+            
+            const pizzaProduct = {
+                nome: `Pizza ${selectedSize.nome.split(' ')[0]} (${selectedFlavors.join(', ')})`,
+                desc: `Borda: ${selectedBorda.nome}${selectedSize.sodasInclusas > 0 ? ` | Inclui ${selectedSize.sodasInclusas}x Refri` : ''}`,
+                preco: total
+            };
+
+            addToCart(pizzaProduct);
+            alert('Pizza adicionada ao carrinho!');
+            flavorsAccordion.querySelectorAll('.flavor-checkbox').forEach(cb => cb.checked = false);
+            updatePizzaPrice();
+        });
+
+        // Lógica de Modais (Completa)
+        function openPromoModal(item) {
+            const modalTitle = promoModal.querySelector('#promoModalTitle');
+            const selectionContainer = promoModal.querySelector('#promoSelectionContainer');
+            const totalEl = promoModal.querySelector('#promoTotal');
+            
+            modalTitle.textContent = `Personalize: ${item.nome}`;
+            promoForm.dataset.itemId = item.id;
+            promoForm.dataset.category = item.pizzas ? 'promocoes' : 'combos';
+            promoForm.dataset.basePrice = item.preco;
+
+            let content = '';
+            if (item.pizzas) {
+                item.pizzas.forEach((pizza, index) => {
+                    content += `<div class="border rounded-lg p-4"><h4 class="font-bold text-lg mb-2">Escolha os sabores da ${pizza.size} (${pizza.maxSabores} ${pizza.maxSabores > 1 ? 'sabores' : 'sabor'})</h4><div class="max-h-48 overflow-y-auto custom-scroll grid grid-cols-2 gap-2 p-2 bg-gray-50 rounded">${data.pizzas.saboresSalgados.map(sabor => `<label class="flex items-center p-1 rounded hover:bg-yellow-100"><input type="checkbox" name="pizza-${index}-flavor" value="${sabor}" data-max-sabores="${pizza.maxSabores}"><span class="ml-2 text-sm">${sabor}</span></label>`).join('')}</div></div>`;
+                });
+            }
+            if (item.includesSweet) {
+                 content += `<div class="border rounded-lg p-4"><h4 class="font-bold text-lg mb-2">Escolha o sabor da Pizza Doce</h4><div class="grid grid-cols-2 gap-2">${data.pizzas.saboresDoces.map(sabor => `<label class="flex items-center p-1 rounded hover:bg-yellow-100"><input type="radio" name="sweet-pizza-flavor" value="${sabor}" required><span class="ml-2 text-sm">${sabor}</span></label>`).join('')}</div></div>`;
+            }
+            if (item.includesSoda) {
+                content += `<div class="border rounded-lg p-4"><h4 class="font-bold text-lg mb-2">Escolha seu Refrigerante</h4><select name="soda-choice" class="w-full p-2 border border-gray-300 rounded-md promo-soda-select">${data.refrigerantesPromo.map(refri => `<option value="${refri.nome}" data-price="${refri.precoAdicional}">${refri.nome} ${refri.precoAdicional > 0 ? `(+ R$ ${formatCurrency(refri.precoAdicional)})` : ''}</option>`).join('')}</select></div>`;
+            }
+            selectionContainer.innerHTML = content;
+            totalEl.textContent = formatCurrency(item.preco);
+            promoModal.classList.remove('hidden');
+        }
+
+        promoForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const itemId = e.target.dataset.itemId;
+            const category = e.target.dataset.category;
+            const item = findItem(category, itemId);
+            if(!item) return;
+
+            let finalPrice = item.preco;
+            let descParts = [];
+
+            if (item.pizzas) {
+                for (let i = 0; i < item.pizzas.length; i++) {
+                    const pizzaInfo = item.pizzas[i];
+                    const flavors = Array.from(e.target.querySelectorAll(`[name="pizza-${i}-flavor"]:checked`)).map(cb => cb.value);
+                    if (flavors.length === 0 || flavors.length > pizzaInfo.maxSabores) {
+                        alert(`Por favor, escolha a quantidade correta de sabores para a ${pizzaInfo.size}!`);
+                        return;
+                    }
+                    descParts.push(`${pizzaInfo.size}: ${flavors.join(', ')}`);
+                }
+            }
+
+            if(item.includesSweet) {
+                const sweetFlavorEl = e.target.querySelector('[name="sweet-pizza-flavor"]:checked');
+                if(!sweetFlavorEl) {
+                    alert('Por favor, escolha o sabor da pizza doce!');
+                    return;
+                }
+                descParts.push(`Doce: ${sweetFlavorEl.value}`);
+            }
+
+            if(item.includesSoda) {
+                const sodaOption = e.target.querySelector('[name="soda-choice"] option:checked');
+                if (sodaOption) {
+                    descParts.push(`Bebida: ${sodaOption.value}`);
+                    finalPrice += parseFloat(sodaOption.dataset.price);
+                }
+            }
+            
+            addToCart({ nome: item.nome, desc: descParts.join(' | '), preco: finalPrice });
+            promoModal.classList.add('hidden');
+            promoForm.reset();
+        });
+
+
+        // --- EVENT LISTENERS GERAIS ---
+        document.body.addEventListener('click', (e) => {
+            const addBtn = e.target.closest('.add-btn');
+            const accordionToggle = e.target.closest('.accordion-toggle');
+
+            if (addBtn) {
+                const category = addBtn.dataset.category;
+                const itemId = addBtn.dataset.itemId;
+                const item = findItem(category, itemId);
+                if (!item) return;
+
+                if (item.isCustomizable) {
+                    if (category === 'promocoes' || category === 'combos') openPromoModal(item);
+                    // Adicionar chamadas para outros modais aqui (massa, esfiha)
+                } else {
+                    addToCart({ ...item });
+                }
+            }
+
+            if (accordionToggle) {
+                accordionToggle.nextElementSibling.classList.toggle('hidden');
+                accordionToggle.querySelector('i').classList.toggle('rotate-180');
+                accordionToggle.classList.toggle('open');
+            }
+        });
+
+        // Navegação por Abas
+        document.querySelectorAll('.tab-button').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('tab-active'));
+                tab.classList.add('tab-active');
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+                const contentToShow = document.getElementById(tab.dataset.tab);
+                if(contentToShow) contentToShow.classList.remove('hidden');
+            });
+        });
+        
+        // Listeners do construtor de pizza
+        pizzaSizeSelect.addEventListener('change', updatePizzaOptions);
+        pizzaBordaSelect.addEventListener('change', updatePizzaPrice);
+        flavorsAccordion.addEventListener('change', updatePizzaPrice);
+
+        // Listeners do Carrinho e Checkout
+        cartItemsContainer.addEventListener('click', e => {
+            if (e.target.closest('.remove-item-btn')) {
+                removeFromCart(parseInt(e.target.closest('.remove-item-btn').dataset.index));
+            }
+        });
+        closeCartModal.addEventListener('click', () => cartModal.classList.add('hidden'));
+        floatingCartButton.addEventListener('click', () => cartModal.classList.remove('hidden'));
+        checkoutButton.addEventListener('click', () => { cartModal.classList.add('hidden'); checkoutModal.classList.remove('hidden'); });
+        document.getElementById('cancelButton').addEventListener('click', () => checkoutModal.classList.add('hidden'));
+        document.getElementById('cancelPromo').addEventListener('click', () => { promoModal.classList.add('hidden'); promoForm.reset(); });
+        
+        // Finalização do Pedido
+        customerInfoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (cart.length === 0) return;
+            const customerName = document.getElementById('customerName').value;
+            const customerAddress = document.getElementById('customerAddress').value;
+            const customerNeighborhood = document.getElementById('customerNeighborhood').value;
+            const customerObs = document.getElementById('customerObs').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const ketchupQty = document.getElementById('ketchupQty').value;
+            const mustardQty = document.getElementById('mustardQty').value;
+            const orderDetails = cart.map(item => `- *${item.nome}*${item.desc ? `\n  _${item.desc.replace(/ \| /g, ', ')}_` : ''} - R$ ${formatCurrency(item.preco)}`).join('\n');
+            const subtotalText = cartSubtotalEl.textContent;
+            const discountText = appliedCoupon ? `Desconto (${appliedCoupon.code}): ${document.getElementById('discountAmount').textContent}` : '';
+            const deliveryFeeText = !document.getElementById('deliveryFeeContainer').classList.contains('hidden') ? `Taxa de Entrega: ${document.getElementById('cartDeliveryFee').textContent}` : 'Entrega Grátis';
+            const totalText = cartTotalEl.textContent;
+            let message = `*=== NOVO PEDIDO - SUPER PIZZA ===*\n\n*Cliente:* ${customerName}\n*Endereço:* ${customerAddress}, ${customerNeighborhood}\n\n--------------------------------------\n*PEDIDO:*\n${orderDetails}\n--------------------------------------\n\n*Subtotal:* ${subtotalText}\n${discountText ? discountText + '\n' : ''}*Taxa de Entrega:* ${deliveryFeeText}\n*TOTAL:* *${totalText}*\n\n--------------------------------------\n*Forma de Pagamento:* ${paymentMethod}${customerObs ? `\n\n*Observações:* ${customerObs}` : ''}${(ketchupQty > 0 || mustardQty > 0) ? `\n*Sachês:* ${ketchupQty} Ketchup, ${mustardQty} Mostarda` : ''}\n\n_Pedido gerado pelo cardápio digital._`;
+            const encodedMessage = encodeURIComponent(message.replace(/  +/g, ' ').trim());
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        });
+
+        // --- INICIALIZAÇÃO DO APP ---
+        function initializeApp() {
+            createMenuSection('Nossas Ofertas Imperdíveis! 🔥', data.promocoes, 'promocoes', 'promocoes');
+            populatePizzaBuilder();
+            createMenuSection('Nossas Massas Artesanais 🍝', data.massas, 'massas', 'massas');
+            createMenuSection('Nossos Hambúrgueres Suculentos 🍔', data.hamburgueres, 'hamburgueres', 'hamburgueres');
+            createEsfihasSection();
+            createMenuSection('Combos & Petiscos 🍟', data.combos, 'combos', 'combos');
+            createMenuSection('Bebidas Geladinhas 🥤', data.bebidas, 'bebidas', 'bebidas');
+            document.getElementById('contato').innerHTML = `<div class="text-center p-8 bg-white rounded-lg shadow-lg"><h2 class="text-3xl font-bold text-red-700 mb-4">Entre em Contato Conosco! 📞</h2><p class="text-gray-600 mb-2">Estamos prontos para atender você.</p><div class="space-y-4 mt-6 text-lg"><p><i class="fab fa-whatsapp text-green-500 mr-2"></i><strong>WhatsApp:</strong> (21) 00000-0000</p><p><i class="fas fa-phone-alt text-blue-500 mr-2"></i><strong>Telefone:</strong> (21) 1234-5678</p><p><i class="fas fa-map-marker-alt text-red-500 mr-2"></i><strong>Endereço:</strong> Rua da Pizza, 123 - Centro, Rio de Janeiro - RJ</p></div><div class="mt-8"><a href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" class="bg-green-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-600 text-lg"><i class="fab fa-whatsapp"></i> Fazer Pedido via WhatsApp</a></div></div>`;
+            updateCart();
+            console.log("Cardápio inicializado com sucesso!");
+        }
+
+        function createMenuSection(title, items, containerId, category) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            let content = `<h2 class="text-2xl font-bold text-center text-red-800 mb-6">${title}</h2><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
+            items.forEach(item => {
+                const price = item.preco !== undefined ? `R$ ${formatCurrency(item.preco)}` : '';
+                const oldPrice = item.preco_antigo ? `<span class="text-sm text-gray-500 line-through">R$ ${formatCurrency(item.preco_antigo)}</span>` : '';
+                const buttonText = item.isCustomizable ? 'Personalizar' : 'Adicionar';
+                content += `<div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow flex flex-col p-4"><div class="flex-grow"><h3 class="font-bold text-lg text-gray-800">${item.nome}</h3><p class="text-sm text-gray-600 my-2">${item.desc || ''}</p></div><div class="flex justify-between items-center mt-4"><p class="font-extrabold text-red-600 text-lg flex items-center gap-2">${price} ${oldPrice}</p><button class="add-btn bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700" data-category="${category}" data-item-id="${item.id}">${buttonText}</button></div></div>`;
+            });
+            content += `</div>`;
+            container.innerHTML = content;
+        }
+
+        function createEsfihasSection() {
+            const container = document.getElementById('esfihas');
+            if (!container) return;
+            let content = `<h2 class="text-2xl font-bold text-center text-red-800 mb-6">Nossas Deliciosas Esfihas 🥟</h2>`;
+            content += `<h3 class="text-xl font-semibold text-gray-700 mb-4 mt-8">Combos</h3><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
+            data.esfihas.combos.forEach(item => {
+                content += `<div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow flex flex-col p-4"><div class="flex-grow"><h3 class="font-bold text-lg text-gray-800">${item.nome}</h3><p class="text-sm text-gray-600 my-2">${item.desc}</p></div><div class="flex justify-between items-center mt-4"><p class="font-extrabold text-red-600 text-lg">R$ ${formatCurrency(item.preco)}</p><button class="add-btn bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700" data-category="esfihas-combos" data-item-id="${item.id}">Monte o seu</button></div></div>`;
+            });
+            content += `</div>`;
+            content += `<h3 class="text-xl font-semibold text-gray-700 mb-4 mt-8">Sabores Individuais</h3><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">`;
+            data.esfihas.saboresComPreco.forEach(item => {
+                content += `<div class="bg-white rounded-lg shadow-sm p-3 flex flex-col items-center text-center"><h4 class="font-semibold text-sm flex-grow">${item.nome}</h4><p class="font-bold text-red-600 text-md mt-2">R$ ${formatCurrency(item.preco)}</p><button class="add-btn bg-red-500 text-white font-bold py-1 px-3 rounded-md hover:bg-red-600 mt-2 text-sm w-full" data-category="esfihas-individuais" data-item-id="${item.id}"><i class="fas fa-plus"></i></button></div>`;
+            });
+            content += `</div>`;
+            container.innerHTML = content;
+        }
+
+        initializeApp();
+
+    } catch (error) {
+        console.error("Ocorreu um erro crítico na inicialização do cardápio:", error);
+        document.body.innerHTML = `<div class="text-center p-8 bg-red-100 border-4 border-red-400 text-red-700 rounded-lg m-10">
+            <h2 class="text-3xl font-bold mb-4">Opa! Algo deu muito errado.</h2>
+            <p class="text-lg">Não foi possível carregar o cardápio devido a um erro interno.</p>
+            <p class="mt-4 font-semibold">Por favor, entre em contato conosco diretamente para fazer seu pedido.</p>
+            <p class="mt-2 text-sm font-mono bg-red-200 p-2 rounded">Erro: ${error.message}</p>
+        </div>`;
+    }
+});
+</script>
+</body>
+</html>
