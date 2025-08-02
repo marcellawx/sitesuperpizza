@@ -125,10 +125,10 @@ document.addEventListener('DOMContentLoaded', () => {
             combos: [ { id: 'combo-1', nome: 'Combo 1', desc: '4 X-Tudo + 25 salgados + Batata c/ Cheddar e Bacon', preco: 85.00, isCustomizable: true, includesSoda: true}, { id: 'combo-2', nome: 'Combo 2', desc: '100 Salgadinhos fritos grandes e sortidos', preco: 70.00, isCustomizable: false }, { id: 'combo-3', nome: 'Combo 3', desc: '25 Salgados + Porção de Calabresa + Batata c/ Cheddar', preco: 85.00, isCustomizable: true, includesSoda: true}, { id: 'combo-4', nome: 'Combo 4', desc: '4 X-Tudo + 25 Salgados + Calabresa + Anéis de Cebola', preco: 85.00, isCustomizable: true, includesSoda: true}, { id: 'combo-5', nome: 'Combo 5', desc: '4 X-Tudo + 25 Salgados + Batata c/ Cheddar e Bacon', preco: 85.00, isCustomizable: true, includesSoda: true}, { id: 'combo-6', nome: 'Combo 6', desc: '4 X-Tudo + Calabresa Acebolada + Batata Frita + Anéis de Cebola', preco: 85.00, isCustomizable: true, includesSoda: true}, { id: 'combo-7', nome: 'Petisco Frango a Passarinho + Fritas', desc: 'Frango crocante com fritas. Inclui um refri!', preco: 60.00, isCustomizable: true, includesSoda: true} ],
             bebidas: [ { id: 'bebida-1', nome: 'Refrigerante Lata 350ml', desc: 'Escolha seu sabor.', preco: 5.00, isCustomizable: false }, { id: 'bebida-2', nome: 'Refrigerante 2 Litros', desc: 'Para dividir com a galera!', preco: 12.00, isCustomizable: false } ]
         };
-        const validCoupons = {"APPSUPERPIZZA": { type: "percentage", value: 10 }};
         let cart = [];
         let appliedCoupon = null;
 
+        // --- FUNÇÕES GLOBAIS ---
         function formatCurrency(value) { return value.toFixed(2).replace('.', ','); }
         function findItem(category, itemId) {
             if (category === 'esfihas-individuais') return data.esfihas.saboresComPreco.find(i => i.id === itemId);
@@ -136,8 +136,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return data[category]?.find(i => i.id === itemId) || null;
         }
 
+        // --- LÓGICA DE RENDERIZAÇÃO E ATUALIZAÇÃO ---
         function updateCart() {
             const cartItemsContainer = document.getElementById('cartItems');
+            const checkoutButton = document.getElementById('checkoutButton');
+            const floatingCartButton = document.getElementById('floatingCartButton');
+            
             cartItemsContainer.innerHTML = '';
             const subtotal = cart.reduce((sum, item) => sum + item.preco, 0);
             let discount = 0;
@@ -161,8 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (cart.length === 0) {
                 cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center py-8">Seu carrinho está vazio.</p>';
-                document.getElementById('checkoutButton').disabled = true;
-                document.getElementById('floatingCartButton').classList.add('hidden');
+                checkoutButton.disabled = true;
+                floatingCartButton.classList.add('hidden');
             } else {
                 cart.forEach((cartItem, index) => {
                     const itemEl = document.createElement('div');
@@ -170,8 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     itemEl.innerHTML = `<div class="flex-grow pr-2"><p class="font-bold text-sm text-gray-800">${cartItem.nome}</p>${cartItem.desc ? `<p class="text-xs text-gray-600">${cartItem.desc.replace(/ \| /g, ', ')}</p>` : ''}</div><div class="flex items-center gap-2"><span class="font-semibold text-sm">R$ ${formatCurrency(cartItem.preco)}</span><button class="remove-item-btn text-red-500 hover:text-red-700 text-lg" data-index="${index}"><i class="fas fa-trash-alt"></i></button></div>`;
                     cartItemsContainer.appendChild(itemEl);
                 });
-                document.getElementById('checkoutButton').disabled = false;
-                document.getElementById('floatingCartButton').classList.remove('hidden');
+                checkoutButton.disabled = false;
+                floatingCartButton.classList.remove('hidden');
             }
             document.getElementById('cartSubtotal').textContent = `R$ ${formatCurrency(subtotal)}`;
             document.getElementById('cartTotal').textContent = `R$ ${formatCurrency(finalTotal)}`;
@@ -207,7 +211,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             container.innerHTML = content + `</div>`;
         }
-        
+
+        // --- INICIALIZAÇÃO E LÓGICA DAS SEÇÕES ESPECÍFICAS ---
+
         function initPizzaBuilder() {
             const pizzaSection = document.getElementById('pizzas');
             if(!pizzaSection) return;
@@ -236,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             function updatePrice() {
                 const selectedSize = data.pizzas.tamanhos[uiPizza.sizeSelect.value];
-                const selectedBorda = data.pizzas.bordas[uiPizza.bordaSelect.value]; // BUG FIX: Corrected variable name
+                const selectedBorda = data.pizzas.bordas[uiPizza.bordaSelect.value];
                 uiPizza.summarySize.textContent = selectedSize.nome;
                 uiPizza.summaryBorda.textContent = selectedBorda.nome;
                 uiPizza.summarySoda.textContent = selectedSize.sodasInclusas > 0 ? `Inclui ${selectedSize.sodasInclusas} Refrigerante(s)` : 'Nenhum';
@@ -285,12 +291,158 @@ document.addEventListener('DOMContentLoaded', () => {
             const massaModal = document.getElementById('massaModal');
             const esfihaComboModal = document.getElementById('esfihaComboModal');
             
-            function openPromoModal(item) { /* ... */ }
-            function openMassaModal(item) { /* ... */ }
-            function openEsfihaComboModal(item) { /* ... */ }
-            
-            // Re-implementação das funções de modal aqui
-            
+            function openPromoModal(item) {
+                const modal = promoModal;
+                modal.querySelector('#promoModalTitle').textContent = `Personalize: ${item.nome}`;
+                const form = modal.querySelector('#promoForm');
+                form.dataset.itemId = item.id;
+                form.dataset.category = item.pizzas ? 'promocoes' : 'combos';
+                let content = '';
+                if (item.pizzas) {
+                    item.pizzas.forEach((pizza, index) => {
+                        content += `<div class="border rounded-lg p-4"><h4 class="font-bold text-lg mb-2">Escolha os sabores da ${pizza.size} (${pizza.maxSabores} ${pizza.maxSabores > 1 ? 'sabores' : 'sabor'})</h4><div class="max-h-48 overflow-y-auto custom-scroll grid grid-cols-2 gap-2 p-2 bg-gray-50 rounded">${data.pizzas.saboresSalgados.map(sabor => `<label class="flex items-center p-1 rounded hover:bg-yellow-100"><input type="checkbox" name="pizza-${index}-flavor" value="${sabor}" data-max-sabores="${pizza.maxSabores}"><span class="ml-2 text-sm">${sabor}</span></label>`).join('')}</div></div>`;
+                    });
+                }
+                if (item.includesSweet) {
+                    content += `<div class="border rounded-lg p-4"><h4 class="font-bold text-lg mb-2">Escolha o sabor da Pizza Doce</h4><div class="grid grid-cols-2 gap-2">${data.pizzas.saboresDoces.map(sabor => `<label class="flex items-center p-1 rounded hover:bg-yellow-100"><input type="radio" name="sweet-pizza-flavor" value="${sabor}" required><span class="ml-2 text-sm">${sabor}</span></label>`).join('')}</div></div>`;
+                }
+                if (item.includesSoda) {
+                    content += `<div class="border rounded-lg p-4"><h4 class="font-bold text-lg mb-2">Escolha seu Refrigerante</h4><select name="soda-choice" class="w-full p-2 border border-gray-300 rounded-md promo-soda-select">${data.refrigerantesPromo.map(refri => `<option value="${refri.nome}" data-price="${refri.precoAdicional}">${refri.nome} ${refri.precoAdicional > 0 ? `(+ R$ ${formatCurrency(refri.precoAdicional)})` : ''}</option>`).join('')}</select></div>`;
+                }
+                modal.querySelector('#promoSelectionContainer').innerHTML = content;
+                updatePromoTotal();
+                modal.classList.remove('hidden');
+            }
+            function updatePromoTotal() {
+                const form = document.getElementById('promoForm');
+                const item = findItem(form.dataset.category, form.dataset.itemId);
+                if(!item) return;
+                let total = item.preco;
+                const sodaOption = form.querySelector('.promo-soda-select option:checked');
+                if(sodaOption) total += parseFloat(sodaOption.dataset.price);
+                promoModal.querySelector('#promoTotal').textContent = formatCurrency(total);
+            }
+            promoModal.querySelector('#promoForm').addEventListener('change', updatePromoTotal);
+            promoModal.querySelector('#promoForm').addEventListener('submit', e => {
+                e.preventDefault();
+                const item = findItem(e.target.dataset.category, e.target.dataset.itemId);
+                if(!item) return;
+                let finalPrice = item.preco;
+                let descParts = [];
+                if (item.pizzas) {
+                    for (let i = 0; i < item.pizzas.length; i++) {
+                        const pizzaInfo = item.pizzas[i];
+                        const flavors = Array.from(e.target.querySelectorAll(`[name="pizza-${i}-flavor"]:checked`)).map(cb => cb.value);
+                        if (flavors.length === 0 || flavors.length > pizzaInfo.maxSabores) { alert(`Escolha a quantidade correta de sabores para a ${pizzaInfo.size}!`); return; }
+                        descParts.push(`${pizzaInfo.size}: ${flavors.join(', ')}`);
+                    }
+                }
+                if(item.includesSweet) {
+                    const sweetFlavorEl = e.target.querySelector('[name="sweet-pizza-flavor"]:checked');
+                    if(!sweetFlavorEl) { alert('Escolha o sabor da pizza doce!'); return; }
+                    descParts.push(`Doce: ${sweetFlavorEl.value}`);
+                }
+                if(item.includesSoda) {
+                    const sodaOption = e.target.querySelector('[name="soda-choice"] option:checked');
+                    if (sodaOption) { descParts.push(`Bebida: ${sodaOption.value}`); finalPrice += parseFloat(sodaOption.dataset.price); }
+                }
+                addToCart({ nome: item.nome, desc: descParts.join(' | '), preco: finalPrice });
+                promoModal.classList.add('hidden');
+            });
+
+            function openMassaModal(item) {
+                const modal = massaModal;
+                modal.querySelector('#massaModalTitle').textContent = `Monte sua ${item.nome}`;
+                const form = modal.querySelector('#massaForm');
+                form.dataset.itemName = item.nome;
+                let content = `<div class="border rounded-lg p-4"><h4 class="font-bold text-lg mb-2">1. Tamanho</h4><select name="massa-size" class="w-full p-2 border">${data.massaSizes.map(s => `<option value="${s.preco}" data-name="${s.nome}">${s.nome} - R$ ${formatCurrency(s.preco)}</option>`).join('')}</select></div><div class="border rounded-lg p-4"><h4 class="font-bold text-lg mb-2">2. Proteína</h4><select name="massa-proteina" class="w-full p-2 border">${data.proteinasMassas.map(p => `<option value="${p.precoAdicional}" data-name="${p.nome}">${p.nome} ${p.precoAdicional > 0 ? `(+ R$ ${formatCurrency(p.precoAdicional)})` : ''}</option>`).join('')}</select></div><div class="border rounded-lg p-4"><h4 class="font-bold text-lg mb-2">3. Molho</h4><div class="grid grid-cols-2 gap-2">${data.molhosMassas.map((m, i) => `<label class="flex items-center"><input type="radio" name="massa-molho" value="${m.nome}" ${i===0 ? 'checked' : ''}><span class="ml-2 text-sm">${m.nome}</span></label>`).join('')}</div></div><div class="border rounded-lg p-4"><h4 class="font-bold text-lg mb-2">4. Ingredientes Extras</h4><div class="max-h-40 overflow-y-auto custom-scroll grid grid-cols-2 gap-2 p-2">${data.ingredientesMassas.map(ing => `<label class="flex items-center"><input type="checkbox" name="massa-ingrediente" value="${ing.precoAdicional}" data-name="${ing.nome}"><span class="ml-2 text-sm">${ing.nome} (+${formatCurrency(ing.precoAdicional)})</span></label>`).join('')}</div></div>`;
+                modal.querySelector('#massaSelectionContainer').innerHTML = content;
+                updateMassaTotal();
+                modal.classList.remove('hidden');
+            }
+            function updateMassaTotal() {
+                const form = document.getElementById('massaForm');
+                let total = 0;
+                total += parseFloat(form.querySelector('[name="massa-size"]').value);
+                total += parseFloat(form.querySelector('[name="massa-proteina"]').value);
+                form.querySelectorAll('[name="massa-ingrediente"]:checked').forEach(ing => total += parseFloat(ing.value));
+                massaModal.querySelector('#massaTotal').textContent = formatCurrency(total);
+            }
+            massaModal.querySelector('#massaForm').addEventListener('change', updateMassaTotal);
+            massaModal.querySelector('#massaForm').addEventListener('submit', e => {
+                e.preventDefault();
+                const itemName = e.target.dataset.itemName;
+                const sizeOption = e.target.querySelector('[name="massa-size"] option:checked');
+                const proteinaOption = e.target.querySelector('[name="massa-proteina"] option:checked');
+                const molho = e.target.querySelector('[name="massa-molho"]:checked').value;
+                const ingredientes = Array.from(e.target.querySelectorAll('[name="massa-ingrediente"]:checked')).map(cb => cb.dataset.name);
+                const finalPrice = parseFloat(massaModal.querySelector('#massaTotal').textContent.replace(',', '.'));
+                let descParts = [sizeOption.dataset.name, proteinaOption.dataset.name, molho];
+                if (ingredientes.length > 0) descParts.push(`Extras: ${ingredientes.join(', ')}`);
+                addToCart({ nome: `Massa (${itemName})`, desc: descParts.join(' | '), preco: finalPrice });
+                massaModal.classList.add('hidden');
+            });
+
+            function openEsfihaComboModal(item) {
+                const modal = esfihaComboModal;
+                modal.querySelector('#esfihaComboModalTitle').textContent = `Monte seu ${item.nome}`;
+                const form = modal.querySelector('#esfihaComboForm');
+                form.dataset.itemId = item.id;
+                modal.querySelector('#esfihaComboSelectionContainer').innerHTML = `<h4 class="font-bold text-lg mb-2">Escolha ${item.quantidade} esfihas</h4><div class="max-h-60 overflow-y-auto custom-scroll grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-2 p-2 bg-gray-50 rounded">${data.esfihas.saboresComPreco.map(esfiha => `<div class="flex justify-between items-center"><label class="text-sm">${esfiha.nome}</label><input type="number" min="0" value="0" class="esfiha-qty-input w-16 text-center border rounded" data-price="${esfiha.precoAdicional}" data-name="${esfiha.nome}"></div>`).join('')}</div>`;
+                modal.querySelector('#esfihaComboSodaContainer').innerHTML = item.includesSoda ? `<h4 class="font-bold text-lg mb-2">Escolha seu Refrigerante</h4><select name="soda-choice" class="w-full p-2 border border-gray-300 rounded-md esfiha-soda-select">${data.refrigerantesPromo.map(refri => `<option value="${refri.nome}" data-price="${refri.precoAdicional}">${refri.nome} ${refri.precoAdicional > 0 ? `(+ R$ ${formatCurrency(refri.precoAdicional)})` : ''}</option>`).join('')}</select>` : '';
+                updateEsfihaComboTotal();
+                modal.classList.remove('hidden');
+            }
+            function updateEsfihaComboTotal() {
+                const form = document.getElementById('esfihaComboForm');
+                const item = findItem('esfihas-combos', form.dataset.itemId);
+                if(!item) return;
+                let currentQty = 0;
+                let additionalPrice = 0;
+                form.querySelectorAll('.esfiha-qty-input').forEach(input => {
+                    const qty = parseInt(input.value) || 0;
+                    currentQty += qty;
+                    additionalPrice += qty * (parseFloat(input.dataset.price) || 0);
+                });
+                let sodaPrice = 0;
+                const sodaSelect = form.querySelector('.esfiha-soda-select option:checked');
+                if (sodaSelect) sodaPrice = parseFloat(sodaSelect.dataset.price);
+                const totalQtyNeeded = item.quantidade;
+                const submitBtn = esfihaComboModal.querySelector('#addEsfihaComboBtn');
+                const warningEl = esfihaComboModal.querySelector('#esfihaWarning');
+                esfihaComboModal.querySelector('#esfihaCounter').textContent = currentQty;
+                esfihaComboModal.querySelector('#esfihaTotalQty').textContent = totalQtyNeeded;
+                if (currentQty !== totalQtyNeeded) {
+                    warningEl.textContent = `Você precisa escolher exatamente ${totalQtyNeeded} esfihas.`;
+                    warningEl.classList.remove('hidden');
+                    submitBtn.disabled = true;
+                } else {
+                    warningEl.classList.add('hidden');
+                    submitBtn.disabled = false;
+                }
+                esfihaComboModal.querySelector('#esfihaComboTotal').textContent = formatCurrency(item.preco + additionalPrice + sodaPrice);
+            }
+            esfihaComboModal.querySelector('#esfihaComboForm').addEventListener('input', updateEsfihaComboTotal);
+            esfihaComboModal.querySelector('#esfihaComboForm').addEventListener('change', updateEsfihaComboTotal);
+            esfihaComboModal.querySelector('#esfihaComboForm').addEventListener('submit', e => {
+                e.preventDefault();
+                const item = findItem('esfihas-combos', e.target.dataset.itemId);
+                const finalPrice = parseFloat(esfihaComboModal.querySelector('#esfihaComboTotal').textContent.replace(',','.'));
+                let descParts = [];
+                const esfihasSelecionadas = [];
+                e.target.querySelectorAll('.esfiha-qty-input').forEach(input => {
+                    const qty = parseInt(input.value);
+                    if(qty > 0) esfihasSelecionadas.push(`${qty}x ${input.dataset.name}`);
+                });
+                descParts.push(`Esfihas: ${esfihasSelecionadas.join(', ')}`);
+                if (item.includesSoda) {
+                    const sodaOption = e.target.querySelector('.esfiha-soda-select option:checked');
+                    descParts.push(`Bebida: ${sodaOption.value}`);
+                }
+                addToCart({ nome: item.nome, desc: descParts.join(' | '), preco: finalPrice });
+                esfihaComboModal.classList.add('hidden');
+            });
+
             document.body.addEventListener('click', (e) => {
                 const addBtn = e.target.closest('.add-btn');
                 const accordionToggle = e.target.closest('.accordion-toggle');
@@ -312,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         
-        // --- INICIALIZAÇÃO GERAL ---
+        // --- INICIALIZAÇÃO GERAL DO APP ---
         function initializeApp() {
             createMenuSection('Nossas Ofertas Imperdíveis! 🔥', data.promocoes, 'promocoes', 'promocoes');
             createMenuSection('Nossas Massas Artesanais 🍝', data.massas, 'massas', 'massas');
@@ -324,13 +476,33 @@ document.addEventListener('DOMContentLoaded', () => {
             initPizzaBuilder();
             initModals();
 
-            document.querySelectorAll('.tab-button').forEach(tab => { /* ... tab listener ... */ });
-            // ... outros listeners globais ...
+            document.querySelectorAll('.tab-button').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('tab-active'));
+                    tab.classList.add('tab-active');
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+                    document.getElementById(tab.dataset.tab).classList.remove('hidden');
+                });
+            });
+            document.getElementById('cartItems').addEventListener('click', e => { if (e.target.closest('.remove-item-btn')) removeFromCart(parseInt(e.target.closest('.remove-item-btn').dataset.index)); });
+            document.getElementById('closeCartModal').addEventListener('click', () => document.getElementById('cartModal').classList.add('hidden'));
+            document.getElementById('floatingCartButton').addEventListener('click', () => document.getElementById('cartModal').classList.remove('hidden'));
+            document.getElementById('checkoutButton').addEventListener('click', () => { document.getElementById('cartModal').classList.add('hidden'); document.getElementById('checkoutModal').classList.remove('hidden'); });
+            document.getElementById('cancelButton').addEventListener('click', () => document.getElementById('checkoutModal').classList.add('hidden'));
+            document.getElementById('cancelPromo').addEventListener('click', () => { document.getElementById('promoModal').classList.add('hidden'); document.getElementById('promoForm').reset(); });
+            document.getElementById('cancelMassa').addEventListener('click', () => { document.getElementById('massaModal').classList.add('hidden'); document.getElementById('massaForm').reset(); });
+            document.getElementById('cancelEsfihaCombo').addEventListener('click', () => { document.getElementById('esfihaComboModal').classList.add('hidden'); document.getElementById('esfihaComboForm').reset(); });
+            document.getElementById('customerInfoForm').addEventListener('submit', (e) => {
+                e.preventDefault(); if (cart.length === 0) return;
+                const customerName = document.getElementById('customerName').value, customerAddress = document.getElementById('customerAddress').value, customerNeighborhood = document.getElementById('customerNeighborhood').value, customerObs = document.getElementById('customerObs').value, paymentMethod = document.getElementById('paymentMethod').value, ketchupQty = document.getElementById('ketchupQty').value, mustardQty = document.getElementById('mustardQty').value, orderDetails = cart.map(item => `- *${item.nome}*${item.desc ? `\n  _${item.desc.replace(/ \| /g, ', ')}_` : ''} - R$ ${formatCurrency(item.preco)}`).join('\n'), subtotalText = document.getElementById('cartSubtotal').textContent, discountText = appliedCoupon ? `Desconto (${appliedCoupon.code}): ${document.getElementById('discountAmount').textContent}` : '', deliveryFeeText = !document.getElementById('deliveryFeeContainer').classList.contains('hidden') ? `Taxa de Entrega: ${document.getElementById('cartDeliveryFee').textContent}` : 'Entrega Grátis', totalText = document.getElementById('cartTotal').textContent;
+                let message = `*=== NOVO PEDIDO - SUPER PIZZA ===*\n\n*Cliente:* ${customerName}\n*Endereço:* ${customerAddress}, ${customerNeighborhood}\n\n--------------------------------------\n*PEDIDO:*\n${orderDetails}\n--------------------------------------\n\n*Subtotal:* ${subtotalText}\n${discountText ? discountText + '\n' : ''}*Taxa de Entrega:* ${deliveryFeeText}\n*TOTAL:* *${totalText}*\n\n--------------------------------------\n*Forma de Pagamento:* ${paymentMethod}${customerObs ? `\n\n*Observações:* ${customerObs}` : ''}${(ketchupQty > 0 || mustardQty > 0) ? `\n*Sachês:* ${ketchupQty} Ketchup, ${mustardQty} Mostarda` : ''}\n\n_Pedido gerado pelo cardápio digital._`;
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message.replace(/  +/g, ' ').trim())}`, '_blank');
+            });
+            updateCart();
+            console.log("Cardápio inicializado com sucesso!");
         }
 
-        // Esta é a estrutura final
         initializeApp();
-        
     } catch (error) {
         console.error("Ocorreu um erro crítico na inicialização do cardápio:", error);
         document.body.innerHTML = `<div class="text-center p-8 bg-red-100 border-4 border-red-400 text-red-700 rounded-lg m-10"><h2 class="text-3xl font-bold mb-4">Opa! Algo deu muito errado.</h2><p class="text-lg">Não foi possível carregar o cardápio devido a um erro interno.</p><p class="mt-4 font-semibold">Por favor, recarregue a página ou entre em contato conosco diretamente.</p><p class="mt-2 text-sm font-mono bg-red-200 p-2 rounded">Erro: ${error.message}</p></div>`;
