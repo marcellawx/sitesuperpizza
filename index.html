@@ -129,21 +129,166 @@ document.addEventListener('DOMContentLoaded', () => {
         let appliedCoupon = null;
 
         function formatCurrency(value) { return value.toFixed(2).replace('.', ','); }
+        
+        // Função para encontrar um item em qualquer categoria de dados
         function findItem(category, itemId) {
             if (category === 'esfihas-individuais') return data.esfihas.saboresComPreco.find(i => i.id === itemId);
             if (category === 'esfihas-combos') return data.esfihas.combos.find(i => i.id === itemId);
             return data[category]?.find(i => i.id === itemId) || null;
         }
 
-        function updateCart() { /* ... Implementation ... */ }
-        function addToCart(product) { cart.push(product); updateCart(); }
-        function removeFromCart(index) { cart.splice(index, 1); updateCart(); }
-        
-        function createMenuSection(title, items, containerId, category) { /* ... Implementation ... */ }
-        function createEsfihasSection() { /* ... Implementation ... */ }
+        // FUNÇÕES DO CARRINHO (agora implementadas)
+        function updateCart() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartSubtotalEl = document.getElementById('cartSubtotal');
+            const cartTotalEl = document.getElementById('cartTotal');
+            const floatingCartButton = document.getElementById('floatingCartButton');
+            const floatingCartTotal = document.getElementById('floatingCartTotal');
+            const checkoutButton = document.getElementById('checkoutButton');
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center">Seu carrinho está vazio.</p>';
+                floatingCartButton.classList.add('hidden');
+                checkoutButton.disabled = true;
+            } else {
+                cartItemsContainer.innerHTML = cart.map((item, index) => `
+                    <div class="flex justify-between items-start mb-3 p-2 rounded-md bg-gray-50 cart-item-enter">
+                        <div class="flex-grow">
+                            <p class="font-bold text-gray-800">${item.nome}</p>
+                            <p class="text-xs text-gray-500">${item.desc || ''}</p>
+                            <p class="text-sm font-semibold text-red-600">R$ ${formatCurrency(item.preco)}</p>
+                        </div>
+                        <button class="remove-from-cart-btn text-red-500 hover:text-red-700 ml-4" data-index="${index}">&times;</button>
+                    </div>
+                `).join('');
+                floatingCartButton.classList.remove('hidden');
+                checkoutButton.disabled = false;
+            }
+
+            const subtotal = cart.reduce((acc, item) => acc + item.preco, 0);
+            cartSubtotalEl.textContent = `R$ ${formatCurrency(subtotal)}`;
+            cartTotalEl.textContent = `R$ ${formatCurrency(subtotal)}`;
+            floatingCartTotal.textContent = `R$ ${formatCurrency(subtotal)}`;
+
+            document.querySelectorAll('.remove-from-cart-btn').forEach(button => {
+                button.addEventListener('click', (e) => removeFromCart(parseInt(e.currentTarget.dataset.index)));
+            });
+        }
+
+        function addToCart(product) {
+            cart.push(product);
+            updateCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        // FUNÇÕES DE GERAÇÃO DE CONTEÚDO (agora implementadas)
+        function createMenuSection(title, items, containerId, category) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            let content = `<h2 class="text-2xl font-bold text-center text-red-800 mb-6">${title}</h2>`;
+            content += '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">';
+            
+            items.forEach(item => {
+                content += `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+                        <div class="p-4 flex-grow">
+                            <h3 class="font-bold text-lg text-gray-800">${item.nome}</h3>
+                            <p class="text-sm text-gray-600 mt-1">${item.desc}</p>
+                        </div>
+                        <div class="p-4 bg-gray-50">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    ${item.preco_antigo ? `<span class="text-sm text-gray-500 line-through">R$ ${formatCurrency(item.preco_antigo)}</span>` : ''}
+                                    <span class="font-bold text-xl text-red-700">R$ ${formatCurrency(item.preco)}</span>
+                                </div>
+                                <button class="add-item-btn bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700" 
+                                    data-id="${item.id}"
+                                    data-category="${category}"
+                                    data-name="${item.nome}"
+                                    data-price="${item.preco}"
+                                    data-customizable="${item.isCustomizable}">
+                                    Adicionar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            content += '</div>';
+            container.innerHTML = content;
+        }
+
+        function createEsfihasSection() {
+            const container = document.getElementById('esfihas');
+            if (!container) return;
+
+            let content = '';
+
+            // Seção de Combos de Esfiha
+            content += `<h2 class="text-2xl font-bold text-center text-red-800 mb-6">Combos de Esfiha 🥟</h2>`;
+            content += '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">';
+            data.esfihas.combos.forEach(item => {
+                content += `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+                        <div class="p-4 flex-grow">
+                            <h3 class="font-bold text-lg text-gray-800">${item.nome}</h3>
+                            <p class="text-sm text-gray-600 mt-1">${item.desc}</p>
+                        </div>
+                        <div class="p-4 bg-gray-50">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-xl text-red-700">R$ ${formatCurrency(item.preco)}</span>
+                                <button class="add-item-btn bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700"
+                                    data-id="${item.id}"
+                                    data-category="esfihas-combos"
+                                    data-name="${item.nome}"
+                                    data-price="${item.preco}"
+                                    data-customizable="${item.isCustomizable}">
+                                    Montar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            content += '</div>';
+
+            // Seção de Esfihas Individuais
+            content += `<h2 class="text-2xl font-bold text-center text-red-800 mb-6">Esfihas Individuais</h2>`;
+            content += '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">';
+            data.esfihas.saboresComPreco.forEach(item => {
+                content += `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+                        <div class="p-3 flex-grow">
+                            <h3 class="font-semibold text-md text-gray-800">${item.nome}</h3>
+                        </div>
+                        <div class="p-3 bg-gray-50">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-lg text-red-700">R$ ${formatCurrency(item.preco)}</span>
+                                <button class="add-item-btn bg-red-600 text-white font-bold py-1 px-3 rounded-lg hover:bg-red-700 text-sm"
+                                    data-id="${item.id}"
+                                    data-category="esfihas-individuais"
+                                    data-name="${item.nome}"
+                                    data-price="${item.preco}"
+                                    data-customizable="false">
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            content += '</div>';
+
+            container.innerHTML = content;
+        }
 
         // --- INICIALIZAÇÃO E LÓGICA DAS SEÇÕES ESPECÍFICAS ---
-
         function initPizzaBuilder() {
             const pizzaSection = document.getElementById('pizzas');
             if(!pizzaSection) return;
@@ -244,12 +389,59 @@ document.addEventListener('DOMContentLoaded', () => {
             uiPizza.bordaSelect.addEventListener('change', updatePrice);
             uiPizza.flavorsAccordion.addEventListener('change', updatePrice);
             uiPizza.sodaContainer.addEventListener('change', updatePrice);
+            
+            // Listener para os accordions de sabores
+            uiPizza.flavorsAccordion.addEventListener('click', (e) => {
+                const toggle = e.target.closest('.accordion-toggle');
+                if (toggle) {
+                    toggle.classList.toggle('open');
+                    const content = toggle.nextElementSibling;
+                    content.classList.toggle('hidden');
+                }
+            });
+
             populate();
         }
 
         function initModals() {
-            // ... All modal functions are defined here ...
-            // This now includes a full implementation for every customizable item.
+            // Lógica dos Modais aqui (se houver mais)
+            document.body.addEventListener('click', e => {
+                if (e.target.classList.contains('add-item-btn')) {
+                    const button = e.target;
+                    const isCustomizable = button.dataset.customizable === 'true';
+                    const category = button.dataset.category;
+                    const itemId = button.dataset.id;
+                    const item = findItem(category, itemId);
+
+                    if (!item) {
+                        console.error('Item não encontrado:', category, itemId);
+                        return;
+                    }
+
+                    if (isCustomizable) {
+                        alert(`A personalização para "${item.nome}" ainda não foi implementada.`);
+                        // Aqui você chamaria a função para abrir o modal correto
+                        // Ex: openPromoModal(item), openMassaModal(item), etc.
+                    } else {
+                        addToCart({ nome: item.nome, preco: item.preco, desc: item.desc });
+                        // Feedback visual
+                        button.textContent = 'Adicionado!';
+                        button.classList.add('bg-green-500');
+                        setTimeout(() => {
+                            button.textContent = 'Adicionar';
+                            button.classList.remove('bg-green-500');
+                        }, 1500);
+                    }
+                }
+            });
+            
+             // Lógica para abrir/fechar o carrinho
+            const cartModal = document.getElementById('cartModal');
+            const floatingCartButton = document.getElementById('floatingCartButton');
+            const closeCartModal = document.getElementById('closeCartModal');
+
+            floatingCartButton.addEventListener('click', () => cartModal.classList.remove('hidden'));
+            closeCartModal.addEventListener('click', () => cartModal.classList.add('hidden'));
         }
         
         // --- INICIALIZAÇÃO GERAL DO APP ---
@@ -265,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // INICIALIZA OS COMPONENTES INTERATIVOS
             initPizzaBuilder();
-            initModals(); // Agora contém a lógica completa
+            initModals(); 
 
             // ATIVA OS LISTENERS DE EVENTOS GLOBAIS
             document.querySelectorAll('.tab-button').forEach(tab => {
@@ -276,19 +468,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById(tab.dataset.tab).classList.remove('hidden');
                 });
             });
-            // ... Outros listeners globais ...
             
             updateCart();
             console.log("Cardápio inicializado com sucesso!");
         }
-
-        // --- ATRIBUIÇÕES FINAIS ---
-        // (Copiar o corpo das funções para cá para evitar o erro "Assignment to constant variable")
-        updateCart = function() { /* ... */ }; // Colar o corpo da função updateCart aqui
-        createMenuSection = function(title, items, containerId, category) { /* ... */ }; // Colar corpo
-        createEsfihasSection = function() { /* ... */ }; // Colar corpo
-        initModals = function() { /* ... */ }; // Colar corpo completo
-        // ... Colar o corpo de todas as funções que foram definidas com 'const' no topo
 
         // EXECUTA A INICIALIZAÇÃO
         initializeApp();
@@ -301,3 +484,4 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
