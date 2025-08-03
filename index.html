@@ -130,14 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function formatCurrency(value) { return value.toFixed(2).replace('.', ','); }
         
-        // Função para encontrar um item em qualquer categoria de dados
         function findItem(category, itemId) {
             if (category === 'esfihas-individuais') return data.esfihas.saboresComPreco.find(i => i.id === itemId);
             if (category === 'esfihas-combos') return data.esfihas.combos.find(i => i.id === itemId);
             return data[category]?.find(i => i.id === itemId) || null;
         }
 
-        // FUNÇÕES DO CARRINHO (agora implementadas)
         function updateCart() {
             const cartItemsContainer = document.getElementById('cartItems');
             const cartSubtotalEl = document.getElementById('cartSubtotal');
@@ -185,61 +183,55 @@ document.addEventListener('DOMContentLoaded', () => {
             updateCart();
         }
 
-      // FUNÇÕES DE GERAÇÃO DE CONTEÚDO (agora implementadas)
-function createMenuSection(title, items, containerId, category) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
+        function createMenuSection(title, items, containerId, category) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
 
-    let content = `<h2 class="text-2xl font-bold text-center text-red-800 mb-6">${title}</h2>`;
-    content += '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">';
-    
-    items.forEach(item => {
-        // --- Lógica de exibição do preço ---
-        // Verifica se o item tem um preço definido antes de tentar exibi-lo
-        const priceDisplay = typeof item.preco === 'number'
-            ? `<div>
-                   ${item.preco_antigo ? `<span class="text-sm text-gray-500 line-through">R$ ${formatCurrency(item.preco_antigo)}</span>` : ''}
-                   <span class="font-bold text-xl text-red-700">R$ ${formatCurrency(item.preco)}</span>
-               </div>`
-            : '<div></div>'; // Deixa o espaço em branco se não houver preço fixo
+            let content = `<h2 class="text-2xl font-bold text-center text-red-800 mb-6">${title}</h2>`;
+            content += '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">';
+            
+            items.forEach(item => {
+                const priceDisplay = typeof item.preco === 'number'
+                    ? `<div>
+                           ${item.preco_antigo ? `<span class="text-sm text-gray-500 line-through">R$ ${formatCurrency(item.preco_antigo)}</span>` : ''}
+                           <span class="font-bold text-xl text-red-700">R$ ${formatCurrency(item.preco)}</span>
+                       </div>`
+                    : '<div></div>';
 
-        // --- Lógica do texto do botão ---
-        const buttonText = item.isCustomizable ? 'Personalizar' : 'Adicionar';
+                const buttonText = item.isCustomizable ? 'Personalizar' : 'Adicionar';
 
-        content += `
-            <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
-                <div class="p-4 flex-grow">
-                    <h3 class="font-bold text-lg text-gray-800">${item.nome}</h3>
-                    <p class="text-sm text-gray-600 mt-1">${item.desc}</p>
-                </div>
-                <div class="p-4 bg-gray-50">
-                    <div class="flex justify-between items-center">
-                        ${priceDisplay}
-                        <button class="add-item-btn bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700" 
-                            data-id="${item.id}"
-                            data-category="${category}"
-                            data-name="${item.nome}"
-                            data-price="${item.preco}"
-                            data-customizable="${item.isCustomizable}">
-                            ${buttonText}
-                        </button>
+                content += `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+                        <div class="p-4 flex-grow">
+                            <h3 class="font-bold text-lg text-gray-800">${item.nome}</h3>
+                            <p class="text-sm text-gray-600 mt-1">${item.desc}</p>
+                        </div>
+                        <div class="p-4 bg-gray-50">
+                            <div class="flex justify-between items-center">
+                                ${priceDisplay}
+                                <button class="add-item-btn bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700" 
+                                    data-id="${item.id}"
+                                    data-category="${category}"
+                                    data-name="${item.nome}"
+                                    data-price="${item.preco}"
+                                    data-customizable="${item.isCustomizable}">
+                                    ${buttonText}
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        `;
-    });
+                `;
+            });
 
-    content += '</div>';
-    container.innerHTML = content;
-}
+            content += '</div>';
+            container.innerHTML = content;
+        }
 
         function createEsfihasSection() {
             const container = document.getElementById('esfihas');
             if (!container) return;
-
             let content = '';
 
-            // Seção de Combos de Esfiha
             content += `<h2 class="text-2xl font-bold text-center text-red-800 mb-6">Combos de Esfiha 🥟</h2>`;
             content += '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">';
             data.esfihas.combos.forEach(item => {
@@ -267,9 +259,8 @@ function createMenuSection(title, items, containerId, category) {
             });
             content += '</div>';
 
-            // Seção de Esfihas Individuais
             content += `<h2 class="text-2xl font-bold text-center text-red-800 mb-6">Esfihas Individuais</h2>`;
-            content += '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">';
+            content += '<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">';
             data.esfihas.saboresComPreco.forEach(item => {
                 content += `
                     <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
@@ -293,20 +284,18 @@ function createMenuSection(title, items, containerId, category) {
                 `;
             });
             content += '</div>';
-
             container.innerHTML = content;
         }
 
-        // --- INICIALIZAÇÃO E LÓGICA DAS SEÇÕES ESPECÍFICAS ---
+        // --- LÓGICA DO BUILDER DE PIZZA ---
         function initPizzaBuilder() {
+            // (O código existente do initPizzaBuilder continua aqui, sem alterações)
             const pizzaSection = document.getElementById('pizzas');
             if(!pizzaSection) return;
             pizzaSection.innerHTML = `<h2 class="text-2xl font-bold text-center text-red-800 mb-6">Monte sua Pizza 🍕</h2><div class="bg-white p-6 rounded-xl shadow-lg max-w-4xl mx-auto"><form id="buildPizzaForm" class="grid grid-cols-1 md:grid-cols-2 gap-8"><div><div class="mb-4"><label for="pizzaSizeSelect" class="block text-gray-700 text-sm font-bold mb-2">1. Escolha o Tamanho:</label><select id="pizzaSizeSelect" class="shadow border rounded w-full py-2 px-3 text-gray-700"></select></div><div class="mb-6"><label for="pizzaBordaSelect" class="block text-gray-700 text-sm font-bold mb-2">2. Borda Recheada (Opcional):</label><select id="pizzaBordaSelect" class="shadow border rounded w-full py-2 px-3 text-gray-700"></select></div><div id="pizzaSodaContainer" class="mb-6"></div><div><label class="block text-gray-700 text-sm font-bold mb-2">3. Escolha os Sabores:</label><p id="pizzaFlavorWarning" class="text-xs text-red-600 mb-2 hidden"></p><div id="flavorsAccordion" class="space-y-2 max-h-72 overflow-y-auto custom-scroll pr-2"></div></div></div><div class="bg-amber-50 p-4 rounded-lg border-2 border-amber-200 flex flex-col justify-between"><div><h3 class="font-bold text-lg text-red-800 border-b pb-2 mb-3">Resumo do Pedido</h3><div class="space-y-2 text-sm"><p><strong>Tamanho:</strong> <span id="summarySize"></span></p><p><strong>Borda:</strong> <span id="summaryBorda"></span></p><p><strong>Refrigerante(s):</strong> <span id="summarySoda">Nenhum</span></p><div><strong class="block">Sabores:</strong><ul id="summaryFlavors" class="list-disc list-inside ml-2 text-gray-600"><li>Nenhum selecionado</li></ul></div></div></div><div class="mt-6 text-center"><p class="text-gray-600 text-lg">Total do Item:</p><p class="font-extrabold text-4xl text-red-700 my-2">R$ <span id="pizzaTotal">0,00</span></p><button type="submit" id="addPizzaToCartBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg text-lg mt-4">Adicionar ao Carrinho</button></div></div></form></div>`;
-            
             const uiPizza = {
                 form: document.getElementById('buildPizzaForm'), sizeSelect: document.getElementById('pizzaSizeSelect'), bordaSelect: document.getElementById('pizzaBordaSelect'), sodaContainer: document.getElementById('pizzaSodaContainer'), flavorsAccordion: document.getElementById('flavorsAccordion'), warning: document.getElementById('pizzaFlavorWarning'), summarySize: document.getElementById('summarySize'), summaryBorda: document.getElementById('summaryBorda'), summarySoda: document.getElementById('summarySoda'), summaryFlavors: document.getElementById('summaryFlavors'), total: document.getElementById('pizzaTotal'), addBtn: document.getElementById('addPizzaToCartBtn'),
             };
-
             function populate() {
                 uiPizza.sizeSelect.innerHTML = data.pizzas.tamanhos.map((t, i) => `<option value="${i}">${t.nome}</option>`).join('');
                 const allFlavors = { "Sabores Salgados 🍕": data.pizzas.saboresSalgados, "Sabores Doces 🍰": data.pizzas.saboresDoces };
@@ -371,7 +360,6 @@ function createMenuSection(title, items, containerId, category) {
 
                 uiPizza.total.textContent = formatCurrency(total);
             }
-
             uiPizza.form.addEventListener('submit', e => {
                 e.preventDefault();
                 const selectedSize = data.pizzas.tamanhos[uiPizza.sizeSelect.value];
@@ -386,20 +374,17 @@ function createMenuSection(title, items, containerId, category) {
                 if(selectedSodas.length > 0) {
                     desc += ` | Bebida(s): ${selectedSodas.join(', ')}`;
                 }
-
                 const pizzaProduct = { nome: `Pizza ${selectedSize.nome.split(' ')[0]} (${selectedFlavors.join(', ')})`, desc: desc, preco: total };
                 addToCart(pizzaProduct);
                 alert('Pizza adicionada ao carrinho!');
                 uiPizza.flavorsAccordion.querySelectorAll('.flavor-checkbox').forEach(cb => cb.checked = false);
                 updatePrice();
             });
-
             uiPizza.sizeSelect.addEventListener('change', updateOptions);
             uiPizza.bordaSelect.addEventListener('change', updatePrice);
             uiPizza.flavorsAccordion.addEventListener('change', updatePrice);
             uiPizza.sodaContainer.addEventListener('change', updatePrice);
             
-            // Listener para os accordions de sabores
             uiPizza.flavorsAccordion.addEventListener('click', (e) => {
                 const toggle = e.target.closest('.accordion-toggle');
                 if (toggle) {
@@ -408,15 +393,264 @@ function createMenuSection(title, items, containerId, category) {
                     content.classList.toggle('hidden');
                 }
             });
-
             populate();
         }
 
+        // --- INÍCIO DAS NOVAS FUNÇÕES DE MODAL ---
+
+        function openMassaModal(item) {
+            const modal = document.getElementById('massaModal');
+            const title = document.getElementById('massaModalTitle');
+            const container = document.getElementById('massaSelectionContainer');
+            const totalEl = document.getElementById('massaTotal');
+            const form = document.getElementById('massaForm');
+            const cancelBtn = document.getElementById('cancelMassa');
+
+            title.textContent = `Personalizar ${item.nome}`;
+            
+            // Cria as opções do formulário
+            let html = `
+                <div>
+                    <h3 class="font-bold text-md text-gray-700 mb-2 border-b pb-2">1. Escolha o Tamanho</h3>
+                    <div class="space-y-2">${data.massaSizes.map((size, index) => `
+                        <label class="flex items-center p-2 rounded-md hover:bg-yellow-100">
+                            <input type="radio" name="massa-size" value="${index}" class="h-4 w-4 text-red-600" ${index === 0 ? 'checked' : ''}>
+                            <span class="ml-2 text-gray-700">${size.nome} (R$ ${formatCurrency(size.preco)})</span>
+                        </label>`).join('')}
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-md text-gray-700 mb-2 border-b pb-2">2. Escolha a Proteína</h3>
+                    <div class="space-y-2">${data.proteinasMassas.map((prot, index) => `
+                        <label class="flex items-center p-2 rounded-md hover:bg-yellow-100">
+                            <input type="radio" name="massa-proteina" value="${index}" class="h-4 w-4 text-red-600" ${index === 0 ? 'checked' : ''}>
+                            <span class="ml-2 text-gray-700">${prot.nome} ${prot.precoAdicional > 0 ? `(+ R$ ${formatCurrency(prot.precoAdicional)})` : ''}</span>
+                        </label>`).join('')}
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-md text-gray-700 mb-2 border-b pb-2">3. Escolha o Molho</h3>
+                    <div class="space-y-2">${data.molhosMassas.map((molho, index) => `
+                        <label class="flex items-center p-2 rounded-md hover:bg-yellow-100">
+                            <input type="radio" name="massa-molho" value="${molho.nome}" class="h-4 w-4 text-red-600" ${index === 0 ? 'checked' : ''}>
+                            <span class="ml-2 text-gray-700">${molho.nome}</span>
+                        </label>`).join('')}
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-md text-gray-700 mb-2 border-b pb-2">4. Ingredientes Adicionais (Opcional)</h3>
+                    <div class="grid grid-cols-2 gap-2">${data.ingredientesMassas.map((ing, index) => `
+                        <label class="flex items-center p-2 rounded-md hover:bg-yellow-100">
+                            <input type="checkbox" name="massa-ingrediente" value="${index}" class="h-4 w-4 rounded border-gray-300 text-red-600">
+                            <span class="ml-2 text-sm text-gray-700">${ing.nome} (+ R$ ${formatCurrency(ing.precoAdicional)})</span>
+                        </label>`).join('')}
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+
+            const updateMassaTotal = () => {
+                let total = 0;
+                const sizeIndex = form.querySelector('input[name="massa-size"]:checked').value;
+                const selectedSize = data.massaSizes[sizeIndex];
+                total += selectedSize.preco;
+
+                const proteinaIndex = form.querySelector('input[name="massa-proteina"]:checked').value;
+                total += data.proteinasMassas[proteinaIndex].precoAdicional;
+
+                const ingredientes = form.querySelectorAll('input[name="massa-ingrediente"]:checked');
+                ingredientes.forEach(ing => {
+                    total += data.ingredientesMassas[ing.value].precoAdicional;
+                });
+                
+                totalEl.textContent = formatCurrency(total);
+            };
+
+            const formSubmitHandler = (e) => {
+                e.preventDefault();
+                const size = data.massaSizes[form.querySelector('input[name="massa-size"]:checked').value];
+                const proteina = data.proteinasMassas[form.querySelector('input[name="massa-proteina"]:checked').value];
+                const molho = form.querySelector('input[name="massa-molho"]:checked').value;
+                const ingredientes = Array.from(form.querySelectorAll('input[name="massa-ingrediente"]:checked')).map(cb => data.ingredientesMassas[cb.value].nome);
+
+                const nomeFinal = `${item.nome} (${proteina.nome})`;
+                let descFinal = `Tamanho: ${size.nome.split(' ')[0]}, Molho: ${molho}`;
+                if (ingredientes.length > 0) {
+                    descFinal += ` | Adicionais: ${ingredientes.join(', ')}`;
+                }
+
+                addToCart({
+                    nome: nomeFinal,
+                    desc: descFinal,
+                    preco: parseFloat(totalEl.textContent.replace(',', '.'))
+                });
+                modal.classList.add('hidden');
+            };
+
+            form.addEventListener('change', updateMassaTotal);
+            form.addEventListener('submit', formSubmitHandler);
+            
+            const closeMassaModal = () => {
+                modal.classList.add('hidden');
+                form.removeEventListener('change', updateMassaTotal);
+                form.removeEventListener('submit', formSubmitHandler);
+            };
+
+            cancelBtn.onclick = closeMassaModal;
+            
+            updateMassaTotal();
+            modal.classList.remove('hidden');
+        }
+
+        function openEsfihaComboModal(item) {
+            const modal = document.getElementById('esfihaComboModal');
+            const title = document.getElementById('esfihaComboModalTitle');
+            const selectionContainer = document.getElementById('esfihaComboSelectionContainer');
+            const sodaContainer = document.getElementById('esfihaComboSodaContainer');
+            const counter = document.getElementById('esfihaCounter');
+            const totalQty = document.getElementById('esfihaTotalQty');
+            const warning = document.getElementById('esfihaWarning');
+            const totalEl = document.getElementById('esfihaComboTotal');
+            const addBtn = document.getElementById('addEsfihaComboBtn');
+            const form = document.getElementById('esfihaComboForm');
+            const cancelBtn = document.getElementById('cancelEsfihaCombo');
+            
+            let currentSelections = {};
+
+            title.textContent = `Monte seu ${item.nome}`;
+            totalQty.textContent = item.quantidade;
+
+            selectionContainer.innerHTML = data.esfihas.saboresComPreco.map(sabor => `
+                <div class="flex justify-between items-center p-2 border-b">
+                    <div>
+                        <p class="font-semibold text-gray-800">${sabor.nome}</p>
+                        <p class="text-xs text-gray-500">${sabor.precoAdicional > 0 ? `+ R$ ${formatCurrency(sabor.precoAdicional)}` : 'Preço base'}</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button type="button" class="esfiha-ctrl-btn bg-gray-200 rounded-full w-6 h-6 font-bold text-lg" data-id="${sabor.id}" data-op="-">-</button>
+                        <span id="qty-${sabor.id}" class="font-bold w-4 text-center">0</span>
+                        <button type="button" class="esfiha-ctrl-btn bg-gray-200 rounded-full w-6 h-6 font-bold text-lg" data-id="${sabor.id}" data-op="+">+</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            sodaContainer.innerHTML = '';
+            if (item.includesSoda) {
+                sodaContainer.innerHTML = `
+                    <h3 class="font-bold text-md text-gray-700 mb-2 border-b pb-2">Escolha seu Refrigerante</h3>
+                    <select name="combo-soda" class="w-full p-2 border rounded-md">
+                        ${data.refrigerantesPromo.map(refri => `<option value="${refri.nome}" data-price="${refri.precoAdicional}">${refri.nome} ${refri.precoAdicional > 0 ? `(+ R$ ${formatCurrency(refri.precoAdicional)})` : ''}</option>`).join('')}
+                    </select>
+                `;
+            }
+
+            const updateEsfihaComboTotal = () => {
+                let currentTotal = item.preco;
+                let count = 0;
+                
+                for(const id in currentSelections) {
+                    const qty = currentSelections[id];
+                    count += qty;
+                    const saborInfo = data.esfihas.saboresComPreco.find(s => s.id === id);
+                    if(saborInfo) {
+                        currentTotal += saborInfo.precoAdicional * qty;
+                    }
+                }
+                
+                if (item.includesSoda) {
+                    const sodaSelect = sodaContainer.querySelector('select');
+                    currentTotal += parseFloat(sodaSelect.options[sodaSelect.selectedIndex].dataset.price);
+                }
+
+                counter.textContent = count;
+                totalEl.textContent = formatCurrency(currentTotal);
+                
+                if (count > item.quantidade) {
+                    warning.textContent = `Você selecionou ${count} esfihas, o limite é ${item.quantidade}!`;
+                    warning.classList.remove('hidden');
+                    addBtn.disabled = true;
+                } else if (count < item.quantidade) {
+                     warning.textContent = `Faltam ${item.quantidade - count} esfihas.`;
+                     warning.classList.remove('hidden');
+                     addBtn.disabled = true;
+                } else {
+                    warning.classList.add('hidden');
+                    addBtn.disabled = false;
+                }
+            };
+            
+            selectionContainer.addEventListener('click', e => {
+                const btn = e.target.closest('.esfiha-ctrl-btn');
+                if (!btn) return;
+                
+                const id = btn.dataset.id;
+                const op = btn.dataset.op;
+                
+                currentSelections[id] = currentSelections[id] || 0;
+                
+                let count = Object.values(currentSelections).reduce((a, b) => a + b, 0);
+
+                if (op === '+') {
+                    if (count < item.quantidade) {
+                        currentSelections[id]++;
+                    }
+                } else if (op === '-') {
+                    if (currentSelections[id] > 0) {
+                        currentSelections[id]--;
+                    }
+                }
+                document.getElementById(`qty-${id}`).textContent = currentSelections[id];
+                updateEsfihaComboTotal();
+            });
+
+            if (item.includesSoda) {
+                sodaContainer.querySelector('select').addEventListener('change', updateEsfihaComboTotal);
+            }
+
+            const formSubmitHandler = (e) => {
+                e.preventDefault();
+                const esfihasSelecionadas = [];
+                for(const id in currentSelections) {
+                    if (currentSelections[id] > 0) {
+                        const sabor = data.esfihas.saboresComPreco.find(s => s.id === id);
+                        esfihasSelecionadas.push(`${currentSelections[id]}x ${sabor.nome.split(' ')[0]}`);
+                    }
+                }
+                
+                let descFinal = esfihasSelecionadas.join(', ');
+                if (item.includesSoda) {
+                    descFinal += ` | Bebida: ${sodaContainer.querySelector('select').value}`;
+                }
+
+                addToCart({
+                    nome: item.nome,
+                    desc: descFinal,
+                    preco: parseFloat(totalEl.textContent.replace(',', '.'))
+                });
+                modal.classList.add('hidden');
+            };
+
+            form.addEventListener('submit', formSubmitHandler);
+
+            const closeEsfihaModal = () => {
+                modal.classList.add('hidden');
+                form.removeEventListener('submit', formSubmitHandler);
+                // Listeners de clique são mais complexos de remover se forem anônimos, mas ok para este caso.
+            };
+
+            cancelBtn.onclick = closeEsfihaModal;
+
+            updateEsfihaComboTotal();
+            modal.classList.remove('hidden');
+        }
+
+        // --- FIM DAS NOVAS FUNÇÕES DE MODAL ---
+
+
         function initModals() {
-            // Lógica dos Modais aqui (se houver mais)
             document.body.addEventListener('click', e => {
-                if (e.target.classList.contains('add-item-btn')) {
-                    const button = e.target;
+                const button = e.target.closest('.add-item-btn');
+                if (button) {
                     const isCustomizable = button.dataset.customizable === 'true';
                     const category = button.dataset.category;
                     const itemId = button.dataset.id;
@@ -428,17 +662,31 @@ function createMenuSection(title, items, containerId, category) {
                     }
 
                     if (isCustomizable) {
-                        alert(`A personalização para "${item.nome}" ainda não foi implementada.`);
-                        // Aqui você chamaria a função para abrir o modal correto
-                        // Ex: openPromoModal(item), openMassaModal(item), etc.
+                        // A LÓGICA AGORA CHAMA A FUNÇÃO CORRETA
+                        switch (category) {
+                            case 'massas':
+                                openMassaModal(item);
+                                break;
+                            case 'esfihas-combos':
+                                openEsfihaComboModal(item);
+                                break;
+                            case 'promocoes': // Adicionar lógica para promo-pizza aqui se necessário
+                            case 'combos':
+                                alert(`A personalização para "${item.nome}" ainda não foi implementada.`);
+                                break;
+                            default:
+                                alert(`Item customizável sem ação definida: ${category}`);
+                        }
                     } else {
                         addToCart({ nome: item.nome, preco: item.preco, desc: item.desc });
-                        // Feedback visual
+                        const originalText = button.innerHTML;
                         button.textContent = 'Adicionado!';
-                        button.classList.add('bg-green-500');
+                        button.classList.add('bg-green-500', 'hover:bg-green-600');
+                        button.classList.remove('bg-red-600', 'hover:bg-red-700');
                         setTimeout(() => {
-                            button.textContent = 'Adicionar';
-                            button.classList.remove('bg-green-500');
+                            button.innerHTML = originalText;
+                            button.classList.remove('bg-green-500', 'hover:bg-green-600');
+                            button.classList.add('bg-red-600', 'hover:bg-red-700');
                         }, 1500);
                     }
                 }
@@ -453,9 +701,7 @@ function createMenuSection(title, items, containerId, category) {
             closeCartModal.addEventListener('click', () => cartModal.classList.add('hidden'));
         }
         
-        // --- INICIALIZAÇÃO GERAL DO APP ---
         function initializeApp() {
-            // RENDERIZAÇÃO INICIAL DAS SEÇÕES
             createMenuSection('Nossas Ofertas Imperdíveis! 🔥', data.promocoes, 'promocoes', 'promocoes');
             createMenuSection('Nossas Massas Artesanais 🍝', data.massas, 'massas', 'massas');
             createMenuSection('Nossos Hambúrgueres Suculentos 🍔', data.hamburgueres, 'hamburgueres', 'hamburgueres');
@@ -464,11 +710,9 @@ function createMenuSection(title, items, containerId, category) {
             createMenuSection('Bebidas Geladinhas 🥤', data.bebidas, 'bebidas', 'bebidas');
             document.getElementById('contato').innerHTML = `<div class="text-center p-8 bg-white rounded-lg shadow-lg"><h2 class="text-3xl font-bold text-red-700 mb-4">Entre em Contato Conosco! 📞</h2><p class="text-gray-600 mb-2">Estamos prontos para atender você.</p><div class="space-y-4 mt-6 text-lg"><p><i class="fab fa-whatsapp text-green-500 mr-2"></i><strong>WhatsApp:</strong> (21) 00000-0000</p><p><i class="fas fa-phone-alt text-blue-500 mr-2"></i><strong>Telefone:</strong> (21) 1234-5678</p><p><i class="fas fa-map-marker-alt text-red-500 mr-2"></i><strong>Endereço:</strong> Rua da Pizza, 123 - Centro, Rio de Janeiro - RJ</p></div><div class="mt-8"><a href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" class="bg-green-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-600 text-lg"><i class="fab fa-whatsapp"></i> Fazer Pedido via WhatsApp</a></div></div>`;
 
-            // INICIALIZA OS COMPONENTES INTERATIVOS
             initPizzaBuilder();
             initModals(); 
 
-            // ATIVA OS LISTENERS DE EVENTOS GLOBAIS
             document.querySelectorAll('.tab-button').forEach(tab => {
                 tab.addEventListener('click', () => {
                     document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('tab-active'));
@@ -482,7 +726,6 @@ function createMenuSection(title, items, containerId, category) {
             console.log("Cardápio inicializado com sucesso!");
         }
 
-        // EXECUTA A INICIALIZAÇÃO
         initializeApp();
         
     } catch (error) {
@@ -493,5 +736,6 @@ function createMenuSection(title, items, containerId, category) {
 </script>
 </body>
 </html>
+
 
 
