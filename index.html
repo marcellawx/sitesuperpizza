@@ -185,44 +185,53 @@ document.addEventListener('DOMContentLoaded', () => {
             updateCart();
         }
 
-        // FUNÇÕES DE GERAÇÃO DE CONTEÚDO (agora implementadas)
-        function createMenuSection(title, items, containerId, category) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
+      // FUNÇÕES DE GERAÇÃO DE CONTEÚDO (agora implementadas)
+function createMenuSection(title, items, containerId, category) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
 
-            let content = `<h2 class="text-2xl font-bold text-center text-red-800 mb-6">${title}</h2>`;
-            content += '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">';
-            
-            items.forEach(item => {
-                content += `
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
-                        <div class="p-4 flex-grow">
-                            <h3 class="font-bold text-lg text-gray-800">${item.nome}</h3>
-                            <p class="text-sm text-gray-600 mt-1">${item.desc}</p>
-                        </div>
-                        <div class="p-4 bg-gray-50">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    ${item.preco_antigo ? `<span class="text-sm text-gray-500 line-through">R$ ${formatCurrency(item.preco_antigo)}</span>` : ''}
-                                    <span class="font-bold text-xl text-red-700">R$ ${formatCurrency(item.preco)}</span>
-                                </div>
-                                <button class="add-item-btn bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700" 
-                                    data-id="${item.id}"
-                                    data-category="${category}"
-                                    data-name="${item.nome}"
-                                    data-price="${item.preco}"
-                                    data-customizable="${item.isCustomizable}">
-                                    Adicionar
-                                </button>
-                            </div>
-                        </div>
+    let content = `<h2 class="text-2xl font-bold text-center text-red-800 mb-6">${title}</h2>`;
+    content += '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">';
+    
+    items.forEach(item => {
+        // --- Lógica de exibição do preço ---
+        // Verifica se o item tem um preço definido antes de tentar exibi-lo
+        const priceDisplay = typeof item.preco === 'number'
+            ? `<div>
+                   ${item.preco_antigo ? `<span class="text-sm text-gray-500 line-through">R$ ${formatCurrency(item.preco_antigo)}</span>` : ''}
+                   <span class="font-bold text-xl text-red-700">R$ ${formatCurrency(item.preco)}</span>
+               </div>`
+            : '<div></div>'; // Deixa o espaço em branco se não houver preço fixo
+
+        // --- Lógica do texto do botão ---
+        const buttonText = item.isCustomizable ? 'Personalizar' : 'Adicionar';
+
+        content += `
+            <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+                <div class="p-4 flex-grow">
+                    <h3 class="font-bold text-lg text-gray-800">${item.nome}</h3>
+                    <p class="text-sm text-gray-600 mt-1">${item.desc}</p>
+                </div>
+                <div class="p-4 bg-gray-50">
+                    <div class="flex justify-between items-center">
+                        ${priceDisplay}
+                        <button class="add-item-btn bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700" 
+                            data-id="${item.id}"
+                            data-category="${category}"
+                            data-name="${item.nome}"
+                            data-price="${item.preco}"
+                            data-customizable="${item.isCustomizable}">
+                            ${buttonText}
+                        </button>
                     </div>
-                `;
-            });
+                </div>
+            </div>
+        `;
+    });
 
-            content += '</div>';
-            container.innerHTML = content;
-        }
+    content += '</div>';
+    container.innerHTML = content;
+}
 
         function createEsfihasSection() {
             const container = document.getElementById('esfihas');
@@ -484,4 +493,5 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
