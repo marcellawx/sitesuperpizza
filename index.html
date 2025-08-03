@@ -102,7 +102,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        const WHATSAPP_NUMBER = '5521912345678'; // <-- COLOQUE SEU NÚMERO AQUI
+        const WHATSAPP_NUMBER = '5521912345678';
 
         const data = {
             refrigerantesPromo: [ { nome: 'Guaraná Antarctica 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Kuat 2L (Grátis)', precoAdicional: 0 }, { nome: 'Pepsi 1.5L (Grátis)', precoAdicional: 0 }, { nome: 'Coca-Cola 2L', precoAdicional: 12.00 }, { nome: 'Pepsi 2L', precoAdicional: 5.00 }, { nome: 'Guaraná Antarctica 2L', precoAdicional: 5.00 } ],
@@ -329,8 +329,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function initPizzaBuilder() {
             const pizzaSection = document.getElementById('pizzas');
-            if(!pizzaSection) return;
-            pizzaSection.innerHTML = `<h2 class="text-2xl font-bold text-center text-red-800 mb-6">Monte sua Pizza 🍕</h2><div class="bg-white p-6 rounded-xl shadow-lg max-w-4xl mx-auto"><form id="buildPizzaForm" class="grid grid-cols-1 md:grid-cols-2 gap-8"><div><div class="mb-4"><label for="pizzaSizeSelect" class="block text-gray-700 text-sm font-bold mb-2">1. Escolha o Tamanho:</label><select id="pizzaSizeSelect" class="shadow border rounded w-full py-2 px-3 text-gray-700"></select></div><div class="mb-6"><label for="pizzaBordaSelect" class="block text-gray-700 text-sm font-bold mb-2">2. Borda Recheada (Opcional):</label><select id="pizzaBordaSelect" class="shadow border rounded w-full py-2 px-3 text-gray-700"></select></div><div id="pizzaSodaContainer" class="mb-6"></div><div><label class="block text-gray-700 text-sm font-bold mb-2">3. Escolha os Sabores:</label><p id="pizzaFlavorWarning" class="text-xs text-red-600 mb-2 hidden"></p><div id="flavorsAccordion" class="space-y-2 max-h-72 overflow-y-auto custom-scroll pr-2"></div></div></div><div class="bg-amber-50 p-4 rounded-lg border-2 border-amber-200 flex flex-col justify-between"><div><h3 class="font-bold text-lg text-red-800 border-b pb-2 mb-3">Resumo do Pedido</h3><div class="space-y-2 text-sm"><p><strong>Tamanho:</strong> <span id="summarySize"></span></p><p><strong>Borda:</strong> <span id="summaryBorda"></span></p><p><strong>Refrigerante(s):</strong> <span id="summarySoda">Nenhum</span></p><div><strong class="block">Sabores:</strong><ul id="summaryFlavors" class="list-disc list-inside ml-2 text-gray-600"><li>Nenhum selecionado</li></ul></div></div></div><div class="mt-6 text-center"><p class="text-gray-600 text-lg">Total do Item:</p><p class="font-extrabold text-4xl text-red-700 my-2">R$ <span id="pizzaTotal">0,00</span></p><button type="submit" id="addPizzaToCartBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg text-lg mt-4">Adicionar ao Carrinho</button></div></div></form></div>`;
+            if(!pizzaSection || pizzaSection.innerHTML.includes('buildPizzaForm')) return; // Evita reconstruir
+            pizzaSection.innerHTML = `<h2 class="text-2xl font-bold text-center text-red-800 mb-6">Monte sua Pizza 🍕</h2><div class="bg-white p-6 rounded-xl shadow-lg max-w-4xl mx-auto"><form id="buildPizzaForm" class="grid grid-cols-1 md:grid-cols-2 gap-8"><div><div class="mb-4"><label for="pizzaSizeSelect" class="block text-gray-700 text-sm font-bold mb-2">1. Escolha o Tamanho:</label><select id="pizzaSizeSelect" class="shadow border rounded w-full py-2 px-3 text-gray-700"></select></div><div class="mb-6"><label for="pizzaBordaSelect" class="block text-gray-700 text-sm font-bold mb-2">2. Borda Recheada (Opcional):</label><select id="pizzaBordaSelect" class="shadow border rounded w-full py-2 px-3 text-gray-700"></select></div><div id="pizzaSodaContainer" class="mb-6"></div><div><label class="block text-gray-700 text-sm font-bold mb-2">3. Escolha os Sabores:</label><p id="pizzaFlavorWarning" class="text-xs text-red-600 mb-2 hidden"></p><div id="flavorsAccordion" class="space-y-2 max-h-72 overflow-y-auto custom-scroll pr-2"></div></div></div><div class="bg-amber-50 p-4 rounded-lg border-2 border-amber-200 flex flex-col justify-between"><div><h3 class="font-bold text-lg text-red-800 border-b pb-2 mb-3">Resumo do Pedido</h3><div class="space-y-2 text-sm"><p><strong>Tamanho:</strong> <span id="summarySize"></span></p><p><strong>Borda:</strong> <span id="summaryBorda"></span></p><p><strong>Refrigerante(s):</strong> <span id="summarySoda">Nenhum</span></p><div><strong class="block">Sabores:</strong><ul id="summaryFlavors" class="list-disc list-inside ml-2 text-gray-600"><li>Nenhum selecionado</li></ul></div></div></div><div class="mt-6 text-center"><p class="text-gray-600 text-lg">Total do Item:</p><p class="font-extrabold text-4xl text-red-700 my-2">R$ <span id="pizzaTotal">0,00</span></p><button type="submit" id="addPizzaToCartBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg text-lg mt-4" disabled>Adicionar ao Carrinho</button></div></div></form></div>`;
             const uiPizza = {
                 form: document.getElementById('buildPizzaForm'), sizeSelect: document.getElementById('pizzaSizeSelect'), bordaSelect: document.getElementById('pizzaBordaSelect'), sodaContainer: document.getElementById('pizzaSodaContainer'), flavorsAccordion: document.getElementById('flavorsAccordion'), warning: document.getElementById('pizzaFlavorWarning'), summarySize: document.getElementById('summarySize'), summaryBorda: document.getElementById('summaryBorda'), summarySoda: document.getElementById('summarySoda'), summaryFlavors: document.getElementById('summaryFlavors'), total: document.getElementById('pizzaTotal'), addBtn: document.getElementById('addPizzaToCartBtn'),
             };
@@ -743,6 +743,131 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.classList.remove('hidden');
         }
 
+        function openPromoPizzaModal(item) {
+            const modal = document.getElementById('promoModal');
+            const titleEl = document.getElementById('promoModalTitle');
+            const container = document.getElementById('promoSelectionContainer');
+            const totalEl = document.getElementById('promoTotal');
+            const form = document.getElementById('promoForm');
+            const cancelBtn = document.getElementById('cancelPromo');
+            const addBtn = document.getElementById('addPromoBtn');
+
+            titleEl.textContent = `Monte sua Promo: ${item.nome}`;
+            
+            let html = '';
+            // Render Pizza Selectors
+            item.pizzas.forEach((pizzaInfo, index) => {
+                html += `
+                    <div>
+                        <h3 class="font-bold text-md text-gray-700 mb-2 border-b pb-2">Escolha os Sabores (Pizza ${pizzaInfo.size})</h3>
+                        <p class="text-xs text-gray-500 mb-2">Você pode escolher até ${pizzaInfo.maxSabores} sabores.</p>
+                        <div class="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto custom-scroll p-2 bg-gray-50 rounded">
+                            ${data.pizzas.saboresSalgados.map(sabor => `
+                                <label class="flex items-center p-2 rounded-md hover:bg-yellow-100">
+                                    <input type="checkbox" name="promo-pizza-${index}" value="${sabor}" class="h-4 w-4 rounded border-gray-300 text-red-600">
+                                    <span class="ml-2 text-sm text-gray-700">${sabor}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Render Sweet Pizza Selector
+            if (item.includesSweet) {
+                 html += `
+                    <div>
+                        <h3 class="font-bold text-md text-gray-700 mb-2 border-b pb-2">Escolha sua Pizza Doce (Individual)</h3>
+                         <div class="space-y-2">
+                            ${data.pizzas.saboresDoces.map((sabor, index) => `
+                                <label class="flex items-center p-2 rounded-md hover:bg-yellow-100">
+                                    <input type="radio" name="promo-pizza-doce" value="${sabor}" class="h-4 w-4 text-red-600" ${index === 0 ? 'checked' : ''}>
+                                    <span class="ml-2 text-gray-700">${sabor}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Render Soda Selector
+            if (item.includesSoda) {
+                html += `
+                    <div>
+                        <h3 class="font-bold text-md text-gray-700 mb-2 border-b pb-2">Escolha seu Refrigerante</h3>
+                        <select name="promo-soda" class="w-full p-2 border rounded-md">
+                            ${data.refrigerantesPromo.map(refri => `<option value="${refri.nome}" data-price="${refri.precoAdicional}">${refri.nome} ${refri.precoAdicional > 0 ? `(+ R$ ${formatCurrency(refri.precoAdicional)})` : ''}</option>`).join('')}
+                        </select>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+
+            const updateTotal = () => {
+                let total = item.preco;
+                if (item.includesSoda) {
+                    const sodaSelect = form.querySelector('[name="promo-soda"]');
+                    total += parseFloat(sodaSelect.options[sodaSelect.selectedIndex].dataset.price);
+                }
+                totalEl.textContent = formatCurrency(total);
+            };
+
+            const validateSelections = () => {
+                let isValid = true;
+                item.pizzas.forEach((pizzaInfo, index) => {
+                    const checked = container.querySelectorAll(`input[name="promo-pizza-${index}"]:checked`);
+                    if (checked.length === 0 || checked.length > pizzaInfo.maxSabores) {
+                        isValid = false;
+                    }
+                });
+                addBtn.disabled = !isValid;
+            };
+
+            const submitHandler = (e) => {
+                e.preventDefault();
+                let descParts = [];
+                
+                item.pizzas.forEach((pizzaInfo, index) => {
+                    const sabores = Array.from(container.querySelectorAll(`input[name="promo-pizza-${index}"]:checked`)).map(cb => cb.value);
+                    descParts.push(`Pizza ${pizzaInfo.size}: ${sabores.join(', ')}`);
+                });
+
+                if (item.includesSweet) {
+                    descParts.push(`Doce: ${form.querySelector('[name="promo-pizza-doce"]:checked').value}`);
+                }
+                if (item.includesSoda) {
+                    descParts.push(`Bebida: ${form.querySelector('[name="promo-soda"]').value}`);
+                }
+
+                addToCart({
+                    nome: item.nome,
+                    desc: descParts.join(' | '),
+                    preco: parseFloat(totalEl.textContent.replace(',', '.'))
+                });
+                closeModal();
+            };
+
+            const closeModal = () => {
+                modal.classList.add('hidden');
+                form.removeEventListener('submit', submitHandler);
+                form.removeEventListener('change', formChangeHandler);
+                container.innerHTML = '';
+            };
+
+            const formChangeHandler = () => {
+                updateTotal();
+                validateSelections();
+            };
+            
+            form.addEventListener('submit', submitHandler);
+            form.addEventListener('change', formChangeHandler);
+            cancelBtn.onclick = closeModal;
+            
+            updateTotal();
+            validateSelections();
+            modal.classList.remove('hidden');
+        }
+
         function initModals() {
             document.body.addEventListener('click', e => {
                 const button = e.target.closest('.add-item-btn');
@@ -773,7 +898,11 @@ document.addEventListener('DOMContentLoaded', () => {
                                 }
                                 break;
                             case 'promocoes':
-                                alert(`A personalização para "${item.nome}" ainda não foi implementada.`);
+                                if (item.pizzas) {
+                                    openPromoPizzaModal(item);
+                                } else {
+                                    alert(`A personalização para "${item.nome}" ainda não foi implementada.`);
+                                }
                                 break;
                             default:
                                 alert(`Item customizável sem ação definida: ${category}`);
